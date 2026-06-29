@@ -274,6 +274,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Expose functions globally
   window.ProblemsPage = {
     showProblemSolution,
+    showSolution: showProblemSolution,
     backToList,
     goToDoc
   };

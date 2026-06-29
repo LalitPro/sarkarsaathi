@@ -245,67 +245,67 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Setup Modal structure
     modalBackdrop.innerHTML = `
-      <div class="modal">
-        <div class="modal-header">
-          <h3 class="modal-title">${scheme.name}</h3>
-          <button class="modal-close" onclick="SchemesPage.closeModal()">&times;</button>
+      <div class="modal bg-white rounded-2xl max-w-2xl w-full mx-4 shadow-2xl overflow-hidden flex flex-col max-h-[90vh] relative z-50">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
+          <h3 class="font-extrabold text-slate-900 text-lg md:text-xl leading-snug">${scheme.name}</h3>
+          <button class="text-2xl text-slate-400 hover:text-slate-600 outline-none leading-none" onclick="SchemesPage.closeModal()">&times;</button>
         </div>
-        <div class="modal-body">
-          <div class="tab-navigation">
-            <button class="tab-btn active" onclick="SchemesPage.switchTab(event, 'tab-desc')">विवरण</button>
-            <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-benefits')">लाभ</button>
-            <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-elig')">पात्रता</button>
-            <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-docs')">दस्तावेज़</button>
-            <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-apply')">आवेदन</button>
+        <div class="modal-body p-6 overflow-y-auto">
+          <div class="tab-navigation flex border-b border-slate-200 overflow-x-auto pb-px mb-6 scrollbar-none gap-2">
+            <button class="tab-btn active px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-desc')">विवरण</button>
+            <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-benefits')">लाभ</button>
+            <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-elig')">पात्रता</button>
+            <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-docs')">दस्तावेज़</button>
+            <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-apply')">आवेदन</button>
           </div>
           
           <div id="tab-desc" class="tab-pane active">
-            <h4 class="pane-title">योजना के बारे में (About Scheme)</h4>
-            <p style="font-size: 13.5px; line-height: 1.6; margin-bottom: 16px;">${scheme.description}</p>
-            <div style="font-size: 13px; color: var(--text-muted); background: var(--bg-color); padding: 12px; border-radius: var(--radius-md);">
-              <span style="display: block; margin-bottom: 4px;"><strong>श्रेणी:</strong> ${scheme.governmentType === 'Central' ? 'केंद्रीय योजना' : `राज्य योजना (${scheme.state})`}</span>
-              <span><strong>आधिकारिक वेबसाइट:</strong> <a href="${scheme.officialWebsite}" target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">${scheme.officialWebsite}</a></span>
+            <h4 class="text-sm font-bold text-slate-900 mb-2">योजना के बारे में (About Scheme)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed mb-4">${scheme.description}</p>
+            <div class="bg-slate-50 rounded-xl p-4 text-xs text-slate-600 border border-slate-100 flex flex-col gap-2">
+              <span class="block"><strong>श्रेणी:</strong> ${scheme.governmentType === 'Central' ? 'केंद्रीय योजना' : `राज्य योजना (${scheme.state})`}</span>
+              <span><strong>आधिकारिक वेबसाइट:</strong> <a href="${scheme.officialWebsite}" target="_blank" class="text-brand-primary font-bold hover:underline">${scheme.officialWebsite}</a></span>
             </div>
           </div>
           
           <div id="tab-benefits" class="tab-pane">
-            <h4 class="pane-title">योजना के लाभ (Benefits)</h4>
-            <p style="font-size: 13.5px; line-height: 1.6;">${scheme.benefits}</p>
+            <h4 class="text-sm font-bold text-slate-900 mb-2">योजना के लाभ (Benefits)</h4>
+            <p class="text-slate-600 text-sm leading-relaxed">${scheme.benefits}</p>
           </div>
           
           <div id="tab-elig" class="tab-pane">
-            <h4 class="pane-title">पात्रता मापदंड (Eligibility Criteria)</h4>
-            <ul class="info-list">
-              <li><strong>आयु सीमा:</strong> ${scheme.eligibility.ageMin} से ${scheme.eligibility.ageMax} वर्ष</li>
-              <li><strong>लिंग:</strong> ${scheme.eligibility.gender === 'All' ? 'सभी के लिए' : (scheme.eligibility.gender === 'Female' ? 'केवल महिलाएँ' : 'केवल पुरुष')}</li>
-              ${scheme.eligibility.maxIncome ? `<li><strong>अधिकतम वार्षिक आय:</strong> ₹${scheme.eligibility.maxIncome} तक</li>` : ''}
-              ${scheme.eligibility.occupations.includes('All') ? '' : `<li><strong>पात्र व्यवसाय:</strong> ${scheme.eligibility.occupations.join(', ')}</li>`}
-              ${scheme.eligibility.category.includes('All') ? '' : `<li><strong>पात्र वर्ग (Category):</strong> ${scheme.eligibility.category.join(', ')}</li>`}
-              ${scheme.eligibility.ruralUrban === 'Both' ? '' : `<li><strong>क्षेत्र:</strong> ${scheme.eligibility.ruralUrban === 'Rural' ? 'केवल ग्रामीण' : 'केवल शहरी'}</li>`}
-              ${scheme.eligibility.disability === 'Required' ? '<li><strong>विशेष:</strong> केवल दिव्यांग नागरिकों के लिए</li>' : ''}
+            <h4 class="text-sm font-bold text-slate-900 mb-3">पात्रता मापदंड (Eligibility Criteria)</h4>
+            <ul class="text-sm text-slate-600 space-y-2.5">
+              <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>आयु सीमा:</strong> ${scheme.eligibility.ageMin} से ${scheme.eligibility.ageMax} वर्ष</span></li>
+              <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>लिंग:</strong> ${scheme.eligibility.gender === 'All' ? 'सभी के लिए' : (scheme.eligibility.gender === 'Female' ? 'केवल महिलाएँ' : 'केवल पुरुष')}</span></li>
+              ${scheme.eligibility.maxIncome ? `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>अधिकतम वार्षिक आय:</strong> ₹${scheme.eligibility.maxIncome} तक</span></li>` : ''}
+              ${scheme.eligibility.occupations.includes('All') ? '' : `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>पात्र व्यवसाय:</strong> ${scheme.eligibility.occupations.join(', ')}</span></li>`}
+              ${scheme.eligibility.category.includes('All') ? '' : `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>पात्र वर्ग (Category):</strong> ${scheme.eligibility.category.join(', ')}</span></li>`}
+              ${scheme.eligibility.ruralUrban === 'Both' ? '' : `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>क्षेत्र:</strong> ${scheme.eligibility.ruralUrban === 'Rural' ? 'केवल ग्रामीण' : 'केवल शहरी'}</span></li>`}
+              ${scheme.eligibility.disability === 'Required' ? '<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>विशेष:</strong> केवल दिव्यांग नागरिकों के लिए</span></li>' : ''}
             </ul>
           </div>
           
           <div id="tab-docs" class="tab-pane">
-            <h4 class="pane-title">आवश्यक दस्तावेज़ (Required Documents)</h4>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">आपके पास उपलब्ध और लापता दस्तावेज़ों की स्थिति नीचे दी गई है:</p>
-            <div class="detector-list">
+            <h4 class="text-sm font-bold text-slate-900 mb-2">आवश्यक दस्तावेज़ (Required Documents)</h4>
+            <p class="text-xs text-slate-500 mb-4">आपके पास उपलब्ध और लापता दस्तावेज़ों की स्थिति नीचे दी गई है:</p>
+            <div class="detector-list flex flex-col gap-3">
               ${docsDetailsListHTML}
             </div>
           </div>
           
           <div id="tab-apply" class="tab-pane">
-            <h4 class="pane-title">आवेदन की प्रक्रिया (Apply Process)</h4>
-            <ul class="info-list">
+            <h4 class="text-sm font-bold text-slate-900 mb-3">आवेदन की प्रक्रिया (Apply Process)</h4>
+            <ul class="text-sm text-slate-600 space-y-2 mb-6">
               <li><strong>आवेदन प्रकार:</strong> ${scheme.applyMode === 'Both' ? 'ऑनलाइन और ऑफलाइन' : (scheme.applyMode === 'Online' ? 'केवल ऑनलाइन (Online)' : 'केवल ऑफलाइन (Offline)')}</li>
               <li><strong>प्रसंस्करण समय:</strong> ${scheme.processingTime}</li>
             </ul>
-            <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-              <a href="${scheme.officialWebsite}" target="_blank" class="btn btn-primary" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
-                आधिकारिक पोर्टल पर आवेदन करें <i class="fas fa-external-link-alt"></i>
+            <div class="flex items-center gap-4 flex-wrap">
+              <a href="${scheme.officialWebsite}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg px-5 py-2.5 font-bold text-sm transition-colors inline-flex items-center gap-2">
+                आधिकारिक पोर्टल पर आवेदन करें <i class="fas fa-external-link-alt text-xs"></i>
               </a>
-              <button class="btn btn-outline" onclick="window.print()" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
-                <i class="fas fa-print"></i> प्रिंट / PDF गाइड (Print)
+              <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg px-5 py-2.5 font-semibold text-sm transition-colors inline-flex items-center gap-2" onclick="window.print()">
+                <i class="fas fa-print text-xs"></i> प्रिंट / PDF गाइड (Print)
               </button>
             </div>
           </div>

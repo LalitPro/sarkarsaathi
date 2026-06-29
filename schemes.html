@@ -8,12 +8,6 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/schemes.css">
-  <link rel="stylesheet" href="css/responsive.css">
-
   <!-- Tailwind CSS v3 CDN Setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -44,33 +38,44 @@
       }
     }
   </script>
+
+  <!-- Fallback basic styling sheet -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/schemes.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans pb-16 md:pb-0">
+
+  <!-- TOP TRICOLOR DECORATIVE BAR -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
 
   <!-- FIXED HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <button class="menu-toggle" aria-label="Open Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="logo-container">
-        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
-        <span class="app-title">Sarkari Sahayak</span>
+  <header class="header bg-white shadow-sm sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 md:hidden" aria-label="Open Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer" onclick="App.navigateTo('index.html')">
+          <i class="fas fa-landmark text-2xl text-brand-primary"></i>
+          <span class="text-xl font-bold tracking-tight text-brand-primary">Sarkari Sahayak</span>
+        </div>
       </div>
-    </div>
-    
-    <nav class="header-nav">
-      <a class="header-nav-item" onclick="App.navigateTo('index.html')">होम</a>
-      <a class="header-nav-item active" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
-      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
-      <a class="header-nav-item" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
-      <a class="header-nav-item" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
-    </nav>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('index.html')">होम</a>
+        <a class="text-sm font-semibold text-brand-primary border-b-2 border-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+      </nav>
 
-    <div class="header-right">
-      <button class="theme-toggle" aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
+          <i class="fas fa-moon text-lg"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -111,101 +116,111 @@
     </div>
   </aside>
 
-  <!-- MAIN PAGE CONTENT -->
-  <main class="container mt-24">
-    <!-- Category Filter Chips -->
-    <div class="chips-container">
-      <button class="chip active" data-category="all">सभी योजनाएँ (All Schemes)</button>
-      <button class="chip" data-category="central">केंद्रीय योजनाएँ (Central Gov)</button>
-      <button class="chip" data-category="state">राज्य योजनाएँ (State Gov)</button>
+  <!-- MAIN SCHEMES GRID LAYOUT -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- CATEGORY FILTER CHIPS -->
+    <div class="flex items-center gap-3 overflow-x-auto pb-4 mb-6 scrollbar-none">
+      <button class="chip active bg-white border border-slate-200 hover:border-brand-primary px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="all">
+        सभी योजनाएँ (All Schemes)
+      </button>
+      <button class="chip bg-white border border-slate-200 hover:border-brand-primary px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="central">
+        केंद्रीय योजनाएँ (Central Gov)
+      </button>
+      <button class="chip bg-white border border-slate-200 hover:border-brand-primary px-4 py-2 rounded-full text-sm font-semibold transition-all" data-category="state">
+        राज्य योजनाएँ (State Gov)
+      </button>
     </div>
 
-    <div class="schemes-layout">
+    <div class="flex flex-col lg:flex-row gap-8 items-start">
+      
       <!-- LEFT SIDEBAR: Questionnaire Filters -->
-      <aside class="card finder-card">
-        <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px;">
-          पात्रता फ़िल्टर (Eligibility Filters)
+      <aside class="w-full lg:w-80 bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex-shrink-0">
+        <h2 class="text-base font-extrabold text-slate-900 border-b border-slate-100 pb-3 mb-4 flex items-center gap-2">
+          <i class="fas fa-filter text-brand-primary"></i>
+          <span>पात्रता फ़िल्टर (Eligibility Filters)</span>
         </h2>
         
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="filter-state">राज्य (State)</label>
-            <select id="filter-state" class="form-control">
+        <div class="flex flex-col gap-4">
+          <div>
+            <label for="filter-state" class="block text-xs font-semibold text-slate-500 mb-1.5">राज्य (State)</label>
+            <select id="filter-state" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
               <!-- Loaded dynamically -->
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="filter-age">आयु (Age)</label>
-            <input type="number" id="filter-age" class="form-control" placeholder="उदा. 25" min="0" max="120">
+          <div>
+            <label for="filter-age" class="block text-xs font-semibold text-slate-500 mb-1.5">आयु (Age)</label>
+            <input type="number" id="filter-age" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary" placeholder="उदा. 25" min="0" max="120">
           </div>
 
-          <div class="form-group">
-            <label for="filter-gender">लिंग (Gender)</label>
-            <select id="filter-gender" class="form-control">
+          <div>
+            <label for="filter-gender" class="block text-xs font-semibold text-slate-500 mb-1.5">लिंग (Gender)</label>
+            <select id="filter-gender" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
               <option value="">सभी (All)</option>
               <option value="Male">पुरुष (Male)</option>
               <option value="Female">महिला (Female)</option>
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="filter-category">वर्ग (Category)</label>
-            <select id="filter-category" class="form-control">
+          <div>
+            <label for="filter-category" class="block text-xs font-semibold text-slate-500 mb-1.5">वर्ग (Category)</label>
+            <select id="filter-category" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
               <!-- Loaded dynamically -->
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="filter-occupation">व्यवसाय (Occupation)</label>
-            <select id="filter-occupation" class="form-control">
+          <div>
+            <label for="filter-occupation" class="block text-xs font-semibold text-slate-500 mb-1.5">व्यवसाय (Occupation)</label>
+            <select id="filter-occupation" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
               <!-- Loaded dynamically -->
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="filter-income">वार्षिक आय (Annual Income)</label>
-            <input type="number" id="filter-income" class="form-control" placeholder="उदा. 150000" min="0">
+          <div>
+            <label for="filter-income" class="block text-xs font-semibold text-slate-500 mb-1.5">वार्षिक आय (Annual Income)</label>
+            <input type="number" id="filter-income" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary" placeholder="उदा. 150000" min="0">
           </div>
 
-          <div class="form-group">
-            <label for="filter-residence">क्षेत्र (Area)</label>
-            <select id="filter-residence" class="form-control">
+          <div>
+            <label for="filter-residence" class="block text-xs font-semibold text-slate-500 mb-1.5">क्षेत्र (Area)</label>
+            <select id="filter-residence" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
               <option value="">दोनों (Both)</option>
               <option value="Rural">ग्रामीण (Rural)</option>
               <option value="Urban">शहरी (Urban)</option>
             </select>
           </div>
 
-          <div class="form-group">
-            <label for="filter-disability">दिव्यांगता (Disability)</label>
-            <select id="filter-disability" class="form-control">
+          <div>
+            <label for="filter-disability" class="block text-xs font-semibold text-slate-500 mb-1.5">दिव्यांगता (Disability)</label>
+            <select id="filter-disability" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
               <option value="No">नहीं (No)</option>
               <option value="Yes">हाँ (Yes)</option>
             </select>
           </div>
         </div>
 
-        <div class="docs-checklist-title">आपके पास उपलब्ध दस्तावेज़:</div>
-        <div class="checkbox-grid" id="filter-documents-grid">
+        <div class="text-xs font-bold text-slate-900 mt-6 mb-3">आपके पास उपलब्ध दस्तावेज़:</div>
+        <div class="grid grid-cols-1 gap-2 max-h-48 overflow-y-auto pr-1 border border-slate-100 p-2 rounded-lg bg-slate-50" id="filter-documents-grid">
           <!-- Loaded dynamically -->
         </div>
 
-        <button id="check-eligibility-btn" class="btn btn-primary mt-24">
+        <button id="check-eligibility-btn" class="w-full bg-brand-primary hover:bg-brand-dark text-white rounded-lg py-2.5 font-bold text-sm shadow-sm transition-colors mt-6">
           पात्रता परिणाम देखें (View Eligibility Report)
         </button>
       </aside>
 
       <!-- RIGHT PANEL: Search & Cards List -->
-      <section class="main-panel">
-        <div class="search-container mb-24" style="background: white; border: 1px solid var(--border-color); padding: 4px;">
-          <input type="text" id="scheme-search-input" class="search-input" placeholder="योजना खोजें (जैसे: जन धन, किसान...)" aria-label="Search Schemes">
-          <button class="search-btn" style="background-color: var(--scheme-color);" aria-label="Search Button">
+      <section class="flex-grow w-full">
+        <!-- Search bar -->
+        <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm p-1 flex items-center mb-6 focus-within:ring-2 focus-within:ring-brand-primary transition-all">
+          <input type="text" id="scheme-search-input" class="w-full px-4 py-2.5 text-slate-800 outline-none text-sm" placeholder="योजना खोजें (जैसे: जन धन, किसान...)" aria-label="Search Schemes">
+          <button class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-md px-5 py-2.5 text-sm transition-colors flex items-center justify-center" aria-label="Search Button">
             <i class="fas fa-search"></i>
           </button>
         </div>
 
-        <div class="schemes-list" id="schemes-list">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="schemes-list">
           <!-- Dynamic Scheme Cards loaded by schemes.js -->
         </div>
       </section>
@@ -216,43 +231,46 @@
   <div id="modal-backdrop" class="modal-backdrop"></div>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+  <footer class="footer bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <div class="footer-brand flex flex-col gap-3">
+          <div class="flex items-center gap-2 text-white font-bold text-xl">
+            <i class="fas fa-landmark text-2xl text-orange-500"></i>
             <span class="footer-logo-text">Sarkari Sahayak</span>
           </div>
-          <p class="footer-desc">सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+          <p class="text-xs leading-relaxed text-slate-500">
+            सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।
+          </p>
         </div>
         
         <div class="footer-links">
-          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
-          <ul class="footer-links-list">
-            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          <h4 class="text-white font-semibold text-sm mb-4">त्वरित नेविगेशन</h4>
+          <ul class="flex flex-col gap-2 text-xs">
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h4 class="footer-links-title">संपर्क सूत्र</h4>
-          <ul class="footer-links-list" style="color: #9CA3AF;">
-            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarisahayak.in</li>
-            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          <h4 class="text-white font-semibold text-sm mb-4">संपर्क सूत्र</h4>
+          <ul class="flex flex-col gap-2 text-xs text-slate-500">
+            <li><i class="fas fa-envelope mr-2"></i> support@sarkarisahayak.in</li>
+            <li><i class="fas fa-phone mr-2"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> नई दिल्ली, भारत</li>
           </ul>
-        </div>
-
-        <div class="footer-disclaimer">
-          <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-disclaimer text-[11px] text-slate-600 leading-normal border-t border-slate-800 pt-6 mb-6">
+        <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 border-t border-slate-800/50 pt-4">
         <span>&copy; 2026 Sarkari Sahayak. सर्वाधिकार सुरक्षित।</span>
         <span>Built for **Build For Good 2026 Hackathon**</span>
       </div>
@@ -260,22 +278,22 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <a class="bottom-nav-item" onclick="App.navigateTo('index.html')">
-      <i class="fas fa-home"></i>
-      <span>होम</span>
+  <nav class="bottom-nav fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex items-center justify-around z-40 md:hidden shadow-lg">
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home text-lg"></i>
+      <span class="text-[10px]">होम</span>
     </a>
-    <a class="bottom-nav-item active" onclick="App.navigateTo('schemes.html')">
-      <i class="fas fa-landmark"></i>
-      <span>योजनाएँ</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-brand-primary active" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark text-lg"></i>
+      <span class="text-[10px]">योजनाएँ</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
-      <i class="fas fa-file-alt"></i>
-      <span>दस्तावेज़</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt text-lg"></i>
+      <span class="text-[10px]">दस्तावेज़</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('assistant.html')">
-      <i class="fas fa-comments"></i>
-      <span>एआई सहायक</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('assistant.html')">
+      <i class="fas fa-comments text-lg"></i>
+      <span class="text-[10px]">एआई सहायक</span>
     </a>
   </nav>
 

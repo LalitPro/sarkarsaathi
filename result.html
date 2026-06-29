@@ -8,12 +8,6 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/schemes.css"> <!-- Reuse card layouts -->
-  <link rel="stylesheet" href="css/responsive.css">
-  
   <!-- Tailwind CSS v3 CDN Setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -45,140 +39,43 @@
     }
   </script>
 
-  <style>
-    .result-summary-card {
-      background: linear-gradient(135deg, var(--primary-color) 0%, #1D4ED8 100%);
-      color: white;
-      text-align: center;
-      padding: 32px 20px;
-      margin-bottom: 28px;
-    }
-    .result-summary-card h2 {
-      color: white;
-      font-size: 22px;
-      margin-bottom: 8px;
-    }
-    .booster-header {
-      background-color: var(--problem-light);
-      border-left: 5px solid var(--problem-color);
-      padding: 16px;
-      border-radius: var(--radius-md);
-      margin-bottom: 20px;
-    }
-    .booster-header h3 {
-      color: #78350F;
-      font-size: 16px;
-      font-weight: 700;
-    }
-    .booster-group {
-      background-color: white;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: 20px 16px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow-sm);
-    }
-    .booster-doc-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      border-bottom: 1px dashed var(--border-color);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-    .booster-doc-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--primary-color);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .booster-unlocked-title {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-    .booster-schemes-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .booster-scheme-subcard {
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--scheme-color);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      background-color: #FAFAFA;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-    .booster-scheme-name {
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-    .steps-timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 12px;
-    }
-    .step-item {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .step-badge {
-      width: 24px;
-      height: 24px;
-      border-radius: var(--radius-full);
-      background-color: var(--primary-color);
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .step-content {
-      font-size: 13.5px;
-      line-height: 1.5;
-    }
-  </style>
+  <!-- Fallback styling sheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/schemes.css"> <!-- Reuse card layouts -->
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans pb-16 md:pb-0">
+
+  <!-- TOP TRICOLOR DECORATIVE BAR -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
 
   <!-- FIXED HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <button class="menu-toggle" aria-label="Open Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="logo-container">
-        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
-        <span class="app-title">Sarkari Sahayak</span>
+  <header class="header bg-white shadow-sm sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 md:hidden" aria-label="Open Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer" onclick="App.navigateTo('index.html')">
+          <i class="fas fa-landmark text-2xl text-brand-primary"></i>
+          <span class="text-xl font-bold tracking-tight text-brand-primary">Sarkari Sahayak</span>
+        </div>
       </div>
-    </div>
-    
-    <nav class="header-nav">
-      <a class="header-nav-item" onclick="App.navigateTo('index.html')">होम</a>
-      <a class="header-nav-item" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
-      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
-      <a class="header-nav-item" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
-      <a class="header-nav-item" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
-    </nav>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('index.html')">होम</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+      </nav>
 
-    <div class="header-right">
-      <button class="theme-toggle" aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
+          <i class="fas fa-moon text-lg"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -220,74 +117,85 @@
   </aside>
 
   <!-- MAIN RESULT CONTENT -->
-  <main class="container mt-24">
-    <!-- 1. Summary Header Card -->
-    <div class="card result-summary-card" style="position: relative; overflow: hidden; border-top: none;">
-      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--tricolor-saffron) 33.3%, #ffffff 33.3%, #ffffff 66.6%, var(--tricolor-green) 66.6%);"></div>
-      <h2 id="summary-headline">पात्रता रिपोर्ट लोड हो रही है...</h2>
-      <p id="summary-subline" style="margin-bottom: 16px;">कृपया प्रतीक्षा करें।</p>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-5xl mx-auto flex flex-col gap-8">
       
-      <!-- Progress Bar Container -->
-      <div style="max-width: 400px; margin: 0 auto;">
-        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; font-weight: 600; color: #DBEAFE;">
-          <span>आपकी पात्रता स्कोर (Eligibility Score)</span>
-          <span id="progress-percentage">0%</span>
+      <!-- 1. Summary Header Card -->
+      <div class="bg-gradient-to-r from-brand-primary to-blue-900 rounded-2xl p-6 sm:p-8 text-white shadow-md relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
+        <h2 id="summary-headline" class="text-xl sm:text-2xl font-extrabold mb-2 text-slate-100">पात्रता रिपोर्ट लोड हो रही है...</h2>
+        <p id="summary-subline" class="text-sm text-slate-200 mb-6">कृपया प्रतीक्षा करें।</p>
+        
+        <!-- Progress Bar Container -->
+        <div class="max-w-md">
+          <div class="flex justify-between text-xs font-semibold text-blue-200 mb-1.5">
+            <span>आपकी पात्रता स्कोर (Eligibility Score)</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+          <div class="bg-white/20 h-3 rounded-full overflow-hidden">
+            <div id="progress-bar-fill" class="w-0 h-full bg-gradient-to-r from-orange-500 via-slate-100 to-green-600 transition-all duration-1000 rounded-full"></div>
+          </div>
+          <div class="text-[11px] text-blue-200 mt-2" id="progress-tip">
+            लापत्ता दस्तावेज़ों को पूरा करके अपना स्कोर 100% तक बढ़ाएं!
+          </div>
         </div>
-        <div style="background-color: rgba(255, 255, 255, 0.2); height: 12px; border-radius: 99px; overflow: hidden;">
-          <div id="progress-bar-fill" style="width: 0%; height: 100%; background: linear-gradient(to right, var(--tricolor-saffron), #F3F4F6, var(--tricolor-green)); transition: width 1s ease-in-out; border-radius: 99px;"></div>
-        </div>
-        <div style="font-size: 11px; margin-top: 8px; color: #BFDBFE;" id="progress-tip">
-          लापत्ता दस्तावेज़ों को पूरा करके अपना स्कोर 100% तक बढ़ाएं!
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. Currently Eligible Schemes list -->
-    <section class="mb-24">
-      <h2 class="section-title">आप इन योजनाओं के लिए पात्र हैं (Eligible Schemes)</h2>
-      <div class="schemes-list" id="eligible-schemes-list" style="margin-top: 12px;">
-        <!-- Populated dynamically -->
-      </div>
-    </section>
-
-    <!-- 3. Smart Eligibility Booster Section -->
-    <section class="mb-24">
-      <div class="booster-header">
-        <h3><i class="fas fa-rocket" style="margin-right: 8px; color: var(--problem-color);"></i> स्मार्ट पात्रता बूस्टर (Smart Eligibility Booster)</h3>
-        <p style="font-size: 12.5px; color: #78350F; margin-top: 4px; line-height: 1.5;">
-          यदि आप नीचे दिए गए लापता दस्तावेजों को प्राप्त कर लेते हैं, तो आप उनके सामने लिखी अतिरिक्त सरकारी योजनाओं के लिए भी पात्र हो जाएंगे:
-        </p>
       </div>
 
-      <div id="booster-groups-container">
-        <!-- Populated dynamically (grouped by missing document) -->
-      </div>
-    </section>
-
-    <!-- 4. Recommended Documents & Next Steps Grid -->
-    <div style="display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 28px;" class="desktop-split">
-      <!-- Recommended Documents -->
-      <section class="card">
-        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-          <i class="fas fa-file-invoice" style="margin-right: 6px; color: var(--document-color);"></i> अनुशंसित दस्तावेज़ (Recommended Documents)
-        </h3>
-        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 12px;">
-          आपके प्रोफाइल के आधार पर, आपको सबसे पहले ये आवश्यक दस्तावेज बनवाने/अपडेट करने चाहिए:
-        </p>
-        <div class="detector-list" id="recommended-docs-list">
+      <!-- 2. Currently Eligible Schemes list -->
+      <section>
+        <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-4 flex items-center gap-2">
+          <span class="w-1 h-5 bg-brand-primary rounded-full"></span>
+          <span>आप इन योजनाओं के लिए पात्र हैं (Eligible Schemes)</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="eligible-schemes-list">
           <!-- Populated dynamically -->
         </div>
       </section>
 
-      <!-- Suggested Next Steps Timeline -->
-      <section class="card">
-        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--primary-color); border-bottom: 1px solid var(--border-color); padding-bottom: 8px;">
-          <i class="fas fa-tasks" style="margin-right: 6px; color: var(--scheme-color);"></i> सुझाए गए अगले कदम (Suggested Next Steps)
-        </h3>
-        <div class="steps-timeline" id="next-steps-timeline">
-          <!-- Populated dynamically -->
+      <!-- 3. Smart Eligibility Booster Section -->
+      <section>
+        <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
+          <h3 class="text-amber-800 font-extrabold text-base mb-1.5 flex items-center gap-2">
+            <i class="fas fa-rocket text-orange-500"></i>
+            <span>स्मार्ट पात्रता बूस्टर (Smart Eligibility Booster)</span>
+          </h3>
+          <p class="text-amber-700 text-xs leading-relaxed">
+            यदि आप नीचे दिए गए लापता दस्तावेजों को प्राप्त कर लेते हैं, तो आप उनके सामने लिखी अतिरिक्त सरकारी योजनाओं के लिए भी पात्र हो जाएंगे:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6" id="booster-groups-container">
+          <!-- Populated dynamically (grouped by missing document) -->
         </div>
       </section>
+
+      <!-- 4. Recommended Documents & Next Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Recommended Documents -->
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <h3 class="text-sm sm:text-base font-extrabold text-slate-900 border-b border-slate-100 pb-3 mb-4 flex items-center gap-2">
+            <i class="fas fa-file-invoice text-blue-600"></i>
+            <span>अनुशंसित दस्तावेज़ (Recommended Documents)</span>
+          </h3>
+          <p class="text-xs text-slate-500 mb-4">
+            आपके प्रोफाइल के आधार पर, आपको सबसे पहले ये आवश्यक दस्तावेज बनवाने/अपडेट करने चाहिए:
+          </p>
+          <div class="flex flex-col gap-3" id="recommended-docs-list">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+        <!-- Suggested Next Steps Timeline -->
+        <section class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <h3 class="text-sm sm:text-base font-extrabold text-slate-900 border-b border-slate-100 pb-3 mb-4 flex items-center gap-2">
+            <i class="fas fa-tasks text-emerald-600"></i>
+            <span>सुझाए गए अगले कदम (Suggested Next Steps)</span>
+          </h3>
+          <div class="flex flex-col gap-3" id="next-steps-timeline">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+      </div>
     </div>
   </main>
 
@@ -295,43 +203,46 @@
   <div id="modal-backdrop" class="modal-backdrop"></div>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+  <footer class="footer bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <div class="footer-brand flex flex-col gap-3">
+          <div class="flex items-center gap-2 text-white font-bold text-xl">
+            <i class="fas fa-landmark text-2xl text-orange-500"></i>
             <span class="footer-logo-text">Sarkari Sahayak</span>
           </div>
-          <p class="footer-desc">सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+          <p class="text-xs leading-relaxed text-slate-500">
+            सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।
+          </p>
         </div>
         
         <div class="footer-links">
-          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
-          <ul class="footer-links-list">
-            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          <h4 class="text-white font-semibold text-sm mb-4">त्वरित नेविगेशन</h4>
+          <ul class="flex flex-col gap-2 text-xs">
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h4 class="footer-links-title">संपर्क सूत्र</h4>
-          <ul class="footer-links-list" style="color: #9CA3AF;">
-            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarisahayak.in</li>
-            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          <h4 class="text-white font-semibold text-sm mb-4">संपर्क सूत्र</h4>
+          <ul class="flex flex-col gap-2 text-xs text-slate-500">
+            <li><i class="fas fa-envelope mr-2"></i> support@sarkarisahayak.in</li>
+            <li><i class="fas fa-phone mr-2"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> नई दिल्ली, भारत</li>
           </ul>
-        </div>
-
-        <div class="footer-disclaimer">
-          <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-disclaimer text-[11px] text-slate-600 leading-normal border-t border-slate-800 pt-6 mb-6">
+        <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 border-t border-slate-800/50 pt-4">
         <span>&copy; 2026 Sarkari Sahayak. सर्वाधिकार सुरक्षित।</span>
         <span>Built for **Build For Good 2026 Hackathon**</span>
       </div>
@@ -339,22 +250,22 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <a class="bottom-nav-item" onclick="App.navigateTo('index.html')">
-      <i class="fas fa-home"></i>
-      <span>होम</span>
+  <nav class="bottom-nav fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex items-center justify-around z-40 md:hidden shadow-lg">
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home text-lg"></i>
+      <span class="text-[10px]">होम</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('schemes.html')">
-      <i class="fas fa-landmark"></i>
-      <span>योजनाएँ</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark text-lg"></i>
+      <span class="text-[10px]">योजनाएँ</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
-      <i class="fas fa-file-alt"></i>
-      <span>दस्तावेज़</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt text-lg"></i>
+      <span class="text-[10px]">दस्तावेज़</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('assistant.html')">
-      <i class="fas fa-comments"></i>
-      <span>एआई सहायक</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('assistant.html')">
+      <i class="fas fa-comments text-lg"></i>
+      <span class="text-[10px]">एआई सहायक</span>
     </a>
   </nav>
 
@@ -390,7 +301,7 @@
 
       if (summaryHeadline && summarySubline) {
         summaryHeadline.textContent = `आप वर्तमान में ${eligibleCount} योजनाओं के लिए पात्र हैं।`;
-        summarySubline.textContent = `प्रोफ़ाइल: ${profile.state} • ${profile.occupation} • आय: ₹${profile.income}`;
+        summarySubline.textContent = `प्रोफ़ाइल: ${profile.state} • ${profile.occupation} • आय: ₹${parseFloat(profile.income).toLocaleString('en-IN')}`;
       }
 
       if (progressPercent && progressBarFill) {
@@ -401,7 +312,7 @@
         }, 150);
         
         if (score === 100) {
-          if (progressTip) progressTip.innerHTML = `<i class="fas fa-check-circle" style="color: var(--scheme-color);"></i> बधाई हो! आप सभी योग्य योजनाओं के लिए पूरी तरह पात्र हैं।`;
+          if (progressTip) progressTip.innerHTML = `<i class="fas fa-check-circle text-emerald-600"></i> बधाई हो! आप सभी योग्य योजनाओं के लिए पूरी तरह पात्र हैं।`;
         } else {
           if (progressTip) progressTip.innerHTML = `लापता दस्तावेज़ बनाकर पात्रता स्कोर <strong>100%</strong> तक बढ़ाएं!`;
         }
@@ -412,9 +323,9 @@
       if (eligibleListEl) {
         if (report.currentlyEligible.length === 0) {
           eligibleListEl.innerHTML = `
-            <div class="card text-center" style="padding: 24px;">
-              <i class="fas fa-info-circle" style="font-size: 32px; color: var(--text-light); margin-bottom: 8px;"></i>
-              <p style="font-size: 13.5px; color: var(--text-muted);">आप वर्तमान में किसी भी योजना की दस्तावेज़ आवश्यकताओं को पूरा नहीं करते हैं। कृपया नीचे पात्रता बूस्टर (Eligibility Booster) देखें।</p>
+            <div class="bg-white border border-slate-200 rounded-xl p-8 text-center col-span-full">
+              <i class="fas fa-info-circle text-3xl text-slate-300 mb-2"></i>
+              <p class="text-sm text-slate-500">आप वर्तमान में किसी भी योजना की दस्तावेज़ आवश्यकताओं को पूरा नहीं करते हैं। कृपया नीचे पात्रता बूस्टर (Eligibility Booster) देखें।</p>
             </div>
           `;
         } else {
@@ -424,24 +335,24 @@
             const govLabel = scheme.governmentType === 'Central' ? 'केंद्र सरकार' : `राज्य सरकार (${scheme.state})`;
             
             eligibleListEl.innerHTML += `
-              <div class="card scheme-card">
-                <div class="scheme-card-header">
-                  <span class="badge ${badgeClass}">${govLabel}</span>
-                  <span class="badge badge-free"><i class="fas fa-check" style="margin-right: 4px;"></i> पात्र हैं</span>
+              <div class="card scheme-card bg-white border border-slate-200 rounded-xl p-5 shadow-sm transform hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                <div class="scheme-card-header flex items-center justify-between mb-4">
+                  <span class="badge ${badgeClass} text-xs font-semibold px-2.5 py-1 rounded">${govLabel}</span>
+                  <span class="badge badge-free text-xs font-semibold px-2.5 py-1 rounded text-emerald-700 bg-emerald-50"><i class="fas fa-check mr-1"></i> पात्र हैं</span>
                 </div>
-                <h3 class="scheme-title mb-12">${scheme.name}</h3>
-                <p class="scheme-desc">${scheme.description}</p>
-                <div class="scheme-details-row">
-                  <div class="detail-item">
-                    <strong>समय सीमा</strong>
+                <h3 class="scheme-title text-base font-extrabold text-slate-900 mb-2">${scheme.name}</h3>
+                <p class="scheme-desc text-xs text-slate-500 mb-4">${scheme.description}</p>
+                <div class="scheme-details-row grid grid-cols-2 gap-4 border-t border-slate-50 pt-4 mb-4">
+                  <div class="detail-item text-xs">
+                    <strong class="block text-[10px] text-slate-400">समय सीमा</strong>
                     ${scheme.processingTime}
                   </div>
-                  <div class="detail-item">
-                    <strong>आवेदन माध्यम</strong>
+                  <div class="detail-item text-xs">
+                    <strong class="block text-[10px] text-slate-400">आवेदन माध्यम</strong>
                     ${scheme.applyMode === 'Both' ? 'ऑनलाइन / ऑफलाइन' : (scheme.applyMode === 'Online' ? 'ऑनलाइन' : 'ऑफलाइन')}
                   </div>
                 </div>
-                <button class="btn btn-scheme btn-sm" onclick="ResultPage.showDetails('${scheme.id}')">विवरण देखें (View Details)</button>
+                <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg py-2 font-bold text-xs shadow-sm transition-colors" onclick="ResultPage.showDetails('${scheme.id}')">विवरण देखें (View Details)</button>
               </div>
             `;
           });
@@ -455,8 +366,8 @@
         
         if (docKeys.length === 0) {
           boosterContainer.innerHTML = `
-            <div class="card text-center" style="padding: 24px;">
-              <p style="font-size: 13.5px; color: var(--text-muted);">सभी योजनाएँ पहले से अनलॉक हैं या आपके प्रोफाइल के लिए अन्य पात्रता मापदंड मेल नहीं खाते।</p>
+            <div class="bg-white border border-slate-200 rounded-xl p-8 text-center">
+              <p class="text-sm text-slate-500">सभी योजनाएँ पहले से अनलॉक हैं या आपके प्रोफाइल के लिए अन्य पात्रता मापदंड मेल नहीं खाते।</p>
             </div>
           `;
         } else {
@@ -467,24 +378,24 @@
             const unlockedSchemes = report.missingDocMap[docId];
 
             boosterContainer.innerHTML += `
-              <div class="booster-group">
-                <div class="booster-doc-row">
-                  <div class="booster-doc-name">
-                    <i class="${App.getDocIconClass(docId)}" style="color: var(--document-color);"></i>
+              <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-4 border-b border-slate-100 pb-3">
+                  <div class="flex items-center gap-2 font-extrabold text-sm sm:text-base text-slate-900">
+                    <i class="${App.getDocIconClass(docId)} text-blue-600"></i>
                     <span>लापता: ${docName}</span>
                   </div>
-                  <button class="btn btn-document btn-sm" onclick="ResultPage.goToDoc('${docId}')">आवेदन करें (Apply)</button>
+                  <button class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 font-bold text-xs shadow-sm transition-colors" onclick="ResultPage.goToDoc('${docId}')">आवेदन करें (Apply)</button>
                 </div>
                 
-                <div class="booster-unlocked-title"><i class="fas fa-lock-open" style="margin-right: 4px;"></i> इसे बनाने से ये योजनाएं अनलॉक होंगी:</div>
-                <div class="booster-schemes-list">
+                <div class="text-xs font-bold text-slate-700"><i class="fas fa-lock-open mr-1 text-slate-400"></i> इसे बनाने से ये योजनाएं अनलॉक होंगी:</div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   ${unlockedSchemes.map(scheme => `
-                    <div class="booster-scheme-subcard">
+                    <div class="bg-slate-50 border border-slate-100 rounded-xl p-4 flex items-center justify-between gap-3">
                       <div>
-                        <span class="booster-scheme-name">${scheme.name.split(' (')[0]}</span>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">लाभ: ${scheme.benefits.substring(0, 70)}...</div>
+                        <span class="text-xs font-extrabold text-slate-800 block">${scheme.name.split(' (')[0]}</span>
+                        <div class="text-[10px] text-slate-400 mt-1">लाभ: ${scheme.benefits.substring(0, 50)}...</div>
                       </div>
-                      <button class="btn btn-secondary btn-sm" style="padding: 4px 10px; font-size: 11px; width: auto;" onclick="ResultPage.showDetails('${scheme.id}')">विवरण</button>
+                      <button class="bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-lg px-3 py-1.5 text-[10px] font-bold transition-all flex-shrink-0" onclick="ResultPage.showDetails('${scheme.id}')">विवरण</button>
                     </div>
                   `).join('')}
                 </div>
@@ -506,11 +417,9 @@
 
         if (missingEssentials.length === 0) {
           recommendedDocsEl.innerHTML = `
-            <div class="detector-item available">
-              <div class="detector-label">
-                <span class="detector-status-icon"><i class="fas fa-check-circle"></i></span>
-                <span>आपके पास सभी बुनियादी दस्तावेज़ उपलब्ध हैं।</span>
-              </div>
+            <div class="flex items-center gap-2 p-3 bg-emerald-50 border border-emerald-100 rounded-lg text-emerald-800 text-xs">
+              <i class="fas fa-check-circle"></i>
+              <span>आपके पास सभी बुनियादी दस्तावेज़ उपलब्ध हैं।</span>
             </div>
           `;
         } else {
@@ -520,12 +429,12 @@
             const docName = docObj ? docObj.name.split(' (')[0] : docId;
 
             recommendedDocsEl.innerHTML += `
-              <div class="detector-item missing">
-                <div class="detector-label">
-                  <span class="detector-status-icon"><i class="fas fa-exclamation-triangle"></i></span>
-                  <span>${docName}</span>
+              <div class="flex items-center justify-between gap-4 p-3 bg-red-50 border border-red-100 rounded-lg text-red-800 text-xs">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <span class="font-bold">${docName}</span>
                 </div>
-                <button class="btn btn-document btn-sm" style="padding: 4px 10px; font-size: 11px;" onclick="ResultPage.goToDoc('${docId}')">बनाएँ</button>
+                <button class="bg-red-600 hover:bg-red-700 text-white rounded-lg px-3 py-1 font-bold text-[10px] transition-colors" onclick="ResultPage.goToDoc('${docId}')">बनाएँ</button>
               </div>
             `;
           });
@@ -574,11 +483,11 @@
           const isChecked = localStorage.getItem(stepKey) === 'true';
           
           timelineEl.innerHTML += `
-            <div class="step-item ${isChecked ? 'completed' : ''}" style="display: flex; gap: 14px; align-items: flex-start; padding: 12px 16px; border-radius: var(--radius-md); background: var(--card-bg); border: 1px solid var(--border-color); margin-bottom: 12px; transition: var(--transition-normal); ${isChecked ? 'opacity: 0.6;' : ''}">
-              <input type="checkbox" id="chk-${step.id}" ${isChecked ? 'checked' : ''} onchange="toggleTimelineStep('${step.id}', '${profile.name}')" style="width: 18px; height: 18px; cursor: pointer; margin-top: 2px;">
-              <div class="step-content" id="content-${step.id}" style="${isChecked ? 'text-decoration: line-through;' : ''}">
-                <strong style="color: var(--primary-color); display: block; font-size: 13.5px; margin-bottom: 4px;">${idx + 1}. ${step.title}</strong>
-                <span style="font-size: 12px; line-height: 1.5; color: var(--text-primary);">${step.text}</span>
+            <div class="step-item flex items-start gap-3 bg-slate-50 border border-slate-200 rounded-xl p-4 transition-all ${isChecked ? 'opacity-50' : ''}">
+              <input type="checkbox" id="chk-${step.id}" ${isChecked ? 'checked' : ''} onchange="toggleTimelineStep('${step.id}', '${profile.name}')" class="w-4 h-4 cursor-pointer mt-1 flex-shrink-0">
+              <div class="step-content ${isChecked ? 'line-through' : ''}" id="content-${step.id}">
+                <strong class="block text-brand-primary text-xs font-bold mb-1">${idx + 1}. ${step.title}</strong>
+                <span class="text-[11px] text-slate-500 leading-normal">${step.text}</span>
               </div>
             </div>
           `;
@@ -593,14 +502,12 @@
           
           if (chk.checked) {
             localStorage.setItem(stepKey, 'true');
-            content.style.textDecoration = 'line-through';
-            item.classList.add('completed');
-            item.style.opacity = '0.6';
+            content.classList.add('line-through');
+            item.classList.add('opacity-50');
           } else {
             localStorage.setItem(stepKey, 'false');
-            content.style.textDecoration = 'none';
-            item.classList.remove('completed');
-            item.style.opacity = '1';
+            content.classList.remove('line-through');
+            item.classList.remove('opacity-50');
           }
         };
       }
@@ -641,89 +548,89 @@
           
           if (isMissing) {
             return `
-              <div class="detector-item missing">
-                <div class="detector-label">
-                  <span class="detector-status-icon"><i class="fas fa-exclamation-circle"></i></span>
+              <div class="flex items-center justify-between gap-4 p-3 bg-red-50 border border-red-100 rounded-lg text-red-800 text-xs">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-exclamation-circle text-red-600"></i>
                   <span>${docName}</span>
                 </div>
-                <button class="btn btn-document btn-sm" style="padding: 4px 10px; font-size: 11px;" onclick="SchemesPage.goToDoc('${docId}')">प्राप्त करें</button>
+                <button class="bg-red-600 hover:bg-red-700 text-white rounded-lg px-3 py-1 font-bold text-[10px] transition-colors" onclick="SchemesPage.goToDoc('${docId}')">प्राप्त करें</button>
               </div>
             `;
           } else {
             return `
-              <div class="detector-item available">
-                <div class="detector-label">
-                  <span class="detector-status-icon"><i class="fas fa-check-circle"></i></span>
+              <div class="flex items-center justify-between gap-4 p-3 bg-emerald-50 border border-emerald-100 rounded-lg text-emerald-800 text-xs">
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-check-circle text-emerald-600"></i>
                   <span>${docName}</span>
                 </div>
-                <span style="font-size: 11px; color: var(--scheme-color); font-weight: 600;">उपलब्ध</span>
+                <span class="text-[10px] text-emerald-600 font-extrabold">उपलब्ध</span>
               </div>
             `;
           }
         }).join('');
 
         modalBackdrop.innerHTML = `
-          <div class="modal">
-            <div class="modal-header">
-              <h3 class="modal-title">${scheme.name}</h3>
-              <button class="modal-close" onclick="SchemesPage.closeModal()">&times;</button>
+          <div class="modal bg-white rounded-2xl max-w-2xl w-full mx-4 shadow-2xl overflow-hidden flex flex-col max-h-[90vh] relative z-50">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
+              <h3 class="font-extrabold text-slate-900 text-lg md:text-xl leading-snug">${scheme.name}</h3>
+              <button class="text-2xl text-slate-400 hover:text-slate-600 outline-none leading-none" onclick="SchemesPage.closeModal()">&times;</button>
             </div>
-            <div class="modal-body">
-              <div class="tab-navigation">
-                <button class="tab-btn active" onclick="SchemesPage.switchTab(event, 'tab-desc')">विवरण</button>
-                <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-benefits')">लाभ</button>
-                <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-elig')">पात्रता</button>
-                <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-docs')">दस्तावेज़</button>
-                <button class="tab-btn" onclick="SchemesPage.switchTab(event, 'tab-apply')">आवेदन</button>
+            <div class="modal-body p-6 overflow-y-auto">
+              <div class="tab-navigation flex border-b border-slate-200 overflow-x-auto pb-px mb-6 scrollbar-none gap-2">
+                <button class="tab-btn active px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-desc')">विवरण</button>
+                <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-benefits')">लाभ</button>
+                <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-elig')">पात्रता</button>
+                <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-docs')">दस्तावेज़</button>
+                <button class="tab-btn px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition-all outline-none" onclick="SchemesPage.switchTab(event, 'tab-apply')">आवेदन</button>
               </div>
               
               <div id="tab-desc" class="tab-pane active">
-                <h4 class="pane-title">योजना के बारे में</h4>
-                <p style="font-size: 13.5px; line-height: 1.6; margin-bottom: 16px;">${scheme.description}</p>
-                <div style="font-size: 13px; color: var(--text-muted); background: var(--bg-color); padding: 12px; border-radius: var(--radius-md);">
-                  <span style="display: block; margin-bottom: 4px;"><strong>श्रेणी:</strong> ${scheme.governmentType === 'Central' ? 'केंद्रीय योजना' : `राज्य योजना (${scheme.state})`}</span>
-                  <span><strong>आधिकारिक वेबसाइट:</strong> <a href="${scheme.officialWebsite}" target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">${scheme.officialWebsite}</a></span>
+                <h4 class="text-sm font-bold text-slate-900 mb-2">योजना के बारे में</h4>
+                <p class="text-slate-600 text-sm leading-relaxed mb-4">${scheme.description}</p>
+                <div class="bg-slate-50 rounded-xl p-4 text-xs text-slate-600 border border-slate-100 flex flex-col gap-2">
+                  <span class="block"><strong>श्रेणी:</strong> ${scheme.governmentType === 'Central' ? 'केंद्रीय योजना' : `राज्य योजना (${scheme.state})`}</span>
+                  <span><strong>आधिकारिक वेबसाइट:</strong> <a href="${scheme.officialWebsite}" target="_blank" class="text-brand-primary font-bold hover:underline">${scheme.officialWebsite}</a></span>
                 </div>
               </div>
               
               <div id="tab-benefits" class="tab-pane">
-                <h4 class="pane-title">योजना के लाभ</h4>
-                <p style="font-size: 13.5px; line-height: 1.6;">${scheme.benefits}</p>
+                <h4 class="text-sm font-bold text-slate-900 mb-2">योजना के लाभ</h4>
+                <p class="text-slate-600 text-sm leading-relaxed">${scheme.benefits}</p>
               </div>
               
               <div id="tab-elig" class="tab-pane">
-                <h4 class="pane-title">पात्रता मापदंड</h4>
-                <ul class="info-list">
-                  <li><strong>आयु सीमा:</strong> ${scheme.eligibility.ageMin} से ${scheme.eligibility.ageMax} वर्ष</li>
-                  <li><strong>लिंग:</strong> ${scheme.eligibility.gender === 'All' ? 'सभी के लिए' : (scheme.eligibility.gender === 'Female' ? 'केवल महिलाएँ' : 'केवल पुरुष')}</li>
-                  ${scheme.eligibility.maxIncome ? `<li><strong>अधिकतम वार्षिक आय:</strong> ₹${scheme.eligibility.maxIncome} तक</li>` : ''}
-                  ${scheme.eligibility.occupations.includes('All') ? '' : `<li><strong>व्यवसाय:</strong> ${scheme.eligibility.occupations.join(', ')}</li>`}
-                  ${scheme.eligibility.category.includes('All') ? '' : `<li><strong>पात्र वर्ग:</strong> ${scheme.eligibility.category.join(', ')}</li>`}
-                  ${scheme.eligibility.ruralUrban === 'Both' ? '' : `<li><strong>क्षेत्र:</strong> ${scheme.eligibility.ruralUrban === 'Rural' ? 'ग्रामीण' : 'शहरी'}</li>`}
-                  ${scheme.eligibility.disability === 'Required' ? '<li><strong>विशेष:</strong> केवल दिव्यांग नागरिकों के लिए</li>' : ''}
+                <h4 class="text-sm font-bold text-slate-900 mb-3">पात्रता मापदंड</h4>
+                <ul class="text-sm text-slate-600 space-y-2.5">
+                  <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>आयु सीमा:</strong> ${scheme.eligibility.ageMin} से ${scheme.eligibility.ageMax} वर्ष</span></li>
+                  <li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>लिंग:</strong> ${scheme.eligibility.gender === 'All' ? 'सभी के लिए' : (scheme.eligibility.gender === 'Female' ? 'केवल महिलाएँ' : 'केवल पुरुष')}</span></li>
+                  ${scheme.eligibility.maxIncome ? `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>अधिकतम वार्षिक आय:</strong> ₹${scheme.eligibility.maxIncome} तक</span></li>` : ''}
+                  ${scheme.eligibility.occupations.includes('All') ? '' : `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>पात्र व्यवसाय:</strong> ${scheme.eligibility.occupations.join(', ')}</li>`}
+                  ${scheme.eligibility.category.includes('All') ? '' : `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>पात्र वर्ग:</strong> ${scheme.eligibility.category.join(', ')}</li>`}
+                  ${scheme.eligibility.ruralUrban === 'Both' ? '' : `<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>क्षेत्र:</strong> ${scheme.eligibility.ruralUrban === 'Rural' ? 'ग्रामीण' : 'शहरी'}</li>`}
+                  ${scheme.eligibility.disability === 'Required' ? '<li class="flex items-center gap-2"><i class="fas fa-check text-emerald-600 text-xs"></i> <span><strong>विशेष:</strong> केवल दिव्यांग नागरिकों के लिए</span></li>' : ''}
                 </ul>
               </div>
               
               <div id="tab-docs" class="tab-pane">
-                <h4 class="pane-title">आवश्यक दस्तावेज़</h4>
-                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">आपके पास उपलब्ध और लापता दस्तावेज़ों की स्थिति नीचे दी गई है:</p>
-                <div class="detector-list">
+                <h4 class="text-sm font-bold text-slate-900 mb-2">आवश्यक दस्तावेज़</h4>
+                <p class="text-xs text-slate-500 mb-4">आपके पास उपलब्ध और लापता दस्तावेज़ों की स्थिति नीचे दी गई है:</p>
+                <div class="detector-list flex flex-col gap-3">
                   ${docsDetailsListHTML}
                 </div>
               </div>
               
               <div id="tab-apply" class="tab-pane">
-                <h4 class="pane-title">आवेदन की प्रक्रिया</h4>
-                <ul class="info-list">
+                <h4 class="text-sm font-bold text-slate-900 mb-3">आवेदन की प्रक्रिया</h4>
+                <ul class="text-sm text-slate-600 space-y-2 mb-6">
                   <li><strong>आवेदन प्रकार:</strong> ${scheme.applyMode === 'Both' ? 'ऑनलाइन और ऑफलाइन' : (scheme.applyMode === 'Online' ? 'ऑनलाइन' : 'ऑफलाइन')}</li>
                   <li><strong>प्रसंस्करण समय:</strong> ${scheme.processingTime}</li>
                 </ul>
-                <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-                  <a href="${scheme.officialWebsite}" target="_blank" class="btn btn-primary" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
-                    आधिकारिक पोर्टल पर आवेदन करें <i class="fas fa-external-link-alt"></i>
+                <div class="flex items-center gap-4 flex-wrap">
+                  <a href="${scheme.officialWebsite}" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg px-5 py-2.5 font-bold text-sm transition-colors inline-flex items-center gap-2">
+                    आधिकारिक पोर्टल पर आवेदन करें <i class="fas fa-external-link-alt text-xs"></i>
                   </a>
-                  <button class="btn btn-outline" onclick="window.print()" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="fas fa-print"></i> प्रिंट / PDF गाइड (Print)
+                  <button class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 rounded-lg px-5 py-2.5 font-semibold text-sm transition-colors inline-flex items-center gap-2" onclick="window.print()">
+                    <i class="fas fa-print text-xs"></i> प्रिंट / PDF गाइड (Print)
                   </button>
                 </div>
               </div>

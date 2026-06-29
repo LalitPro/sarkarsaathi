@@ -3,17 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>समस्या समाधान (Problem Solver) - Sarkari Sahayak</title>
+  <title>समस्या समाधान - Sarkari Sahayak</title>
   
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/problem.css">
-  <link rel="stylesheet" href="css/responsive.css">
-
   <!-- Tailwind CSS v3 CDN Setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -44,33 +38,44 @@
       }
     }
   </script>
+
+  <!-- Fallback styling sheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/problem.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans pb-16 md:pb-0">
+
+  <!-- TOP TRICOLOR DECORATIVE BAR -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
 
   <!-- FIXED HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <button class="menu-toggle" aria-label="Open Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="logo-container">
-        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
-        <span class="app-title">Sarkari Sahayak</span>
+  <header class="header bg-white shadow-sm sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 md:hidden" aria-label="Open Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer" onclick="App.navigateTo('index.html')">
+          <i class="fas fa-landmark text-2xl text-brand-primary"></i>
+          <span class="text-xl font-bold tracking-tight text-brand-primary">Sarkari Sahayak</span>
+        </div>
       </div>
-    </div>
-    
-    <nav class="header-nav">
-      <a class="header-nav-item" onclick="App.navigateTo('index.html')">होम</a>
-      <a class="header-nav-item" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
-      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
-      <a class="header-nav-item active" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
-      <a class="header-nav-item" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
-    </nav>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('index.html')">होम</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+        <a class="text-sm font-semibold text-brand-primary border-b-2 border-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+      </nav>
 
-    <div class="header-right">
-      <button class="theme-toggle" aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
+          <i class="fas fa-moon text-lg"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -112,108 +117,125 @@
   </aside>
 
   <!-- MAIN PAGE CONTENT -->
-  <main class="container mt-24">
-    <!-- Category Chips -->
-    <div class="chips-container problems-chips">
-      <button class="chip active" data-target-type="all">सभी समस्याएँ (All)</button>
-      <button class="chip" data-target-type="document">दस्तावेज़ सम्बन्धी (Documents)</button>
-      <button class="chip" data-target-type="scheme">योजना सम्बन्धी (Schemes)</button>
-    </div>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-5xl mx-auto">
+      
+      <!-- Category Chips Filter -->
+      <div class="flex items-center gap-3 overflow-x-auto pb-4 mb-6 scrollbar-none">
+        <button class="chip active bg-white border border-slate-200 hover:border-brand-primary px-4 py-2 rounded-full text-sm font-semibold transition-all" data-target-type="all">
+          सभी समस्याएँ (All Problems)
+        </button>
+        <button class="chip bg-white border border-slate-200 hover:border-brand-primary px-4 py-2 rounded-full text-sm font-semibold transition-all" data-target-type="document">
+          दस्तावेज़ सम्बन्धी (Documents)
+        </button>
+        <button class="chip bg-white border border-slate-200 hover:border-brand-primary px-4 py-2 rounded-full text-sm font-semibold transition-all" data-target-type="scheme">
+          योजना सम्बन्धी (Schemes)
+        </button>
+      </div>
 
-    <div class="problems-layout">
-      <!-- LEFT PANEL: Dynamic interactive selectors -->
-      <aside class="solver-selectors">
-        <h2 class="selector-title">
-          <i class="fas fa-search-location"></i> समस्या खोजक (Quick Finder)
-        </h2>
+      <!-- Schemes / Docs / Problems Layout Grid -->
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
         
-        <div class="selector-group-row">
-          <div class="form-group">
-            <label for="select-type">श्रेणी प्रकार (Type)</label>
-            <select id="select-type" class="form-control">
-              <option value="">श्रेणी चुनें</option>
-              <option value="document">सरकारी दस्तावेज़ (Document)</option>
-              <option value="scheme">सरकारी योजना (Scheme)</option>
-            </select>
+        <!-- LEFT SIDEBAR: Problem Wizard -->
+        <aside class="w-full lg:w-80 bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex-shrink-0">
+          <h2 class="text-base font-extrabold text-slate-900 border-b border-slate-100 pb-3 mb-4 flex items-center gap-2">
+            <i class="fas fa-magic text-brand-primary"></i>
+            <span>समस्या सहायक (Wizard)</span>
+          </h2>
+          
+          <div class="flex flex-col gap-4">
+            <div>
+              <label for="select-type" class="block text-xs font-semibold text-slate-500 mb-1.5">समस्या का प्रकार</label>
+              <select id="select-type" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary">
+                <option value="">श्रेणी चुनें (Select Type)</option>
+                <option value="document">दस्तावेज़ संबंधी (Documents)</option>
+                <option value="scheme">सरकारी योजना संबंधी (Schemes)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="select-target" class="block text-xs font-semibold text-slate-500 mb-1.5">संबंधित विषय</label>
+              <select id="select-target" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary" disabled>
+                <option value="">पहले श्रेणी चुनें</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="select-issue" class="block text-xs font-semibold text-slate-500 mb-1.5">विशिष्ट समस्या</label>
+              <select id="select-issue" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 outline-none focus:ring-2 focus:ring-brand-primary" disabled>
+                <option value="">पहले विषय चुनें</option>
+              </select>
+            </div>
+          </div>
+        </aside>
+
+        <!-- RIGHT PANEL: Search & Cards List -->
+        <section class="flex-grow w-full">
+          <!-- 1. Search Box and List -->
+          <div class="w-full" id="problems-directory-container">
+            <!-- Search bar -->
+            <div class="bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm p-1 flex items-center mb-6 focus-within:ring-2 focus-within:ring-brand-primary transition-all">
+              <input type="text" id="problem-search-input" class="w-full px-4 py-2.5 text-slate-800 outline-none text-sm" placeholder="समस्या खोजें (जैसे: आधार नाम गलत, पैन खो गया...)" aria-label="Search Problems">
+              <button class="bg-orange-500 hover:bg-orange-600 text-white rounded-md px-5 py-2.5 text-sm transition-colors flex items-center justify-center" aria-label="Search Button">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="problems-list">
+              <!-- Dynamic Problem Cards loaded by problems.js -->
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="select-target">विषय (Target Item)</label>
-            <select id="select-target" class="form-control" disabled>
-              <option value="">पहले श्रेणी चुनें</option>
-            </select>
+          <!-- 2. Detailed solution view (hidden by default) -->
+          <div class="solution-panel" id="solution-panel" style="display: none; flex-direction: column; gap: 20px;">
+            <!-- Populated dynamically by problems.js -->
           </div>
-        </div>
-
-        <div class="form-group mt-12">
-          <label for="select-issue">विशिष्ट समस्या (Select Issue)</label>
-          <select id="select-issue" class="form-control" disabled>
-            <option value="">पहले विषय चुनें</option>
-          </select>
-        </div>
-      </aside>
-
-      <!-- RIGHT PANEL: Search Input & List Cards / Solutions -->
-      <section class="main-panel">
-        <!-- Search bar -->
-        <div class="search-container mb-24 problems-search" style="background: white; border: 1px solid var(--border-color); padding: 4px;">
-          <input type="text" id="problem-search-input" class="search-input" placeholder="समस्या खोजें (जैसे: नाम गलत, खो गया, किश्त...)" aria-label="Search Issues">
-          <button class="search-btn" style="background-color: var(--problem-color);" aria-label="Search Button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-
-        <!-- 1. List of troubleshooting cards (hidden when viewing solution) -->
-        <div class="problems-list" id="problems-list">
-          <!-- Populated dynamically by problems.js -->
-        </div>
-
-        <!-- 2. Detailed solution view (hidden by default) -->
-        <div class="solution-panel" id="solution-panel" style="display: none; flex-direction: column; gap: 20px;">
-          <!-- Populated dynamically by problems.js -->
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+  <footer class="footer bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <div class="footer-brand flex flex-col gap-3">
+          <div class="flex items-center gap-2 text-white font-bold text-xl">
+            <i class="fas fa-landmark text-2xl text-orange-500"></i>
             <span class="footer-logo-text">Sarkari Sahayak</span>
           </div>
-          <p class="footer-desc">सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+          <p class="text-xs leading-relaxed text-slate-500">
+            सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।
+          </p>
         </div>
         
         <div class="footer-links">
-          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
-          <ul class="footer-links-list">
-            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          <h4 class="text-white font-semibold text-sm mb-4">त्वरित नेविगेशन</h4>
+          <ul class="flex flex-col gap-2 text-xs">
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h4 class="footer-links-title">संपर्क सूत्र</h4>
-          <ul class="footer-links-list" style="color: #9CA3AF;">
-            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarisahayak.in</li>
-            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          <h4 class="text-white font-semibold text-sm mb-4">संपर्क सूत्र</h4>
+          <ul class="flex flex-col gap-2 text-xs text-slate-500">
+            <li><i class="fas fa-envelope mr-2"></i> support@sarkarisahayak.in</li>
+            <li><i class="fas fa-phone mr-2"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> नई दिल्ली, भारत</li>
           </ul>
-        </div>
-
-        <div class="footer-disclaimer">
-          <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-disclaimer text-[11px] text-slate-600 leading-normal border-t border-slate-800 pt-6 mb-6">
+        <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 border-t border-slate-800/50 pt-4">
         <span>&copy; 2026 Sarkari Sahayak. सर्वाधिकार सुरक्षित।</span>
         <span>Built for **Build For Good 2026 Hackathon**</span>
       </div>
@@ -221,22 +243,22 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <a class="bottom-nav-item" onclick="App.navigateTo('index.html')">
-      <i class="fas fa-home"></i>
-      <span>होम</span>
+  <nav class="bottom-nav fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex items-center justify-around z-40 md:hidden shadow-lg">
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home text-lg"></i>
+      <span class="text-[10px]">होम</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('schemes.html')">
-      <i class="fas fa-landmark"></i>
-      <span>योजनाएँ</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark text-lg"></i>
+      <span class="text-[10px]">योजनाएँ</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
-      <i class="fas fa-file-alt"></i>
-      <span>दस्तावेज़</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt text-lg"></i>
+      <span class="text-[10px]">दस्तावेज़</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('assistant.html')">
-      <i class="fas fa-comments"></i>
-      <span>एआई सहायक</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-brand-primary active" onclick="App.navigateTo('problems.html')">
+      <i class="fas fa-exclamation-triangle text-lg"></i>
+      <span class="text-[10px]">समाधान</span>
     </a>
   </nav>
 
@@ -247,22 +269,32 @@
   <script src="js/app.js"></script>
   <script src="js/problems.js"></script>
 
-  <!-- Deep linking handler for searches -->
+  <!-- Deep linking support inside browser -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Check for search in URL to search immediately
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Check for deep links in URL
       const urlParams = new URLSearchParams(window.location.search);
       const searchParam = urlParams.get('search');
+      const problemIdParam = urlParams.get('prob');
       
-      if (searchParam && !urlParams.get('prob')) {
+      if (searchParam) {
         const searchInput = document.getElementById('problem-search-input');
         if (searchInput) {
           searchInput.value = decodeURIComponent(searchParam);
+          // Wait for loadAll and then trigger search refresh
           setTimeout(() => {
             const event = new Event('input');
             searchInput.dispatchEvent(event);
           }, 300);
         }
+      }
+
+      if (problemIdParam) {
+        setTimeout(() => {
+          if (window.ProblemsPage && window.ProblemsPage.showSolution) {
+            window.ProblemsPage.showSolution(problemIdParam);
+          }
+        }, 500);
       }
     });
   </script>

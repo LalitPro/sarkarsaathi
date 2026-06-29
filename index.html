@@ -8,12 +8,6 @@
   <!-- FontAwesome for Premium Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/responsive.css">
-
   <!-- Tailwind CSS v3 CDN Setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -44,38 +38,47 @@
       }
     }
   </script>
+
+  <!-- Core variables fallback style sheet to keep data-theme overrides running -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans pb-16 md:pb-0">
+
+  <!-- TOP TRICOLOR DECORATIVE BAR -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
 
   <!-- FIXED HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <button class="menu-toggle" aria-label="Open Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="logo-container">
-        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
-        <span class="app-title">Sarkari Sahayak</span>
+  <header class="header bg-white shadow-sm sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 md:hidden" aria-label="Open Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer" onclick="App.navigateTo('index.html')">
+          <i class="fas fa-landmark text-2xl text-brand-primary"></i>
+          <span class="text-xl font-bold tracking-tight text-brand-primary">Sarkari Sahayak</span>
+        </div>
       </div>
-    </div>
-    
-    <!-- Desktop Navigation Menu -->
-    <nav class="header-nav">
-      <a class="header-nav-item active" onclick="App.navigateTo('index.html')">होम</a>
-      <a class="header-nav-item" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
-      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
-      <a class="header-nav-item" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
-      <a class="header-nav-item" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
-    </nav>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-semibold text-brand-primary border-b-2 border-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('index.html')">होम</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+      </nav>
 
-    <div class="header-right">
-      <button class="theme-toggle" aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
+          <i class="fas fa-moon text-lg"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- MOBILE SLIDE-OUT MENU (DRAWER) -->
+  <!-- MOBILE SLIDE-OUT MENU -->
   <div class="drawer-backdrop"></div>
   <aside class="drawer">
     <div class="drawer-profile" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); padding: 24px 16px; color: white; display: flex; flex-direction: column; gap: 8px;">
@@ -112,193 +115,241 @@
     </div>
   </aside>
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div class="container">
-      <h1 class="hero-welcome">नमस्ते! 👋<br>मैं आपकी कैसे मदद कर सकता हूँ?</h1>
-      <p class="hero-subtitle">योजनाओं, दस्तावेजों और सरकारी प्रक्रियाओं को आसान हिंदी में समझें।</p>
-      <div class="search-container shadow-md rounded-lg overflow-hidden border border-gray-200 focus-within:ring-2 focus-within:ring-brand-primary transition-all duration-200">
-        <input type="text" id="global-search-input" class="search-input w-full px-4 py-3 outline-none" placeholder="यहाँ कुछ भी खोजें (योजना, दस्तावेज़, समस्या...)" aria-label="Search">
-        <button id="global-search-btn" class="search-btn bg-brand-primary hover:bg-brand-dark active:scale-95 transition-all duration-200 px-6 text-white" aria-label="Search Button" onclick="handleGlobalSearch()">
+  <!-- HERO SECTION WITH PARLIAMENT BG -->
+  <section class="relative bg-slate-900 text-white py-20 px-4 text-center overflow-hidden bg-cover bg-center" style="background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('https://upload.wikimedia.org/wikipedia/commons/e/ec/Sansad_Bhavan_2023.jpg');">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-100">
+        नमस्ते! 👋<br>मैं आपकी कैसे मदद कर सकता हूँ?
+      </h1>
+      <p class="text-slate-300 text-sm sm:text-base md:text-lg mb-8 max-w-2xl mx-auto">
+        योजनाओं, दस्तावेजों और सरकारी प्रक्रियाओं को आसान हिंदी में समझें।
+      </p>
+      
+      <!-- HERO SEARCH BOX -->
+      <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden p-1 flex items-center border border-slate-200 focus-within:ring-2 focus-within:ring-brand-primary transition-all duration-200">
+        <input type="text" id="global-search-input" class="w-full text-slate-800 px-4 py-3 outline-none text-base" placeholder="यहाँ कुछ भी खोजें (योजना, दस्तावेज़, समस्या...)" aria-label="Search">
+        <button id="global-search-btn" class="bg-brand-primary hover:bg-brand-dark active:scale-95 text-white px-6 py-3 rounded-md font-semibold transition-all duration-200 flex items-center gap-2" aria-label="Search Button" onclick="handleGlobalSearch()">
           <i class="fas fa-search"></i>
+          <span class="hidden sm:inline">खोजें</span>
         </button>
       </div>
     </div>
   </section>
 
-  <!-- FEATURE CARDS (2x2 Grid) -->
-  <main class="container">
+  <!-- MAIN PAGE CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    
     <!-- HACKATHON DEMO PERSONAS PANEL -->
-    <section class="demo-personas-section mt-24 mb-12">
-      <div class="card" style="border: 2px solid var(--primary-color); background-color: var(--primary-light); padding: 16px;">
-        <h3 style="font-size: 14.5px; font-weight: 700; margin-bottom: 6px; color: var(--primary-color); display: flex; align-items: center; gap: 8px;">
-          <i class="fas fa-magic" style="color: var(--tricolor-saffron); font-size: 16px;"></i>
-          <span>हैकथॉन स्पेशल: डेमो प्रोफ़ाइल स्विचर (Demo Profile Switcher)</span>
-        </h3>
-        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4;">
-          <strong>जज और टेस्टर्स के लिए:</strong> विभिन्न पात्रता मापदंडों और बूस्टर रिपोर्ट को लाइव देखने के लिए एक प्रोफाइल चुनें:
-        </p>
-        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;" id="demo-persona-chips">
-          <!-- Populated dynamically by JS -->
-        </div>
-        <div id="demo-active-alert" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; text-align: center;">
-          <!-- Loaded via script -->
-        </div>
+    <section class="mb-12 bg-blue-50 border border-blue-200 rounded-xl p-5 shadow-sm">
+      <h3 class="text-slate-900 font-bold text-base mb-2 flex items-center gap-2">
+        <i class="fas fa-magic text-orange-500 text-lg"></i>
+        <span>हैकथॉन स्पेशल: डेमो प्रोफ़ाइल स्विचर (Demo Profile Switcher)</span>
+      </h3>
+      <p class="text-slate-600 text-xs mb-4">
+        <strong>जज और टेस्टर्स के लिए:</strong> विभिन्न पात्रता मापदंडों और बूस्टर रिपोर्ट को लाइव देखने के लिए एक प्रोफाइल चुनें:
+      </p>
+      <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-none" id="demo-persona-chips">
+        <!-- Populated dynamically by JS -->
+      </div>
+      <div id="demo-active-alert" class="hidden mt-3 p-3 rounded-lg text-xs font-semibold text-center">
+        <!-- Loaded via script -->
       </div>
     </section>
 
-    <section class="features-section">
-      <h2 class="section-title">प्रमुख सेवाएँ (Key Services)</h2>
-      <div class="features-grid">
-        <div class="card feature-card feat-scheme transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('schemes.html')">
-          <div class="icon-box">
-            <i class="fas fa-landmark"></i>
-          </div>
-          <h3>सरकारी योजनाएँ</h3>
-          <p>100+ केंद्रीय एवं राज्य स्तर की योजनाएँ खोजें</p>
-          <div class="feature-arrow">
-            <i class="fas fa-arrow-right"></i>
-          </div>
-        </div>
-
-        <div class="card feature-card feat-doc transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('documents.html')">
-          <div class="icon-box">
-            <i class="fas fa-file-alt"></i>
-          </div>
-          <h3>दस्तावेज़ सहायक</h3>
-          <p>आधार, पैन, आय प्रमाण पत्र आदि की गाइड</p>
-          <div class="feature-arrow">
-            <i class="fas fa-arrow-right"></i>
-          </div>
-        </div>
-
-        <div class="card feature-card feat-prob transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('problems.html')">
-          <div class="icon-box">
-            <i class="fas fa-exclamation-triangle"></i>
-          </div>
-          <h3>समस्या समाधान</h3>
-          <p>दस्तावेज में नाम सुधार या खो जाने का समाधान</p>
-          <div class="feature-arrow">
-            <i class="fas fa-arrow-right"></i>
-          </div>
-        </div>
-
-        <div class="card feature-card feat-ai transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('assistant.html')">
-          <div class="icon-box">
-            <i class="fas fa-comments"></i>
-          </div>
-          <h3>एआई सहायक</h3>
-          <p>24/7 एआई द्वारा सरकारी सवालों के तत्काल जवाब</p>
-          <div class="feature-arrow">
-            <i class="fas fa-arrow-right"></i>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- QUICK ACTIONS (Horizontal Scroll) -->
-    <section class="quick-actions-section">
-      <h2 class="section-title">त्वरित पहुँच (Quick Actions)</h2>
-      <div class="scroll-container">
-        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=aadhaar')">
-          <div class="widget-icon"><i class="fas fa-id-card"></i></div>
-          <span class="widget-title">आधार कार्ड</span>
-        </div>
-        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=pan')">
-          <div class="widget-icon"><i class="fas fa-address-card"></i></div>
-          <span class="widget-title">पैन कार्ड</span>
-        </div>
-        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=income_certificate')">
-          <div class="widget-icon"><i class="fas fa-rupee-sign"></i></div>
-          <span class="widget-title">आय प्रमाण पत्र</span>
-        </div>
-        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=domicile')">
-          <div class="widget-icon"><i class="fas fa-home"></i></div>
-          <span class="widget-title">मूल निवासी</span>
-        </div>
-        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=caste_certificate')">
-          <div class="widget-icon"><i class="fas fa-users"></i></div>
-          <span class="widget-title">जाति प्रमाण पत्र</span>
-        </div>
-        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=passport')">
-          <div class="widget-icon"><i class="fas fa-passport"></i></div>
-          <span class="widget-title">पासपोर्ट</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY CHOOSE US & STATS -->
-    <section class="why-choose-us mt-12">
-      <h2 class="section-title">सरकार साथी क्यों चुनें? (Why Us?)</h2>
-      <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">SarkarSaathi एक एकल खिड़की डिजिटल गाइड है जो सरकारी योजनाओं की कठिन पात्रता नियमों को सरल बनाती है और दस्तावेजों की प्रक्रिया को सरल हिंदी में समझाती है ताकि सभी सरकारी लाभ सीधे पात्र नागरिकों तक पहुँच सकें।</p>
+    <!-- KEY SERVICES (2x2 Grid) -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-6 bg-brand-primary rounded-full"></span>
+        <span>प्रमुख सेवाएँ (Key Services)</span>
+      </h2>
       
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-num" id="stat-schemes">100+</div>
-          <div class="stat-label">योजनाएँ (Schemes)</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer transform hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between" onclick="App.navigateTo('schemes.html')">
+          <div>
+            <div class="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-landmark text-2xl text-emerald-600"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">सरकारी योजनाएँ</h3>
+            <p class="text-sm text-slate-500">100+ केंद्रीय एवं राज्य स्तर की योजनाएँ खोजें</p>
+          </div>
+          <div class="flex justify-end mt-4 text-emerald-600">
+            <i class="fas fa-arrow-right text-lg"></i>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num" id="stat-docs">50+</div>
-          <div class="stat-label">महत्वपूर्ण दस्तावेज़</div>
+
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer transform hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between" onclick="App.navigateTo('documents.html')">
+          <div>
+            <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-file-alt text-2xl text-blue-600"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">दस्तावेज़ सहायक</h3>
+            <p class="text-sm text-slate-500">आधार, पैन, आय प्रमाण पत्र आदि की गाइड</p>
+          </div>
+          <div class="flex justify-end mt-4 text-blue-600">
+            <i class="fas fa-arrow-right text-lg"></i>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num" id="stat-problems">100+</div>
-          <div class="stat-label">आम समस्याओं का समाधान</div>
+
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer transform hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between" onclick="App.navigateTo('problems.html')">
+          <div>
+            <div class="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-exclamation-triangle text-2xl text-amber-600"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">समस्या समाधान</h3>
+            <p class="text-sm text-slate-500">दस्तावेज में नाम सुधार या खो जाने का समाधान</p>
+          </div>
+          <div class="flex justify-end mt-4 text-amber-600">
+            <i class="fas fa-arrow-right text-lg"></i>
+          </div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num" id="stat-support">24/7</div>
-          <div class="stat-label">एआई सहायता</div>
+
+        <!-- Card 4 -->
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 cursor-pointer transform hover:-translate-y-1 hover:shadow-md transition-all duration-300 flex flex-col justify-between" onclick="App.navigateTo('assistant.html')">
+          <div>
+            <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mb-4">
+              <i class="fas fa-comments text-2xl text-purple-600"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-1">एआई सहायक</h3>
+            <p class="text-sm text-slate-500">24/7 एआई द्वारा सरकारी सवालों के तत्काल जवाब</p>
+          </div>
+          <div class="flex justify-end mt-4 text-purple-600">
+            <i class="fas fa-arrow-right text-lg"></i>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- FAQ SECTION -->
-    <section class="faq-section mt-24">
-      <h2 class="section-title">अक्सर पूछे जाने वाले प्रश्न (FAQ)</h2>
-      <div class="faq-list" id="faq-list">
-        <!-- Dynamically loaded from rules.json -->
+    <!-- QUICK ACTIONS (Horizontal Widgets Scroll) -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-6 bg-brand-primary rounded-full"></span>
+        <span>त्वरित पहुँच (Quick Actions)</span>
+      </h2>
+      
+      <div class="flex items-center gap-4 overflow-x-auto pb-3 scrollbar-none">
+        <!-- Widget 1 -->
+        <div class="flex-shrink-0 flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 cursor-pointer hover:border-brand-primary hover:shadow-sm transition-all" onclick="App.navigateTo('documents.html?doc=aadhaar')">
+          <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-brand-primary text-lg">
+            <i class="fas fa-id-card"></i>
+          </div>
+          <span class="font-bold text-slate-800 text-sm">आधार कार्ड</span>
+        </div>
+
+        <!-- Widget 2 -->
+        <div class="flex-shrink-0 flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 cursor-pointer hover:border-brand-primary hover:shadow-sm transition-all" onclick="App.navigateTo('documents.html?doc=pan')">
+          <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-brand-primary text-lg">
+            <i class="fas fa-address-card"></i>
+          </div>
+          <span class="font-bold text-slate-800 text-sm">पैन कार्ड</span>
+        </div>
+
+        <!-- Widget 3 -->
+        <div class="flex-shrink-0 flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 cursor-pointer hover:border-brand-primary hover:shadow-sm transition-all" onclick="App.navigateTo('documents.html?doc=voter_id')">
+          <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-brand-primary text-lg">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <span class="font-bold text-slate-800 text-sm">वोटर आईडी</span>
+        </div>
+
+        <!-- Widget 4 -->
+        <div class="flex-shrink-0 flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 cursor-pointer hover:border-brand-primary hover:shadow-sm transition-all" onclick="App.navigateTo('documents.html?doc=passport')">
+          <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-brand-primary text-lg">
+            <i class="fas fa-passport"></i>
+          </div>
+          <span class="font-bold text-slate-800 text-sm">पासपोर्ट</span>
+        </div>
+
+        <!-- Widget 5 -->
+        <div class="flex-shrink-0 flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 cursor-pointer hover:border-brand-primary hover:shadow-sm transition-all" onclick="App.navigateTo('documents.html')">
+          <div class="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center text-brand-primary text-lg">
+            <i class="fas fa-ellipsis-h"></i>
+          </div>
+          <span class="font-bold text-slate-800 text-sm">और देखें</span>
+        </div>
       </div>
     </section>
+
+    <!-- LIVE STATISTICS -->
+    <section class="mb-12 bg-gradient-to-r from-brand-primary to-blue-900 rounded-2xl p-8 text-white shadow-md">
+      <h2 class="text-xl sm:text-2xl font-extrabold mb-8 text-center">विश्वास और डेटाबेस की ताकत</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <h3 id="stat-schemes" class="text-3xl sm:text-4xl font-extrabold mb-2 text-orange-400">100+</h3>
+          <p class="text-xs sm:text-sm text-slate-200">सरकारी योजनाएँ उपलब्ध</p>
+        </div>
+        <div class="text-center">
+          <h3 id="stat-docs" class="text-3xl sm:text-4xl font-extrabold mb-2 text-orange-400">50+</h3>
+          <p class="text-xs sm:text-sm text-slate-200">दस्तावेज़ बनाने की गाइड</p>
+        </div>
+        <div class="text-center">
+          <h3 id="stat-problems" class="text-3xl sm:text-4xl font-extrabold mb-2 text-orange-400">100+</h3>
+          <p class="text-xs sm:text-sm text-slate-200">दस्तावेज समस्याओं का हल</p>
+        </div>
+        <div class="text-center">
+          <h3 id="stat-support" class="text-3xl sm:text-4xl font-extrabold mb-2 text-orange-400">24/7</h3>
+          <p class="text-xs sm:text-sm text-slate-200">इंटेलिजेंट एआई असिस्टेंट</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION (Accordion) -->
+    <section class="mb-12">
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-6 flex items-center gap-2">
+        <span class="w-1.5 h-6 bg-brand-primary rounded-full"></span>
+        <span>अक्सर पूछे जाने वाले प्रश्न (FAQs)</span>
+      </h2>
+      <div id="faq-list" class="flex flex-col gap-4 max-w-4xl">
+        <!-- Loaded dynamically by script -->
+      </div>
+    </section>
+
   </main>
 
   <!-- PROFESSIONAL FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+  <footer class="footer bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <div class="footer-brand flex flex-col gap-3">
+          <div class="flex items-center gap-2 text-white font-bold text-xl">
+            <i class="fas fa-landmark text-2xl text-orange-500"></i>
             <span class="footer-logo-text">Sarkari Sahayak</span>
           </div>
-          <p class="footer-desc">सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+          <p class="text-xs leading-relaxed text-slate-500">
+            सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।
+          </p>
         </div>
         
         <div class="footer-links">
-          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
-          <ul class="footer-links-list">
-            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          <h4 class="text-white font-semibold text-sm mb-4">त्वरित नेविगेशन</h4>
+          <ul class="flex flex-col gap-2 text-xs">
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h4 class="footer-links-title">संपर्क सूत्र</h4>
-          <ul class="footer-links-list" style="color: #9CA3AF;">
-            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarisahayak.in</li>
-            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          <h4 class="text-white font-semibold text-sm mb-4">संपर्क सूत्र</h4>
+          <ul class="flex flex-col gap-2 text-xs text-slate-500">
+            <li><i class="fas fa-envelope mr-2"></i> support@sarkarisahayak.in</li>
+            <li><i class="fas fa-phone mr-2"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> नई दिल्ली, भारत</li>
           </ul>
-        </div>
-
-        <div class="footer-disclaimer">
-          <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-disclaimer text-[11px] text-slate-600 leading-normal border-t border-slate-800 pt-6 mb-6">
+        <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 border-t border-slate-800/50 pt-4">
         <span>&copy; 2026 Sarkari Sahayak. सर्वाधिकार सुरक्षित।</span>
         <span>Built for **Build For Good 2026 Hackathon**</span>
       </div>
@@ -306,22 +357,22 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <a class="bottom-nav-item active" onclick="App.navigateTo('index.html')">
-      <i class="fas fa-home"></i>
-      <span>होम</span>
+  <nav class="bottom-nav fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex items-center justify-around z-40 md:hidden shadow-lg">
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-brand-primary active" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home text-lg"></i>
+      <span class="text-[10px]">होम</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('schemes.html')">
-      <i class="fas fa-landmark"></i>
-      <span>योजनाएँ</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark text-lg"></i>
+      <span class="text-[10px]">योजनाएँ</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
-      <i class="fas fa-file-alt"></i>
-      <span>दस्तावेज़</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt text-lg"></i>
+      <span class="text-[10px]">दस्तावेज़</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('assistant.html')">
-      <i class="fas fa-comments"></i>
-      <span>एआई सहायक</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('assistant.html')">
+      <i class="fas fa-comments text-lg"></i>
+      <span class="text-[10px]">एआई सहायक</span>
     </a>
   </nav>
 
@@ -352,96 +403,79 @@
         faqListEl.innerHTML = '';
         rules.faqs.forEach(faq => {
           faqListEl.innerHTML += `
-            <div class="faq-item">
-              <button class="faq-trigger" onclick="toggleFaq('${faq.id}')">
+            <div class="faq-item bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm transition-all">
+              <button class="w-full flex items-center justify-between px-5 py-4 font-bold text-slate-900 text-left text-sm sm:text-base outline-none" onclick="toggleFaq('${faq.id}')">
                 <span>${faq.question}</span>
-                <i class="fas fa-chevron-down faq-icon-arrow"></i>
+                <i class="fas fa-chevron-down text-xs text-slate-400 transition-transform"></i>
               </button>
-              <div class="faq-content" id="${faq.id}">
-                <p>${faq.answer}</p>
+              <div class="faq-content overflow-hidden max-h-0 transition-all duration-300" id="${faq.id}">
+                <div class="px-5 pb-5 text-sm text-slate-600 border-t border-slate-100 pt-3 leading-relaxed">
+                  ${faq.answer}
+                </div>
               </div>
             </div>
           `;
         });
       }
 
-      // Demo Personas Config for Hackathon Presentation
+      // Hackathon special persona cards loading
       const PERSONAS = [
         {
-          id: "p1",
-          name: "जितेंद्र (छात्र)",
-          description: "25 वर्ष • मध्य प्रदेश • आय ₹1.2 लाख • OBC",
+          id: "pers-rural-farmer",
+          name: "राजेश कुमार (किसान)",
+          description: "उम्र 45, ग्रामीण किसान, वार्षिक आय ₹80,000, मध्य प्रदेश के निवासी",
           profile: {
-            name: "Jitendra Kumar",
-            email: "jitendra@example.com",
+            name: "Rajesh Kumar",
+            email: "rajesh@rural-farmer.in",
             state: "Madhya Pradesh",
-            age: "25",
-            gender: "Male",
-            category: "OBC",
-            occupation: "Student",
-            income: "120000",
-            ruralUrban: "Rural",
-            disability: "No",
-            documents: ["aadhaar", "pan", "bank_passbook"]
-          }
-        },
-        {
-          id: "p2",
-          name: "रामलाल (किसान)",
-          description: "45 वर्ष • राजस्थान • आय ₹80K • General",
-          profile: {
-            name: "Ramlal Patel",
-            email: "ramlal@example.com",
-            state: "Rajasthan",
             age: "45",
             gender: "Male",
-            category: "General",
+            category: "OBC",
             occupation: "Farmer",
             income: "80000",
             ruralUrban: "Rural",
             disability: "No",
-            documents: ["aadhaar", "pan", "bank_passbook", "land_ownership_document"]
+            documents: ["aadhaar", "photo", "mobile_number"]
           }
         },
         {
-          id: "p3",
-          name: "लीला देवी (बुजुर्ग)",
-          description: "65 वर्ष • मध्य प्रदेश • आय ₹40K • SC (दिव्यांग)",
+          id: "pers-urban-student",
+          name: "आरती शर्मा (छात्रा)",
+          description: "उम्र 19, शहरी छात्र, वार्षिक आय ₹1,80,000, राजस्थान के निवासी",
           profile: {
-            name: "Leela Devi",
-            email: "leeladevi@example.com",
-            state: "Madhya Pradesh",
-            age: "65",
+            name: "Aarti Sharma",
+            email: "aarti.sharma@gmail.com",
+            state: "Rajasthan",
+            age: "19",
             gender: "Female",
-            category: "SC",
-            occupation: "Senior Citizen",
-            income: "40000",
-            ruralUrban: "Rural",
-            disability: "Yes",
-            documents: ["aadhaar", "bank_passbook", "disability_certificate"]
-          }
-        },
-        {
-          id: "p4",
-          name: "मुस्कान (व्यवसायी)",
-          description: "32 वर्ष • उत्तर प्रदेश • आय ₹3 लाख • OBC",
-          profile: {
-            name: "Muskan Verma",
-            email: "muskan@example.com",
-            state: "Uttar Pradesh",
-            age: "32",
-            gender: "Female",
-            category: "OBC",
-            occupation: "Business Owner",
-            income: "300000",
+            category: "General",
+            occupation: "Student",
+            income: "180000",
             ruralUrban: "Urban",
             disability: "No",
-            documents: ["aadhaar", "pan", "bank_passbook"]
+            documents: ["aadhaar", "pan", "photo", "mobile_number"]
+          }
+        },
+        {
+          id: "pers-disabled-citizen",
+          name: "सुनील वर्मा (वरिष्ठ नागरिक)",
+          description: "उम्र 68, दिव्यांग पेंशनभोगी, वार्षिक आय ₹1,10,000, मध्य प्रदेश के निवासी",
+          profile: {
+            name: "Sunil Verma",
+            email: "sunilverma@example.com",
+            state: "Madhya Pradesh",
+            age: "68",
+            gender: "Male",
+            category: "SC",
+            occupation: "Senior Citizen",
+            income: "110000",
+            ruralUrban: "Rural",
+            disability: "Yes",
+            documents: ["aadhaar", "pan", "bank_passbook", "photo"]
           }
         }
       ];
 
-      // Render Persona Chips
       const chipsContainer = document.getElementById('demo-persona-chips');
       const activeAlert = document.getElementById('demo-active-alert');
       const currentProfile = App.getProfile();
@@ -451,9 +485,9 @@
         PERSONAS.forEach(p => {
           const isActive = currentProfile.name.toLowerCase() === p.profile.name.toLowerCase();
           chipsContainer.innerHTML += `
-            <button class="chip ${isActive ? 'active' : ''}" id="chip-${p.id}" onclick="selectPersona('${p.id}')" title="${p.description}" style="display:flex; flex-direction:column; align-items:flex-start; gap:2px; height:auto; padding: 10px 16px; border-radius: var(--radius-md);">
-              <span style="font-size:13px; font-weight:700;">${p.name}</span>
-              <span style="font-size:9.5px; opacity:0.8;">${p.profile.state} • ${p.profile.occupation}</span>
+            <button class="flex-shrink-0 text-left bg-white border border-slate-200 hover:border-brand-primary rounded-xl px-4 py-3 cursor-pointer flex flex-col gap-1 transition-all ${isActive ? 'ring-2 ring-brand-primary border-brand-primary' : ''}" id="chip-${p.id}" onclick="selectPersona('${p.id}')" title="${p.description}">
+              <span class="text-xs font-bold text-slate-800">${p.name}</span>
+              <span class="text-[10px] text-slate-400">${p.profile.state} • ${p.profile.occupation}</span>
             </button>
           `;
         });
@@ -472,9 +506,9 @@
           const chipEl = document.getElementById(`chip-${p.id}`);
           if (chipEl) {
             if (p.id === personaId) {
-              chipEl.classList.add('active');
+              chipEl.className = "flex-shrink-0 text-left bg-white border border-brand-primary ring-2 ring-brand-primary rounded-xl px-4 py-3 cursor-pointer flex flex-col gap-1 transition-all";
             } else {
-              chipEl.classList.remove('active');
+              chipEl.className = "flex-shrink-0 text-left bg-white border border-slate-200 hover:border-brand-primary rounded-xl px-4 py-3 cursor-pointer flex flex-col gap-1 transition-all";
             }
           }
         });
@@ -508,6 +542,7 @@
       allItems.forEach(item => {
         item.classList.remove('active');
         item.querySelector('.faq-content').style.maxHeight = '0';
+        item.querySelector('.fa-chevron-down').style.transform = 'rotate(0deg)';
       });
 
       // Toggle target
@@ -515,6 +550,7 @@
         targetItem.classList.add('active');
         const content = document.getElementById(faqId);
         content.style.maxHeight = content.scrollHeight + 'px';
+        targetItem.querySelector('.fa-chevron-down').style.transform = 'rotate(180deg)';
       }
     }
 

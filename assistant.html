@@ -8,12 +8,6 @@
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
-  <!-- Custom stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/common.css">
-  <link rel="stylesheet" href="css/assistant.css">
-  <link rel="stylesheet" href="css/responsive.css">
-
   <!-- Tailwind CSS v3 CDN Setup -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -44,33 +38,44 @@
       }
     }
   </script>
+
+  <!-- Fallback styling sheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/assistant.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans pb-16 md:pb-0">
+
+  <!-- TOP TRICOLOR DECORATIVE BAR -->
+  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
 
   <!-- FIXED HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <button class="menu-toggle" aria-label="Open Menu">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="logo-container">
-        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
-        <span class="app-title">Sarkari Sahayak</span>
+  <header class="header bg-white shadow-sm sticky top-0 z-40 w-full">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 md:hidden" aria-label="Open Menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <div class="flex items-center gap-2 cursor-pointer" onclick="App.navigateTo('index.html')">
+          <i class="fas fa-landmark text-2xl text-brand-primary"></i>
+          <span class="text-xl font-bold tracking-tight text-brand-primary">Sarkari Sahayak</span>
+        </div>
       </div>
-    </div>
-    
-    <nav class="header-nav">
-      <a class="header-nav-item" onclick="App.navigateTo('index.html')">होम</a>
-      <a class="header-nav-item" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
-      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
-      <a class="header-nav-item" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
-      <a class="header-nav-item active" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
-    </nav>
+      
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-6">
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('index.html')">होम</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+        <a class="text-sm font-semibold text-brand-primary border-b-2 border-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+      </nav>
 
-    <div class="header-right">
-      <button class="theme-toggle" aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
+          <i class="fas fa-moon text-lg"></i>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -112,86 +117,90 @@
   </aside>
 
   <!-- MAIN PAGE CONTENT -->
-  <main class="container mt-24">
-    <div class="chat-wrapper">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="max-w-3xl mx-auto bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col h-[75vh] overflow-hidden">
+      
       <!-- Chat header -->
-      <div class="chat-header">
-        <div class="chat-header-icon">
-          <i class="fas fa-robot"></i>
+      <div class="flex items-center gap-3 px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-purple-700 to-indigo-900 text-white">
+        <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-lg">
+          <i class="fas fa-robot text-purple-200"></i>
         </div>
-        <div class="chat-header-info">
-          <span class="chat-header-title">Sarkari Sahayak एआई सहायक</span>
-          <span class="chat-header-subtitle">ऑनलाइन • दुभाषी सहायता (Hindi + English)</span>
+        <div>
+          <h3 class="font-extrabold text-sm sm:text-base tracking-wide text-white" id="chat-header-title">Sarkari Sahayak एआई सहायक</h3>
+          <p class="text-[10px] text-purple-200">ऑनलाइन • दुभाषी सहायता (Hindi + English)</p>
         </div>
       </div>
 
       <!-- Conversations log scrollbox -->
-      <div class="chat-logs" id="chat-logs">
+      <div class="chat-logs flex-grow overflow-y-auto p-6 flex flex-col gap-4 bg-slate-50" id="chat-logs">
         <!-- Messages loaded dynamically by assistant.js -->
       </div>
 
       <!-- Quick Suggestion Chips -->
-      <div class="chat-suggestions" id="chat-suggestions">
-        <button class="suggestion-chip">💡 मेरी पात्रता जांचें</button>
-        <button class="suggestion-chip">नया पैन कार्ड कैसे बनाएँ?</button>
-        <button class="suggestion-chip">आधार में मोबाइल नंबर कैसे जोड़ें?</button>
-        <button class="suggestion-chip">स्कॉलरशिप का पैसा नहीं आया?</button>
-        <button class="suggestion-chip">पीएम किसान योजना क्या है?</button>
+      <div class="chat-suggestions flex items-center gap-2 overflow-x-auto px-6 py-3 border-t border-slate-100 bg-white scrollbar-none" id="chat-suggestions">
+        <button class="suggestion-chip flex-shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-700 transition-all">💡 मेरी पात्रता जांचें</button>
+        <button class="suggestion-chip flex-shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-700 transition-all">नया पैन कार्ड कैसे बनाएँ?</button>
+        <button class="suggestion-chip flex-shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-700 transition-all">आधार में मोबाइल नंबर कैसे जोड़ें?</button>
+        <button class="suggestion-chip flex-shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-700 transition-all">स्कॉलरशिप का पैसा नहीं आया?</button>
+        <button class="suggestion-chip flex-shrink-0 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-full px-4 py-2 text-xs font-semibold text-slate-700 transition-all">पीएम किसान योजना क्या है?</button>
       </div>
 
       <!-- Input box row -->
-      <div class="chat-input-area">
-        <div class="chat-textbox-wrapper">
-          <input type="text" id="chat-textbox" class="chat-textbox" placeholder="अपना सवाल यहाँ लिखें (जैसे: आधार खो गया...)" aria-label="Chat Input">
-          <button id="chat-mic-btn" class="chat-mic-btn" aria-label="Voice Input">
+      <div class="flex items-center gap-3 p-4 border-t border-slate-100 bg-white">
+        <div class="flex-grow bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 flex items-center focus-within:ring-2 focus-within:ring-purple-600 transition-all">
+          <input type="text" id="chat-textbox" class="w-full bg-transparent outline-none text-sm text-slate-800" placeholder="अपना सवाल यहाँ लिखें (जैसे: आधार खो गया...)" aria-label="Chat Input">
+          <button id="chat-mic-btn" class="text-slate-400 hover:text-purple-600 p-1" aria-label="Voice Input">
             <i class="fas fa-microphone"></i>
           </button>
         </div>
-        <button id="chat-send-btn" class="chat-send-btn" aria-label="Send Button">
-          <i class="fas fa-paper-plane"></i>
+        <button id="chat-send-btn" class="bg-purple-700 hover:bg-purple-800 text-white rounded-xl w-11 h-11 flex items-center justify-center shadow-sm hover:shadow active:scale-95 transition-all flex-shrink-0" aria-label="Send Button">
+          <i class="fas fa-paper-plane text-sm"></i>
         </button>
       </div>
     </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <div class="footer-logo">
-            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+  <footer class="footer bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <div class="footer-brand flex flex-col gap-3">
+          <div class="flex items-center gap-2 text-white font-bold text-xl">
+            <i class="fas fa-landmark text-2xl text-orange-500"></i>
             <span class="footer-logo-text">Sarkari Sahayak</span>
           </div>
-          <p class="footer-desc">सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+          <p class="text-xs leading-relaxed text-slate-500">
+            सरकारी सहायक - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।
+          </p>
         </div>
         
         <div class="footer-links">
-          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
-          <ul class="footer-links-list">
-            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
-            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          <h4 class="text-white font-semibold text-sm mb-4">त्वरित नेविगेशन</h4>
+          <ul class="flex flex-col gap-2 text-xs">
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="hover:text-white cursor-pointer transition-colors" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
           </ul>
         </div>
 
         <div class="footer-links">
-          <h4 class="footer-links-title">संपर्क सूत्र</h4>
-          <ul class="footer-links-list" style="color: #9CA3AF;">
-            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarisahayak.in</li>
-            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
-            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          <h4 class="text-white font-semibold text-sm mb-4">संपर्क सूत्र</h4>
+          <ul class="flex flex-col gap-2 text-xs text-slate-500">
+            <li><i class="fas fa-envelope mr-2"></i> support@sarkarisahayak.in</li>
+            <li><i class="fas fa-phone mr-2"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> नई दिल्ली, भारत</li>
           </ul>
-        </div>
-
-        <div class="footer-disclaimer">
-          <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
         </div>
       </div>
 
-      <div class="footer-bottom">
+      <div class="footer-disclaimer text-[11px] text-slate-600 leading-normal border-t border-slate-800 pt-6 mb-6">
+        <strong>अस्वीकरण (Disclaimer):</strong> सरकारी सहायक (Sarkari Sahayak) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 border-t border-slate-800/50 pt-4">
         <span>&copy; 2026 Sarkari Sahayak. सर्वाधिकार सुरक्षित।</span>
         <span>Built for **Build For Good 2026 Hackathon**</span>
       </div>
@@ -199,22 +208,22 @@
   </footer>
 
   <!-- MOBILE BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
-    <a class="bottom-nav-item" onclick="App.navigateTo('index.html')">
-      <i class="fas fa-home"></i>
-      <span>होम</span>
+  <nav class="bottom-nav fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-slate-200 flex items-center justify-around z-40 md:hidden shadow-lg">
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home text-lg"></i>
+      <span class="text-[10px]">होम</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('schemes.html')">
-      <i class="fas fa-landmark"></i>
-      <span>योजनाएँ</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark text-lg"></i>
+      <span class="text-[10px]">योजनाएँ</span>
     </a>
-    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
-      <i class="fas fa-file-alt"></i>
-      <span>दस्तावेज़</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-slate-500" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt text-lg"></i>
+      <span class="text-[10px]">दस्तावेज़</span>
     </a>
-    <a class="bottom-nav-item active" onclick="App.navigateTo('assistant.html')">
-      <i class="fas fa-comments"></i>
-      <span>एआई सहायक</span>
+    <a class="bottom-nav-item flex flex-col items-center justify-center gap-1 text-brand-primary active" onclick="App.navigateTo('assistant.html')">
+      <i class="fas fa-comments text-lg"></i>
+      <span class="text-[10px]">एआई सहायक</span>
     </a>
   </nav>
 
