@@ -441,6 +441,9 @@
         const selected = PERSONAS.find(p => p.id === personaId);
         if (!selected) return;
 
+        // Set logged-in status to true when a demo persona is clicked
+        localStorage.setItem('sarkar_saathi_logged_in', 'true');
+
         // Save
         App.saveProfile(selected.profile);
 
@@ -464,13 +467,24 @@
           activeAlert.style.border = '1px solid #A7F3D0';
           activeAlert.innerHTML = `<i class="fas fa-check-circle"></i> प्रोफ़ाइल बदलकर <strong>${selected.profile.name} (${selected.profile.occupation})</strong> कर दी गई है! अब आप योजनाओं और पात्रता परिणामों को टेस्ट कर सकते हैं।`;
           
-          // Re-update global drawer header
+          // Re-update global drawer header and logout button
           const usernameEl = document.querySelector('.drawer-username');
           const emailEl = document.querySelector('.drawer-email');
           const avatarEl = document.querySelector('.drawer-avatar');
+          const logoutBtn = document.querySelector('.drawer-logout');
+          
           if (usernameEl) usernameEl.textContent = selected.profile.name;
           if (emailEl) emailEl.textContent = selected.profile.email;
           if (avatarEl) avatarEl.textContent = selected.profile.name.charAt(0);
+          
+          if (logoutBtn) {
+            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> <span>लॉगआउट (Logout)</span>';
+            logoutBtn.style.color = 'var(--danger-color)';
+            logoutBtn.onclick = (e) => {
+              e.preventDefault();
+              App.logout();
+            };
+          }
         }
       };
 
