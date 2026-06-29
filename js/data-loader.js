@@ -1,4 +1,4 @@
-/* SarkarSaathi Data Loader Module */
+/* Sarkari Sahayak Data Loader Module */
 
 const DataLoader = (() => {
   const DATA_PATHS = {
@@ -12,7 +12,10 @@ const DataLoader = (() => {
     schemes: null,
     documents: null,
     problems: null,
-    rules: null
+    rules: null,
+    schemesMap: {},
+    documentsMap: {},
+    problemsMap: {}
   };
 
   // Helper function to fetch JSON
@@ -48,8 +51,13 @@ const DataLoader = (() => {
       cache.problems = problems;
       cache.rules = rules;
 
+      // Build Fast Lookup O(1) Maps to replace linear array searches
+      cache.schemesMap = schemes.reduce((acc, s) => { acc[s.id] = s; return acc; }, {});
+      cache.documentsMap = documents.reduce((acc, d) => { acc[d.id] = d; return acc; }, {});
+      cache.problemsMap = problems.reduce((acc, p) => { acc[p.id] = p; return acc; }, {});
+
       // Expose to window for easy debugging
-      window.SarkarSaathiData = cache;
+      window.SarkariSahayakData = cache;
       return cache;
     } catch (err) {
       console.error("Critical error loading system databases:", err);
@@ -74,17 +82,17 @@ const DataLoader = (() => {
     return cache.rules || {};
   }
 
-  // Key-value Lookups
+  // O(1) Key-value Lookups
   function getSchemeById(id) {
-    return getSchemes().find(s => s.id === id) || null;
+    return cache.schemesMap[id] || null;
   }
 
   function getDocumentById(id) {
-    return getDocuments().find(d => d.id === id) || null;
+    return cache.documentsMap[id] || null;
   }
 
   function getProblemById(id) {
-    return getProblems().find(p => p.id === id) || null;
+    return cache.problemsMap[id] || null;
   }
 
   return {
@@ -99,7 +107,7 @@ const DataLoader = (() => {
   };
 })();
 
-// Export if running in Node.js environment for tests, otherwise expose globally
+// Export
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = DataLoader;
 } else {

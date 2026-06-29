@@ -1,4 +1,4 @@
-/* SarkarSaathi Eligibility Matching and Dependency Engine */
+/* Sarkari Sahayak Eligibility Matching and Dependency Engine */
 
 const Filter = (() => {
   
@@ -31,15 +31,27 @@ const Filter = (() => {
     }
 
     // D. Category Filter (General, OBC, SC, ST)
+    // Optimized: short-circuiting .some() to avoid array allocations inside mapping loops
     if (rules.category && !rules.category.includes('All')) {
-      if (userProfile.category && !rules.category.map(c => c.toLowerCase()).includes(userProfile.category.toLowerCase())) {
+      if (userProfile.category) {
+        const userCatLower = userProfile.category.toLowerCase();
+        if (!rules.category.some(c => c.toLowerCase() === userCatLower)) {
+          return false;
+        }
+      } else {
         return false;
       }
     }
 
     // E. Occupation Filter
+    // Optimized: short-circuiting .some() to avoid array allocations inside mapping loops
     if (rules.occupations && !rules.occupations.includes('All')) {
-      if (userProfile.occupation && !rules.occupations.map(o => o.toLowerCase()).includes(userProfile.occupation.toLowerCase())) {
+      if (userProfile.occupation) {
+        const userOccLower = userProfile.occupation.toLowerCase();
+        if (!rules.occupations.some(o => o.toLowerCase() === userOccLower)) {
+          return false;
+        }
+      } else {
         return false;
       }
     }
@@ -72,8 +84,12 @@ const Filter = (() => {
   }
 
   // 2. Missing Document Detector
-  function detectMissingDocuments(userDocuments, schemeRequiredDocuments) {
-    const userDocsSet = new Set(userDocuments.map(d => d.toLowerCase()));
+  // Optimized: accepts pre-instantiated userDocsSet directly to prevent repeated Set construction
+  function detectMissingDocuments(userDocsSetOrArray, schemeRequiredDocuments) {
+    const userDocsSet = userDocsSetOrArray instanceof Set 
+      ? userDocsSetOrArray 
+      : new Set((userDocsSetOrArray || []).map(d => d.toLowerCase()));
+      
     const available = [];
     const missing = [];
 
@@ -93,15 +109,17 @@ const Filter = (() => {
   }
 
   // 3. Smart Eligibility Booster
-  // Finds schemes where user fits demographically but is missing documents
   function getBoostedEligibility(userProfile, schemesList, userDocuments) {
     const eligibleDemographics = schemesList.filter(scheme => isDemographicallyEligible(userProfile, scheme));
     
     const currentlyEligible = [];
     const boosterSchemes = [];
 
+    // Optimized: Pre-create User Documents Set ONCE instead of inside the schemes iteration loop
+    const userDocsSet = new Set((userDocuments || []).map(d => d.toLowerCase()));
+
     eligibleDemographics.forEach(scheme => {
-      const docCheck = detectMissingDocuments(userDocuments, scheme.requiredDocuments || []);
+      const docCheck = detectMissingDocuments(userDocsSet, scheme.requiredDocuments || []);
       if (docCheck.hasAll) {
         currentlyEligible.push(scheme);
       } else {
@@ -113,7 +131,6 @@ const Filter = (() => {
     });
 
     // Group schemes by missing documents to show what unlocking potential they have
-    // e.g., missingDocMap = { "income_certificate": [scheme1, scheme2], "domicile": [scheme1] }
     const missingDocMap = {};
     boosterSchemes.forEach(item => {
       item.missingDocuments.forEach(docId => {
@@ -126,8 +143,8 @@ const Filter = (() => {
 
     return {
       currentlyEligible,
-      boosterSchemes, // contains schemes and their specific missing docs
-      missingDocMap  // grouped by document id
+      boosterSchemes,
+      missingDocMap
     };
   }
 

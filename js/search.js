@@ -1,11 +1,11 @@
-/* SarkarSaathi Search Utility Module */
+/* Sarkari Sahayak Search Utility Module */
 
 const Search = (() => {
-  // Common Hindi and English filler words to strip out for cleaner keyword matching
-  const STOP_WORDS = [
+  // Set-based stop words mapping for O(1) keyword filtering
+  const STOP_WORDS = new Set([
     'कैसे', 'करें', 'क्या', 'है', 'हैं', 'और', 'का', 'की', 'के', 'में', 'पर', 'से', 'को', 'लिए', 'बनाएं',
     'how', 'to', 'apply', 'for', 'the', 'a', 'an', 'in', 'of', 'and', 'my', 'is', 'get', 'need'
-  ];
+  ]);
 
   // Helper to tokenize and clean query
   function getKeywords(queryText) {
@@ -14,7 +14,7 @@ const Search = (() => {
       .toLowerCase()
       .replace(/[.,/#!$%^&*;:{}=\-_`~()?]/g, "")
       .split(/\s+/)
-      .filter(word => word.length > 1 && !STOP_WORDS.includes(word));
+      .filter(word => word.length > 1 && !STOP_WORDS.has(word));
   }
 
   // General text matcher helper
