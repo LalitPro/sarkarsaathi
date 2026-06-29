@@ -464,5 +464,64 @@
         ]
       }
     }
+  },
+  {
+    "id": "photo",
+    "name": "पासपोर्ट साइज फोटो (Passport Size Photo)",
+    "type": "other",
+    "description": "आवेदक की हाल ही में खींची गई पासपोर्ट आकार की रंगीन फोटो।",
+    "dependencies": [],
+    "actions": {
+      "new": {
+        "requiredDocuments": [],
+        "fees": "₹20 से ₹50",
+        "estimatedTime": "10 मिनट",
+        "whereToApply": "निकटतम फोटो स्टूडियो",
+        "officialWebsite": "",
+        "stepByStepGuide": [
+          "किसी भी फोटो स्टूडियो पर जाकर पासपोर्ट आकार की रंगीन फोटो खिंचवाएं।",
+          "ऑनलाइन अपलोड करने के लिए डिजिटल कॉपी अपने पास सुरक्षित रखें।"
+        ]
+      }
+    }
+  },
+  {
+    "id": "mobile_number",
+    "name": "सक्रिय मोबाइल नंबर (Active Mobile Number)",
+    "type": "other",
+    "description": "ओटीपी प्राप्त करने के लिए आधार कार्ड से लिंक एक सक्रिय मोबाइल नंबर।",
+    "dependencies": [],
+    "actions": {
+      "new": {
+        "requiredDocuments": [],
+        "fees": "मुफ़्त (नया सिम लेने के अनुसार शुल्क)",
+        "estimatedTime": "1-2 घंटे",
+        "whereToApply": "मोबाइल नेटवर्क स्टोर या आधार केंद्र (लिंकिंग के लिए)",
+        "officialWebsite": "",
+        "stepByStepGuide": [
+          "एक सक्रिय सिम कार्ड प्राप्त करें।",
+          "उसे आधार कार्ड से लिंक कराने के लिए नजदीकी आधार केंद्र पर जाएं।"
+        ]
+      }
+    }
+  },
+  {
+    "id": "electricity_bill",
+    "name": "बिजली का बिल (Electricity Bill)",
+    "type": "address",
+    "description": "पते के सत्यापन के लिए नवीनतम विद्युत बिल प्रति (3 महीने से पुराना न हो)।",
+    "dependencies": [],
+    "actions": {
+      "new": {
+        "requiredDocuments": [],
+        "fees": "बिल राशि के अनुसार",
+        "estimatedTime": "तत्काल (1 मिनट डाउनलोड)",
+        "whereToApply": "विद्युत वितरण केंद्र या ऑनलाइन पोर्टल",
+        "officialWebsite": "",
+        "stepByStepGuide": [
+          "अपने विद्युत प्रदाता की वेबसाइट पर उपभोक्ता संख्या दर्ज करके बिजली का बिल प्राप्त करें।"
+        ]
+      }
+    }
   }
 ]
