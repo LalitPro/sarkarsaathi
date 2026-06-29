@@ -1,5 +1,7 @@
 # Sarkari Sahayak - Your AI Government Assistant (आपका स्मार्ट सरकारी सहायक)
 
+![Sarkari Sahayak Banner](banner.png)
+
 Sarkari Sahayak is a mobile-first, high-fidelity, performance-optimized AI Government Assistance Platform built for the **Build For Good 2026 Hackathon**. 
 
 It is designed to empower Indian citizens to seamlessly discover government schemes, calculate dynamic eligibility scores, understand document dependency chains, resolve application errors, and interact with a bilingual conversational agent—all in simple, accessible Hindi (Devanagari) combined with English.
