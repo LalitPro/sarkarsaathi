@@ -31,6 +31,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const profile = App.getProfile();
   prefillFilters(profile);
 
+  // Read URL search params
+  const urlParams = new URLSearchParams(window.location.search);
+  const searchParam = urlParams.get('search');
+  if (searchParam && searchInput) {
+    searchInput.value = searchParam;
+  }
+
   // Render initially
   renderSchemes();
 
@@ -155,8 +162,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       schemes = schemes.filter(s => s.governmentType === 'State');
     }
 
-    // 3. Demographic Eligibility Filter
-    schemes = schemes.filter(scheme => Filter.isDemographicallyEligible(activeProfile, scheme));
+    // 3. Demographic Eligibility Filter (Bypassed during text search to prevent matches from being hidden)
+    if (!query) {
+      schemes = schemes.filter(scheme => Filter.isDemographicallyEligible(activeProfile, scheme));
+    }
 
     // Render Cards HTML
     if (schemes.length === 0) {
@@ -179,11 +188,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       const docBadgeText = docCheck.missing.length === 0 ? "सभी दस्तावेज़ उपलब्ध" : `${docCheck.missing.length} दस्तावेज़ लापता`;
       const docBadgeClass = docCheck.missing.length === 0 ? 'badge-free' : 'badge-fees';
 
+      // Check demographic eligibility when searching
+      const isEligible = Filter.isDemographicallyEligible(activeProfile, scheme);
+      const eligibilityBadgeText = isEligible ? "✓ आप पात्र हैं" : "✗ आप पात्र नहीं हैं";
+      const eligibilityBadgeStyle = isEligible 
+        ? "background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; text-transform: none; font-size: 11px;" 
+        : "background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; text-transform: none; font-size: 11px;";
+
       schemesListEl.innerHTML += `
         <div class="card scheme-card">
-          <div class="scheme-card-header">
+          <div class="scheme-card-header" style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
             <span class="badge ${badgeClass}">${governmentLabel}</span>
             <span class="badge ${docBadgeClass}">${docBadgeText}</span>
+            <span class="badge" style="${eligibilityBadgeStyle}">${eligibilityBadgeText}</span>
           </div>
           <h3 class="scheme-title mb-12">${scheme.name}</h3>
           <p class="scheme-desc">${scheme.description}</p>
