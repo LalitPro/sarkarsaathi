@@ -657,6 +657,45 @@ a {
 .mb-12 { margin-bottom: 12px; }
 .mb-24 { margin-bottom: 24px; }
 
+/* Print Media Styles for PDF/Guides printing */
+@media print {
+  body {
+    padding: 0 !important;
+    background-color: white !important;
+    color: black !important;
+  }
+  .header, .footer, .bottom-nav, .drawer-backdrop, .drawer, .btn, .chips-container, .doc-categories, .finder-card, .search-container, .problems-chips, .solver-selectors, .demo-personas-section {
+    display: none !important;
+  }
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .card, .modal {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
+    width: 100% !important;
+  }
+  .modal-header .modal-close {
+    display: none !important;
+  }
+  .timeline::before {
+    background-color: #ccc !important;
+  }
+  .timeline-num {
+    border: 1px solid #000 !important;
+    color: black !important;
+    background-color: white !important;
+  }
+}
+
 /* SVG Icon Placeholders */
 .icon-svg {
   display: inline-block;

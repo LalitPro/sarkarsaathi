@@ -266,6 +266,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (depContainer) depContainer.innerHTML = depHTML;
     }
 
+    // Dynamic helpdesk mapping based on selected state profile (Hackathon Localization)
+    const profile = App.getProfile();
+    const userState = profile.state || "";
+    let cscName = "स्थानीय जन सेवा केंद्र (Common Service Center - CSC)";
+    if (userState.toLowerCase().includes("madhya pradesh")) {
+      cscName = "MP Online किओस्क / लोक सेवा केंद्र (LSK)";
+    } else if (userState.toLowerCase().includes("rajasthan")) {
+      cscName = "ई-मित्र (e-Mitra) किओस्क / जन सूचना केंद्र";
+    } else if (userState.toLowerCase().includes("uttar pradesh")) {
+      cscName = "यूपी जन सेवा केंद्र (UP CSC Center)";
+    } else if (userState.toLowerCase().includes("delhi")) {
+      cscName = "स्थानीय एसडीएम कार्यालय (SDM Office) / दिल्ली CSC";
+    } else if (userState.toLowerCase().includes("gujarat")) {
+      cscName = "जन सेवा केंद्र (Jan Seva Kendra Gujarat)";
+    }
+
+    let localWhereToApply = actionData.whereToApply;
+    if (localWhereToApply.includes("केन्द्र") || localWhereToApply.includes("केंद्र") || localWhereToApply.includes("पोर्टल") || localWhereToApply.includes("ASK")) {
+      localWhereToApply = `${actionData.whereToApply} \n[${cscName}]`;
+    }
+
     // Base structural layout for action details
     workflowArea.innerHTML = `
       ${fieldSelectorHTML}
@@ -286,7 +307,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           </div>
           <div class="detail-item" style="grid-column: span 2;">
             <strong>आवेदन कहाँ करें (Where to Apply)</strong>
-            ${actionData.whereToApply}
+            ${localWhereToApply.replace(/\n/g, '<br>')}
           </div>
         </div>
 
@@ -325,10 +346,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         </div>
       ` : ''}
 
-      <div class="mt-24" style="text-align: center;">
-        <a href="${actionData.officialWebsite}" target="_blank" class="btn btn-document">
-          आधिकारिक सरकारी वेबसाइट खोलें <i class="fas fa-external-link-alt"></i>
+      <div class="mt-24" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="${actionData.officialWebsite}" target="_blank" class="btn btn-document" style="width: auto; margin: 0;">
+          आधिकारिक वेबसाइट खोलें <i class="fas fa-external-link-alt"></i>
         </a>
+        <button class="btn btn-outline" onclick="window.print()" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
+          <i class="fas fa-print"></i> प्रिंट / PDF गाइड (Print Guide)
+        </button>
       </div>
     `;
 

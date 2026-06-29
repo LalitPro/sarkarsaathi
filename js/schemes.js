@@ -300,7 +300,14 @@ document.addEventListener('DOMContentLoaded', async () => {
               <li><strong>आवेदन प्रकार:</strong> ${scheme.applyMode === 'Both' ? 'ऑनलाइन और ऑफलाइन' : (scheme.applyMode === 'Online' ? 'केवल ऑनलाइन (Online)' : 'केवल ऑफलाइन (Offline)')}</li>
               <li><strong>प्रसंस्करण समय:</strong> ${scheme.processingTime}</li>
             </ul>
-            <a href="${scheme.officialWebsite}" target="_blank" class="btn btn-primary" style="margin-top: 16px;">आधिकारिक पोर्टल पर आवेदन करें <i class="fas fa-external-link-alt"></i></a>
+            <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
+              <a href="${scheme.officialWebsite}" target="_blank" class="btn btn-primary" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
+                आधिकारिक पोर्टल पर आवेदन करें <i class="fas fa-external-link-alt"></i>
+              </a>
+              <button class="btn btn-outline" onclick="window.print()" style="width: auto; margin: 0; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-print"></i> प्रिंट / PDF गाइड (Print)
+              </button>
+            </div>
           </div>
         </div>
       </div>
