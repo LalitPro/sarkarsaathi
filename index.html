@@ -41,24 +41,21 @@
       <button class="theme-toggle" aria-label="Toggle Dark Mode">
         <i class="fas fa-moon"></i>
       </button>
-      <button class="profile-btn" aria-label="View Profile" onclick="App.navigateTo('schemes.html')">
-        <i class="fas fa-user-circle"></i>
-      </button>
     </div>
   </header>
 
   <!-- MOBILE SLIDE-OUT MENU (DRAWER) -->
   <div class="drawer-backdrop"></div>
   <aside class="drawer">
-    <div class="drawer-profile">
-      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
-        <div class="drawer-avatar">J</div>
-        <button class="modal-close drawer-close" aria-label="Close Menu">&times;</button>
+    <div class="drawer-profile" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); padding: 24px 16px; color: white; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-landmark" style="font-size: 20px; color: var(--tricolor-saffron);"></i>
+          <span style="font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">SarkarSaathi</span>
+        </div>
+        <button class="modal-close drawer-close" aria-label="Close Menu" style="color: white; border: none; background: none; font-size: 22px; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
       </div>
-      <div class="drawer-user-info">
-        <span class="drawer-username">Jitendra Kumar</span>
-        <span class="drawer-email">jitendra@example.com</span>
-      </div>
+      <p style="font-size: 11px; opacity: 0.8; margin: 0; font-weight: 500;">आपका स्मार्ट सरकारी गाइड</p>
     </div>
     <div class="drawer-menu">
       <a class="drawer-item active" onclick="App.navigateTo('index.html')">
@@ -80,11 +77,6 @@
       <a class="drawer-item" onclick="App.navigateTo('assistant.html')">
         <i class="fas fa-comments"></i>
         <span>एआई सहायक (AI Assistant)</span>
-      </a>
-      <div class="drawer-divider"></div>
-      <a class="drawer-item drawer-logout" onclick="alert('लॉगआउट डेमो मोड में है।')">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>लॉगआउट (Logout)</span>
       </a>
     </div>
   </aside>
