@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SarkarSaathi - आपका स्मार्ट सरकारी मार्गदर्शक</title>
+  
+  <!-- FontAwesome for Premium Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- FIXED HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-toggle" aria-label="Open Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="logo-container">
+        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
+        <span class="app-title">SarkarSaathi</span>
+      </div>
+    </div>
+    
+    <!-- Desktop Navigation Menu -->
+    <nav class="header-nav">
+      <a class="header-nav-item active" onclick="App.navigateTo('index.html')">होम</a>
+      <a class="header-nav-item" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+      <a class="header-nav-item" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+      <a class="header-nav-item" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+    </nav>
+
+    <div class="header-right">
+      <button class="theme-toggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="profile-btn" aria-label="View Profile" onclick="App.navigateTo('schemes.html')">
+        <i class="fas fa-user-circle"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE SLIDE-OUT MENU (DRAWER) -->
+  <div class="drawer-backdrop"></div>
+  <aside class="drawer">
+    <div class="drawer-profile">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div class="drawer-avatar">J</div>
+        <button class="modal-close drawer-close" aria-label="Close Menu">&times;</button>
+      </div>
+      <div class="drawer-user-info">
+        <span class="drawer-username">Jitendra Kumar</span>
+        <span class="drawer-email">jitendra@example.com</span>
+      </div>
+    </div>
+    <div class="drawer-menu">
+      <a class="drawer-item active" onclick="App.navigateTo('index.html')">
+        <i class="fas fa-home"></i>
+        <span>होम (Home)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('schemes.html')">
+        <i class="fas fa-landmark"></i>
+        <span>सरकारी योजनाएँ (Schemes)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('documents.html')">
+        <i class="fas fa-file-alt"></i>
+        <span>दस्तावेज़ सहायक (Documents)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('problems.html')">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>समस्या समाधान (Problems)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('assistant.html')">
+        <i class="fas fa-comments"></i>
+        <span>एआई सहायक (AI Assistant)</span>
+      </a>
+      <div class="drawer-divider"></div>
+      <a class="drawer-item drawer-logout" onclick="alert('लॉगआउट डेमो मोड में है।')">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>लॉगआउट (Logout)</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-welcome">नमस्ते! 👋<br>मैं आपकी कैसे मदद कर सकता हूँ?</h1>
+      <p class="hero-subtitle">योजनाओं, दस्तावेजों और सरकारी प्रक्रियाओं को आसान हिंदी में समझें।</p>
+      <div class="search-container">
+        <input type="text" id="global-search-input" class="search-input" placeholder="यहाँ कुछ भी खोजें (योजना, दस्तावेज़, समस्या...)" aria-label="Search">
+        <button id="global-search-btn" class="search-btn" aria-label="Search Button" onclick="handleGlobalSearch()">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE CARDS (2x2 Grid) -->
+  <main class="container">
+    <!-- HACKATHON DEMO PERSONAS PANEL -->
+    <section class="demo-personas-section mt-24 mb-12">
+      <div class="card" style="border: 2px solid var(--primary-color); background-color: var(--primary-light); padding: 16px;">
+        <h3 style="font-size: 14.5px; font-weight: 700; margin-bottom: 6px; color: var(--primary-color); display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-magic" style="color: var(--tricolor-saffron); font-size: 16px;"></i>
+          <span>हैकथॉन स्पेशल: डेमो प्रोफ़ाइल स्विचर (Demo Profile Switcher)</span>
+        </h3>
+        <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4;">
+          <strong>जज और टेस्टर्स के लिए:</strong> विभिन्न पात्रता मापदंडों और बूस्टर रिपोर्ट को लाइव देखने के लिए एक प्रोफाइल चुनें:
+        </p>
+        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none;" id="demo-persona-chips">
+          <!-- Populated dynamically by JS -->
+        </div>
+        <div id="demo-active-alert" style="display: none; margin-top: 10px; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; text-align: center;">
+          <!-- Loaded via script -->
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <h2 class="section-title">प्रमुख सेवाएँ (Key Services)</h2>
+      <div class="features-grid">
+        <div class="card feature-card feat-scheme" onclick="App.navigateTo('schemes.html')">
+          <div class="icon-box">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <h3>सरकारी योजनाएँ</h3>
+          <p>100+ केंद्रीय एवं राज्य स्तर की योजनाएँ खोजें</p>
+          <div class="feature-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <div class="card feature-card feat-doc" onclick="App.navigateTo('documents.html')">
+          <div class="icon-box">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <h3>दस्तावेज़ सहायक</h3>
+          <p>आधार, पैन, आय प्रमाण पत्र आदि की गाइड</p>
+          <div class="feature-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <div class="card feature-card feat-prob" onclick="App.navigateTo('problems.html')">
+          <div class="icon-box">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h3>समस्या समाधान</h3>
+          <p>दस्तावेज में नाम सुधार या खो जाने का समाधान</p>
+          <div class="feature-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+
+        <div class="card feature-card feat-ai" onclick="App.navigateTo('assistant.html')">
+          <div class="icon-box">
+            <i class="fas fa-comments"></i>
+          </div>
+          <h3>एआई सहायक</h3>
+          <p>24/7 एआई द्वारा सरकारी सवालों के तत्काल जवाब</p>
+          <div class="feature-arrow">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK ACTIONS (Horizontal Scroll) -->
+    <section class="quick-actions-section">
+      <h2 class="section-title">त्वरित पहुँच (Quick Actions)</h2>
+      <div class="scroll-container">
+        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=aadhaar')">
+          <div class="widget-icon"><i class="fas fa-id-card"></i></div>
+          <span class="widget-title">आधार कार्ड</span>
+        </div>
+        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=pan')">
+          <div class="widget-icon"><i class="fas fa-address-card"></i></div>
+          <span class="widget-title">पैन कार्ड</span>
+        </div>
+        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=income_certificate')">
+          <div class="widget-icon"><i class="fas fa-rupee-sign"></i></div>
+          <span class="widget-title">आय प्रमाण पत्र</span>
+        </div>
+        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=domicile')">
+          <div class="widget-icon"><i class="fas fa-home"></i></div>
+          <span class="widget-title">मूल निवासी</span>
+        </div>
+        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=caste_certificate')">
+          <div class="widget-icon"><i class="fas fa-users"></i></div>
+          <span class="widget-title">जाति प्रमाण पत्र</span>
+        </div>
+        <div class="quick-action-widget" onclick="App.navigateTo('documents.html?doc=passport')">
+          <div class="widget-icon"><i class="fas fa-passport"></i></div>
+          <span class="widget-title">पासपोर्ट</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US & STATS -->
+    <section class="why-choose-us mt-12">
+      <h2 class="section-title">सरकार साथी क्यों चुनें? (Why Us?)</h2>
+      <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">SarkarSaathi एक एकल खिड़की डिजिटल गाइड है जो सरकारी योजनाओं की कठिन पात्रता नियमों को सरल बनाती है और दस्तावेजों की प्रक्रिया को सरल हिंदी में समझाती है ताकि सभी सरकारी लाभ सीधे पात्र नागरिकों तक पहुँच सकें।</p>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-num" id="stat-schemes">100+</div>
+          <div class="stat-label">योजनाएँ (Schemes)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="stat-docs">50+</div>
+          <div class="stat-label">महत्वपूर्ण दस्तावेज़</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="stat-problems">100+</div>
+          <div class="stat-label">आम समस्याओं का समाधान</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" id="stat-support">24/7</div>
+          <div class="stat-label">एआई सहायता</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section mt-24">
+      <h2 class="section-title">अक्सर पूछे जाने वाले प्रश्न (FAQ)</h2>
+      <div class="faq-list" id="faq-list">
+        <!-- Dynamically loaded from rules.json -->
+      </div>
+    </section>
+  </main>
+
+  <!-- PROFESSIONAL FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+            <span class="footer-logo-text">SarkarSaathi</span>
+          </div>
+          <p class="footer-desc">सरकार साथी - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+        </div>
+        
+        <div class="footer-links">
+          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
+          <ul class="footer-links-list">
+            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4 class="footer-links-title">संपर्क सूत्र</h4>
+          <ul class="footer-links-list" style="color: #9CA3AF;">
+            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarsaathi.in</li>
+            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          </ul>
+        </div>
+
+        <div class="footer-disclaimer">
+          <strong>अस्वीकरण (Disclaimer):</strong> सरकार साथी (SarkarSaathi) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 SarkarSaathi. सर्वाधिकार सुरक्षित।</span>
+        <span>Built for **Build For Good 2026 Hackathon**</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <a class="bottom-nav-item active" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home"></i>
+      <span>होम</span>
+    </a>
+    <a class="bottom-nav-item" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark"></i>
+      <span>योजनाएँ</span>
+    </a>
+    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt"></i>
+      <span>दस्तावेज़</span>
+    </a>
+    <a class="bottom-nav-item" onclick="App.navigateTo('assistant.html')">
+      <i class="fas fa-comments"></i>
+      <span>एआई सहायक</span>
+    </a>
+  </nav>
+
+  <!-- Script Modules -->
+  <script src="js/data-loader.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Inline script for home page interactions -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await DataLoader.loadAll();
+      
+      const rules = DataLoader.getRules();
+      
+      // Populate Statistics
+      if (rules.statistics) {
+        document.getElementById('stat-schemes').textContent = rules.statistics.schemesCount;
+        document.getElementById('stat-docs').textContent = rules.statistics.documentsCount;
+        document.getElementById('stat-problems').textContent = rules.statistics.problemsCount;
+        document.getElementById('stat-support').textContent = rules.statistics.supportHours;
+      }
+
+      // Populate FAQs dynamically
+      const faqListEl = document.getElementById('faq-list');
+      if (faqListEl && rules.faqs) {
+        faqListEl.innerHTML = '';
+        rules.faqs.forEach(faq => {
+          faqListEl.innerHTML += `
+            <div class="faq-item">
+              <button class="faq-trigger" onclick="toggleFaq('${faq.id}')">
+                <span>${faq.question}</span>
+                <i class="fas fa-chevron-down faq-icon-arrow"></i>
+              </button>
+              <div class="faq-content" id="${faq.id}">
+                <p>${faq.answer}</p>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      // Demo Personas Config for Hackathon Presentation
+      const PERSONAS = [
+        {
+          id: "p1",
+          name: "जितेंद्र (छात्र)",
+          description: "25 वर्ष • मध्य प्रदेश • आय ₹1.2 लाख • OBC",
+          profile: {
+            name: "Jitendra Kumar",
+            email: "jitendra@example.com",
+            state: "Madhya Pradesh",
+            age: "25",
+            gender: "Male",
+            category: "OBC",
+            occupation: "Student",
+            income: "120000",
+            ruralUrban: "Rural",
+            disability: "No",
+            documents: ["aadhaar", "pan", "bank_passbook"]
+          }
+        },
+        {
+          id: "p2",
+          name: "रामलाल (किसान)",
+          description: "45 वर्ष • राजस्थान • आय ₹80K • General",
+          profile: {
+            name: "Ramlal Patel",
+            email: "ramlal@example.com",
+            state: "Rajasthan",
+            age: "45",
+            gender: "Male",
+            category: "General",
+            occupation: "Farmer",
+            income: "80000",
+            ruralUrban: "Rural",
+            disability: "No",
+            documents: ["aadhaar", "pan", "bank_passbook", "land_ownership_document"]
+          }
+        },
+        {
+          id: "p3",
+          name: "लीला देवी (बुजुर्ग)",
+          description: "65 वर्ष • मध्य प्रदेश • आय ₹40K • SC (दिव्यांग)",
+          profile: {
+            name: "Leela Devi",
+            email: "leeladevi@example.com",
+            state: "Madhya Pradesh",
+            age: "65",
+            gender: "Female",
+            category: "SC",
+            occupation: "Senior Citizen",
+            income: "40000",
+            ruralUrban: "Rural",
+            disability: "Yes",
+            documents: ["aadhaar", "bank_passbook", "disability_certificate"]
+          }
+        },
+        {
+          id: "p4",
+          name: "मुस्कान (व्यवसायी)",
+          description: "32 वर्ष • उत्तर प्रदेश • आय ₹3 लाख • OBC",
+          profile: {
+            name: "Muskan Verma",
+            email: "muskan@example.com",
+            state: "Uttar Pradesh",
+            age: "32",
+            gender: "Female",
+            category: "OBC",
+            occupation: "Business Owner",
+            income: "300000",
+            ruralUrban: "Urban",
+            disability: "No",
+            documents: ["aadhaar", "pan", "bank_passbook"]
+          }
+        }
+      ];
+
+      // Render Persona Chips
+      const chipsContainer = document.getElementById('demo-persona-chips');
+      const activeAlert = document.getElementById('demo-active-alert');
+      const currentProfile = App.getProfile();
+
+      if (chipsContainer) {
+        chipsContainer.innerHTML = '';
+        PERSONAS.forEach(p => {
+          const isActive = currentProfile.name.toLowerCase() === p.profile.name.toLowerCase();
+          chipsContainer.innerHTML += `
+            <button class="chip ${isActive ? 'active' : ''}" id="chip-${p.id}" onclick="selectPersona('${p.id}')" title="${p.description}" style="display:flex; flex-direction:column; align-items:flex-start; gap:2px; height:auto; padding: 10px 16px; border-radius: var(--radius-md);">
+              <span style="font-size:13px; font-weight:700;">${p.name}</span>
+              <span style="font-size:9.5px; opacity:0.8;">${p.profile.state} • ${p.profile.occupation}</span>
+            </button>
+          `;
+        });
+      }
+
+      // Persona selection logic
+      window.selectPersona = (personaId) => {
+        const selected = PERSONAS.find(p => p.id === personaId);
+        if (!selected) return;
+
+        // Save
+        App.saveProfile(selected.profile);
+
+        // Update active chip styling
+        PERSONAS.forEach(p => {
+          const chipEl = document.getElementById(`chip-${p.id}`);
+          if (chipEl) {
+            if (p.id === personaId) {
+              chipEl.classList.add('active');
+            } else {
+              chipEl.classList.remove('active');
+            }
+          }
+        });
+
+        // Trigger active notification banner
+        if (activeAlert) {
+          activeAlert.style.display = 'block';
+          activeAlert.style.backgroundColor = 'var(--scheme-light)';
+          activeAlert.style.color = '#065F46';
+          activeAlert.style.border = '1px solid #A7F3D0';
+          activeAlert.innerHTML = `<i class="fas fa-check-circle"></i> प्रोफ़ाइल बदलकर <strong>${selected.profile.name} (${selected.profile.occupation})</strong> कर दी गई है! अब आप योजनाओं और पात्रता परिणामों को टेस्ट कर सकते हैं।`;
+          
+          // Re-update global drawer header
+          const usernameEl = document.querySelector('.drawer-username');
+          const emailEl = document.querySelector('.drawer-email');
+          const avatarEl = document.querySelector('.drawer-avatar');
+          if (usernameEl) usernameEl.textContent = selected.profile.name;
+          if (emailEl) emailEl.textContent = selected.profile.email;
+          if (avatarEl) avatarEl.textContent = selected.profile.name.charAt(0);
+        }
+      };
+
+      // Handle search bar enter key
+      const searchBar = document.getElementById('global-search-input');
+      if (searchBar) {
+        searchBar.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') handleGlobalSearch();
+        });
+      }
+    });
+
+    function toggleFaq(faqId) {
+      const allItems = document.querySelectorAll('.faq-item');
+      const targetItem = document.getElementById(faqId).closest('.faq-item');
+      
+      const isAlreadyActive = targetItem.classList.contains('active');
+
+      // Close all first
+      allItems.forEach(item => {
+        item.classList.remove('active');
+        item.querySelector('.faq-content').style.maxHeight = '0';
+      });
+
+      // Toggle target
+      if (!isAlreadyActive) {
+        targetItem.classList.add('active');
+        const content = document.getElementById(faqId);
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    }
+
+    function handleGlobalSearch() {
+      const query = document.getElementById('global-search-input').value.trim();
+      if (!query) return;
+
+      // Clean query keywords
+      const cleaned = Search.getKeywords(query);
+      
+      // If asking for a document, redirect to Documents page with search query
+      if (query.includes('आधार') || query.includes('पैन') || query.includes('पासपोर्ट') || query.includes('लाइसेंस') || query.includes('प्रमाण')) {
+        App.navigateTo('documents.html?search=' + encodeURIComponent(query));
+      } else if (query.includes('नाम गलत') || query.includes('सुधार') || query.includes('खो गया')) {
+        App.navigateTo('problems.html?search=' + encodeURIComponent(query));
+      } else {
+        App.navigateTo('schemes.html?search=' + encodeURIComponent(query));
+      }
+    }
+  </script>
+</body>
+</html>

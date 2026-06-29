@@ -1,0 +1,83 @@
+/* SarkarSaathi Responsive Stylesheets (Tablet & Desktop Optimizations) */
+
+@media (min-width: 768px) {
+  /* Common Grid adjustments */
+  .footer-grid {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+  
+  .footer-disclaimer {
+    grid-column: span 3;
+  }
+  
+  .modal {
+    max-height: 90vh;
+  }
+  
+  /* Buttons */
+  .btn {
+    width: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Layout reset */
+  body {
+    padding-top: var(--header-height);
+    padding-bottom: 0; /* Remove bottom padding offset since bottom nav is hidden */
+  }
+  
+  /* Header adjustments for Desktop */
+  .menu-toggle {
+    display: none; /* Hide drawer toggle on desktop */
+  }
+  
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 100%;
+  }
+  
+  .header-nav-item {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: var(--transition-fast);
+    position: relative;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+  
+  .header-nav-item:hover {
+    color: var(--primary-color);
+  }
+  
+  .header-nav-item.active {
+    color: var(--primary-color);
+    font-weight: 600;
+  }
+  
+  .header-nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: var(--radius-full);
+  }
+  
+  /* Hide bottom nav on desktop */
+  .bottom-nav {
+    display: none !important;
+  }
+  
+  /* Footer layout */
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}

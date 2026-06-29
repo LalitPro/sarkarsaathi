@@ -1,0 +1,148 @@
+/* SarkarSaathi Problem Solver Page Styling */
+
+/* Search bar styling */
+.problems-search {
+  margin-bottom: 20px;
+}
+
+/* Category Quick Select Chips (e.g. Aadhaar, PAN) */
+.problems-chips {
+  margin-bottom: 24px;
+}
+
+/* Selector forms */
+.solver-selectors {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.selector-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selector-group-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 600px) {
+  .selector-group-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Problem Cards list */
+.problems-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.problem-card {
+  border-left: 5px solid var(--problem-color);
+}
+
+.problem-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.problem-warning-icon {
+  font-size: 20px;
+  color: var(--problem-color);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.problem-issue-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.problem-desc-preview {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* Solution Display Modal / Details Section */
+.solution-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.solution-section-box {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.sol-reason-box {
+  background-color: var(--problem-light);
+  border-left: 4px solid var(--problem-color);
+  color: #78350F;
+}
+
+.sol-reason-box h4 {
+  color: #78350F;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.sol-reason-box p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sol-fix-box {
+  background-color: #ECFDF5;
+  border-left: 4px solid var(--scheme-color);
+  color: #065F46;
+}
+
+.sol-fix-box h4 {
+  color: #065F46;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.sol-fix-box p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.sol-process-box h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+/* DESKTOP OPTIMIZATIONS FOR PROBLEMS */
+@media (min-width: 1024px) {
+  .problems-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+}

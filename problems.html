@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>समस्या समाधान (Problem Solver) - SarkarSaathi</title>
+  
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/problem.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- FIXED HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <button class="menu-toggle" aria-label="Open Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="logo-container">
+        <i class="fas fa-landmark" style="font-size: 24px; color: var(--primary-color);"></i>
+        <span class="app-title">SarkarSaathi</span>
+      </div>
+    </div>
+    
+    <nav class="header-nav">
+      <a class="header-nav-item" onclick="App.navigateTo('index.html')">होम</a>
+      <a class="header-nav-item" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
+      <a class="header-nav-item" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
+      <a class="header-nav-item active" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
+      <a class="header-nav-item" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
+    </nav>
+
+    <div class="header-right">
+      <button class="theme-toggle" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="profile-btn" aria-label="View Profile" onclick="App.navigateTo('schemes.html')">
+        <i class="fas fa-user-circle"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE SLIDE-OUT MENU -->
+  <div class="drawer-backdrop"></div>
+  <aside class="drawer">
+    <div class="drawer-profile">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+        <div class="drawer-avatar">J</div>
+        <button class="modal-close drawer-close" aria-label="Close Menu">&times;</button>
+      </div>
+      <div class="drawer-user-info">
+        <span class="drawer-username">Jitendra Kumar</span>
+        <span class="drawer-email">jitendra@example.com</span>
+      </div>
+    </div>
+    <div class="drawer-menu">
+      <a class="drawer-item" onclick="App.navigateTo('index.html')">
+        <i class="fas fa-home"></i>
+        <span>होम (Home)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('schemes.html')">
+        <i class="fas fa-landmark"></i>
+        <span>सरकारी योजनाएँ (Schemes)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('documents.html')">
+        <i class="fas fa-file-alt"></i>
+        <span>दस्तावेज़ सहायक (Documents)</span>
+      </a>
+      <a class="drawer-item active" onclick="App.navigateTo('problems.html')">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>समस्या समाधान (Problems)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('assistant.html')">
+        <i class="fas fa-comments"></i>
+        <span>एआई सहायक (AI Assistant)</span>
+      </a>
+      <div class="drawer-divider"></div>
+      <a class="drawer-item drawer-logout" onclick="alert('लॉगआउट डेमो मोड में है।')">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>लॉगआउट (Logout)</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN PAGE CONTENT -->
+  <main class="container mt-24">
+    <!-- Category Chips -->
+    <div class="chips-container problems-chips">
+      <button class="chip active" data-target-type="all">सभी समस्याएँ (All)</button>
+      <button class="chip" data-target-type="document">दस्तावेज़ सम्बन्धी (Documents)</button>
+      <button class="chip" data-target-type="scheme">योजना सम्बन्धी (Schemes)</button>
+    </div>
+
+    <div class="problems-layout">
+      <!-- LEFT PANEL: Dynamic interactive selectors -->
+      <aside class="solver-selectors">
+        <h2 class="selector-title">
+          <i class="fas fa-search-location"></i> समस्या खोजक (Quick Finder)
+        </h2>
+        
+        <div class="selector-group-row">
+          <div class="form-group">
+            <label for="select-type">श्रेणी प्रकार (Type)</label>
+            <select id="select-type" class="form-control">
+              <option value="">श्रेणी चुनें</option>
+              <option value="document">सरकारी दस्तावेज़ (Document)</option>
+              <option value="scheme">सरकारी योजना (Scheme)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="select-target">विषय (Target Item)</label>
+            <select id="select-target" class="form-control" disabled>
+              <option value="">पहले श्रेणी चुनें</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group mt-12">
+          <label for="select-issue">विशिष्ट समस्या (Select Issue)</label>
+          <select id="select-issue" class="form-control" disabled>
+            <option value="">पहले विषय चुनें</option>
+          </select>
+        </div>
+      </aside>
+
+      <!-- RIGHT PANEL: Search Input & List Cards / Solutions -->
+      <section class="main-panel">
+        <!-- Search bar -->
+        <div class="search-container mb-24 problems-search" style="background: white; border: 1px solid var(--border-color); padding: 4px;">
+          <input type="text" id="problem-search-input" class="search-input" placeholder="समस्या खोजें (जैसे: नाम गलत, खो गया, किश्त...)" aria-label="Search Issues">
+          <button class="search-btn" style="background-color: var(--problem-color);" aria-label="Search Button">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+
+        <!-- 1. List of troubleshooting cards (hidden when viewing solution) -->
+        <div class="problems-list" id="problems-list">
+          <!-- Populated dynamically by problems.js -->
+        </div>
+
+        <!-- 2. Detailed solution view (hidden by default) -->
+        <div class="solution-panel" id="solution-panel" style="display: none; flex-direction: column; gap: 20px;">
+          <!-- Populated dynamically by problems.js -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <i class="fas fa-landmark" style="font-size: 28px; color: white;"></i>
+            <span class="footer-logo-text">SarkarSaathi</span>
+          </div>
+          <p class="footer-desc">सरकार साथी - योजनाओं, आवश्यक दस्तावेजों, पात्रता नियमों और समस्याओं के समाधान के लिए भारतीय नागरिकों का स्मार्ट डिजिटल मार्गदर्शक।</p>
+        </div>
+        
+        <div class="footer-links">
+          <h4 class="footer-links-title">त्वरित नेविगेशन</h4>
+          <ul class="footer-links-list">
+            <li><a class="footer-link" onclick="App.navigateTo('index.html')">मुख्य पृष्ठ (Home)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ (Schemes)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक (Documents)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('problems.html')">समस्या समाधान (Problems)</a></li>
+            <li><a class="footer-link" onclick="App.navigateTo('assistant.html')">एआई सहायक (AI Assistant)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links">
+          <h4 class="footer-links-title">संपर्क सूत्र</h4>
+          <ul class="footer-links-list" style="color: #9CA3AF;">
+            <li><i class="fas fa-envelope" style="margin-right: 8px;"></i> support@sarkarsaathi.in</li>
+            <li><i class="fas fa-phone" style="margin-right: 8px;"></i> +91 1800-123-4567</li>
+            <li><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> नई दिल्ली, भारत</li>
+          </ul>
+        </div>
+
+        <div class="footer-disclaimer">
+          <strong>अस्वीकरण (Disclaimer):</strong> सरकार साथी (SarkarSaathi) एक गैर-सरकारी स्वतंत्र सहायता मंच है। यह आधिकारिक सरकारी ऐप या सरकारी निकाय नहीं है। हमारा उद्देश्य सरकारी डेटाबेस से जानकारी एकत्र करके सरल भाषा में नागरिकों तक पहुँचाना है। आधिकारिक और नवीनतम जानकारी के लिए हमेशा सरकारी विभागों की वेबसाइट देखें।
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 SarkarSaathi. सर्वाधिकार सुरक्षित।</span>
+        <span>Built for **Build For Good 2026 Hackathon**</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAVIGATION -->
+  <nav class="bottom-nav">
+    <a class="bottom-nav-item" onclick="App.navigateTo('index.html')">
+      <i class="fas fa-home"></i>
+      <span>होम</span>
+    </a>
+    <a class="bottom-nav-item" onclick="App.navigateTo('schemes.html')">
+      <i class="fas fa-landmark"></i>
+      <span>योजनाएँ</span>
+    </a>
+    <a class="bottom-nav-item" onclick="App.navigateTo('documents.html')">
+      <i class="fas fa-file-alt"></i>
+      <span>दस्तावेज़</span>
+    </a>
+    <a class="bottom-nav-item" onclick="App.navigateTo('assistant.html')">
+      <i class="fas fa-comments"></i>
+      <span>एआई सहायक</span>
+    </a>
+  </nav>
+
+  <!-- Script Modules -->
+  <script src="js/data-loader.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/filter.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/problems.js"></script>
+
+  <!-- Deep linking handler for searches -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check for search in URL to search immediately
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchParam = urlParams.get('search');
+      
+      if (searchParam && !urlParams.get('prob')) {
+        const searchInput = document.getElementById('problem-search-input');
+        if (searchInput) {
+          searchInput.value = decodeURIComponent(searchParam);
+          setTimeout(() => {
+            const event = new Event('input');
+            searchInput.dispatchEvent(event);
+          }, 300);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
