@@ -193,20 +193,65 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Offline matcher: Scans local databases for keyword matches
   function simulateBotReply(text) {
+    text = text.toLowerCase();
+    
+    // 1. Interactive Real-Time Eligibility Matcher Integration
+    if (text.includes('पात्रता') || text.includes('eligibility') || text.includes('eligible') || text.includes('योग्यता')) {
+      try {
+        const profile = JSON.parse(localStorage.getItem('sarkar_saathi_profile'));
+        if (profile) {
+          const result = Filter.getBoostedEligibility(profile, DataLoader.getSchemes(), profile.documents || []);
+          
+          let reply = `आपके वर्तमान प्रोफ़ाइल (राज्य: **${profile.state}**, आयु: **${profile.age}**, लिंग: **${profile.gender}**, आय: **₹${parseFloat(profile.income).toLocaleString('en-IN')}**) के अनुसार लाइव पात्रता विश्लेषण:\n\n`;
+          
+          if (result.currentlyEligible.length > 0) {
+            reply += `✅ **आप अभी सीधे ${result.currentlyEligible.length} योजनाओं के लिए पात्र हैं:**\n`;
+            result.currentlyEligible.slice(0, 3).forEach((scheme) => {
+              reply += `- **${scheme.name}** ([योजना विवरण](schemes.html?scheme=${scheme.id}))\n`;
+            });
+            if (result.currentlyEligible.length > 3) {
+              reply += `- ...तथा ${result.currentlyEligible.length - 3} अन्य योजनाएँ।\n`;
+            }
+            reply += `\n`;
+          } else {
+            reply += `❌ आप अभी किसी योजना की दस्तावेज़ पात्रता पूर्ण नहीं करते हैं।\n\n`;
+          }
+
+          if (result.boosterSchemes.length > 0) {
+            reply += `💡 **पात्रता बूस्टर (अनलॉक करने योग्य योजनाएँ):**\n`;
+            // Get top documents needed to unlock the most schemes
+            const docKeys = Object.keys(result.missingDocMap).sort((a, b) => result.missingDocMap[b].length - result.missingDocMap[a].length);
+            docKeys.slice(0, 2).forEach(docId => {
+              const doc = DataLoader.getDocumentById(docId);
+              const count = result.missingDocMap[docId].length;
+              if (doc) {
+                reply += `- **${doc.name}** बनवाकर आप **${count} नई योजनाएँ** (जैसे: *${result.missingDocMap[docId][0].name}*) अनलॉक कर सकते हैं। [बनाने की प्रक्रिया देखें](documents.html?doc=${docId})\n`;
+              }
+            });
+          }
+          
+          reply += `\n\nअपनी विस्तृत रिपोर्ट देखने और दस्तावेज़ों को अपडेट करने के लिए कृपया हमारे [पात्रता परिणाम](result.html) पर जाएँ।`;
+          return reply;
+        }
+      } catch (err) {
+        console.error("Assistant eligibility matcher failed:", err);
+      }
+    }
+
     const cleanedKeywords = Search.getKeywords(text);
     
     if (cleanedKeywords.length === 0) {
       return "मुझे आपका प्रश्न समझने में थोड़ी कठिनाई हो रही है। कृपया कुछ स्पष्ट शब्दों का उपयोग करें, जैसे 'आधार', 'पैन कार्ड' या 'उज्ज्वला योजना'।";
     }
 
-    // 1. Search for Problem Solver matches
+    // 2. Search for Problem Solver matches
     const matchedProblems = Search.searchProblems(text, DataLoader.getProblems());
     if (matchedProblems.length > 0) {
       const prob = matchedProblems[0];
       return `मुझे आपकी समस्या **'${prob.issue}'** से संबंधित जानकारी मिली:\n\n**संभावित कारण:** ${prob.possibleReason}\n\n**समाधान:** ${prob.requiredFix}\n\n**अगले कदम:**\n${prob.nextSteps.map((step, idx) => `${idx + 1}. ${step}`).join('\n')}\n\nअधिक जानकारी और समाधान के लिए आप हमारे [समस्या समाधान](problems.html?prob=${prob.id}) पेज पर जा सकते हैं।`;
     }
 
-    // 2. Search for Document Sahayak matches
+    // 3. Search for Document Sahayak matches
     const matchedDocs = Search.searchDocuments(text, DataLoader.getDocuments());
     if (matchedDocs.length > 0) {
       const doc = matchedDocs[0];
@@ -225,18 +270,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         actionWord = 'स्थिति जांचने';
       }
 
-      return `मुझे **'${doc.name}'** से संबंधित जानकारी मिली।\n${doc.description}\n\nइस दस्तावेज़ को **${actionWord}** के लिए आवश्यक विवरण, शुल्क और चरण-दर-चरण मार्गदर्शिका देखने के लिए कृपया हमारे [दस्तावेज़ सहायक](${window.location.origin.includes('sarkarsaathi') ? '' : '/'}documents.html?doc=${doc.id}&action=${action}) पेज पर जाएँ।`;
+      return `मुझे **'${doc.name}'** से संबंधित जानकारी मिली।\n${doc.description}\n\nइस दस्तावेज़ को **${actionWord}** के लिए आवश्यक विवरण, शुल्क और चरण-दर-चरण मार्गदर्शिका देखने के लिए कृपया हमारे [दस्तावेज़ सहायक](documents.html?doc=${doc.id}&action=${action}) पेज पर जाएँ।`;
     }
 
-    // 3. Search for Scheme Finder matches
+    // 4. Search for Scheme Finder matches
     const matchedSchemes = Search.searchSchemes(text, DataLoader.getSchemes());
     if (matchedSchemes.length > 0) {
       const scheme = matchedSchemes[0];
       const typeLabel = scheme.governmentType === 'Central' ? 'केंद्र सरकार (Central Gov)' : `राज्य सरकार (${scheme.state})`;
-      return `मुझे **'${scheme.name}'** योजना के बारे में जानकारी मिली:\n\n**प्रकार:** ${typeLabel}\n**विवरण:** ${scheme.description}\n**लाभ:** ${scheme.benefits}\n**समय सीमा:** ${scheme.processingTime}\n\nयोजना के पात्रता नियम, आवश्यक दस्तावेज़ देखने या सीधे आवेदन करने के लिए, कृपया हमारे [सरकारी योजनाएँ](${window.location.origin.includes('sarkarsaathi') ? '' : '/'}schemes.html?scheme=${scheme.id}) पेज पर जाकर विवरण देखें।`;
+      return `मुझे **'${scheme.name}'** योजना के बारे में जानकारी मिली:\n\n**प्रकार:** ${typeLabel}\n**विवरण:** ${scheme.description}\n**लाभ:** ${scheme.benefits}\n**समय सीमा:** ${scheme.processingTime}\n\nयोजना के पात्रता नियम, आवश्यक दस्तावेज़ देखने या सीधे आवेदन करने के लिए, कृपया हमारे [सरकारी योजनाएँ](schemes.html?scheme=${scheme.id}) पेज पर जाकर विवरण देखें।`;
     }
 
-    // 4. Default Fallback response
+    // 5. Default Fallback response
     return "मैं आपकी बात पूरी तरह समझ नहीं पाया। क्या आप नीचे दिए गए क्विक सजेशन बटन पर क्लिक कर सकते हैं या अपने प्रश्न को किसी सरकारी दस्तावेज़ (जैसे: आधार, पैन कार्ड, आय प्रमाण पत्र) या योजना के नाम के साथ फिर से पूछ सकते हैं?";
   }
 });
