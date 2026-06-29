@@ -1,0 +1,21 @@
+{
+  "name": "sarkarsaathi",
+  "version": "1.0.0",
+  "description": "SarkarSaathi - Your Smart Government Guide. An AI-powered government assistance platform for Indian citizens.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 5000",
+    "test": "node test_matching.js"
+  },
+  "keywords": [
+    "sarkarsaathi",
+    "government-assistance",
+    "india-schemes",
+    "citizens"
+  ],
+  "author": "Lalit",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
