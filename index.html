@@ -117,9 +117,9 @@
     <div class="container">
       <h1 class="hero-welcome">नमस्ते! 👋<br>मैं आपकी कैसे मदद कर सकता हूँ?</h1>
       <p class="hero-subtitle">योजनाओं, दस्तावेजों और सरकारी प्रक्रियाओं को आसान हिंदी में समझें।</p>
-      <div class="search-container">
-        <input type="text" id="global-search-input" class="search-input" placeholder="यहाँ कुछ भी खोजें (योजना, दस्तावेज़, समस्या...)" aria-label="Search">
-        <button id="global-search-btn" class="search-btn" aria-label="Search Button" onclick="handleGlobalSearch()">
+      <div class="search-container shadow-md rounded-lg overflow-hidden border border-gray-200 focus-within:ring-2 focus-within:ring-brand-primary transition-all duration-200">
+        <input type="text" id="global-search-input" class="search-input w-full px-4 py-3 outline-none" placeholder="यहाँ कुछ भी खोजें (योजना, दस्तावेज़, समस्या...)" aria-label="Search">
+        <button id="global-search-btn" class="search-btn bg-brand-primary hover:bg-brand-dark active:scale-95 transition-all duration-200 px-6 text-white" aria-label="Search Button" onclick="handleGlobalSearch()">
           <i class="fas fa-search"></i>
         </button>
       </div>
@@ -150,7 +150,7 @@
     <section class="features-section">
       <h2 class="section-title">प्रमुख सेवाएँ (Key Services)</h2>
       <div class="features-grid">
-        <div class="card feature-card feat-scheme" onclick="App.navigateTo('schemes.html')">
+        <div class="card feature-card feat-scheme transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('schemes.html')">
           <div class="icon-box">
             <i class="fas fa-landmark"></i>
           </div>
@@ -161,7 +161,7 @@
           </div>
         </div>
 
-        <div class="card feature-card feat-doc" onclick="App.navigateTo('documents.html')">
+        <div class="card feature-card feat-doc transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('documents.html')">
           <div class="icon-box">
             <i class="fas fa-file-alt"></i>
           </div>
@@ -172,7 +172,7 @@
           </div>
         </div>
 
-        <div class="card feature-card feat-prob" onclick="App.navigateTo('problems.html')">
+        <div class="card feature-card feat-prob transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('problems.html')">
           <div class="icon-box">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
@@ -183,7 +183,7 @@
           </div>
         </div>
 
-        <div class="card feature-card feat-ai" onclick="App.navigateTo('assistant.html')">
+        <div class="card feature-card feat-ai transform hover:-translate-y-1 hover:shadow-lg transition-all duration-300" onclick="App.navigateTo('assistant.html')">
           <div class="icon-box">
             <i class="fas fa-comments"></i>
           </div>
@@ -464,10 +464,7 @@
         const selected = PERSONAS.find(p => p.id === personaId);
         if (!selected) return;
 
-        // Set logged-in status to true when a demo persona is clicked
-        localStorage.setItem('sarkar_saathi_logged_in', 'true');
-
-        // Save
+        // Save profile
         App.saveProfile(selected.profile);
 
         // Update active chip styling
@@ -489,25 +486,6 @@
           activeAlert.style.color = '#065F46';
           activeAlert.style.border = '1px solid #A7F3D0';
           activeAlert.innerHTML = `<i class="fas fa-check-circle"></i> प्रोफ़ाइल बदलकर <strong>${selected.profile.name} (${selected.profile.occupation})</strong> कर दी गई है! अब आप योजनाओं और पात्रता परिणामों को टेस्ट कर सकते हैं।`;
-          
-          // Re-update global drawer header and logout button
-          const usernameEl = document.querySelector('.drawer-username');
-          const emailEl = document.querySelector('.drawer-email');
-          const avatarEl = document.querySelector('.drawer-avatar');
-          const logoutBtn = document.querySelector('.drawer-logout');
-          
-          if (usernameEl) usernameEl.textContent = selected.profile.name;
-          if (emailEl) emailEl.textContent = selected.profile.email;
-          if (avatarEl) avatarEl.textContent = selected.profile.name.charAt(0);
-          
-          if (logoutBtn) {
-            logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> <span>लॉगआउट (Logout)</span>';
-            logoutBtn.style.color = 'var(--danger-color)';
-            logoutBtn.onclick = (e) => {
-              e.preventDefault();
-              App.logout();
-            };
-          }
         }
       };
 
