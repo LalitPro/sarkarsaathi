@@ -60,7 +60,7 @@
       <i class="fas fa-search text-slate-400 text-sm cursor-pointer" onclick="handleTopSearch()"></i>
     </div>
 
-    <!-- Right Controls: Lang, Bell, Profile Avatar -->
+    <!-- Right Controls: Lang, Theme Toggle -->
     <div class="flex items-center gap-4">
       <!-- Language Pill -->
       <div class="flex items-center bg-slate-100 rounded-full p-0.5 border border-slate-200 text-xs font-bold">
@@ -68,20 +68,10 @@
         <button class="text-slate-600 px-3 py-1">English</button>
       </div>
 
-      <!-- Notification Bell -->
-      <button class="relative p-2 text-slate-500 hover:text-brand-primary rounded-full hover:bg-slate-100 transition-colors" aria-label="Notifications">
-        <i class="fas fa-bell text-lg"></i>
-        <span class="absolute top-1 right-1 bg-red-500 text-white rounded-full text-[9px] w-4 h-4 flex items-center justify-center font-bold">3</span>
+      <!-- Theme Toggle -->
+      <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode" onclick="App.toggleTheme()">
+        <i class="fas fa-moon text-lg"></i>
       </button>
-
-      <!-- Profile Card (Dynamic Name & State) -->
-      <div class="flex items-center gap-2 border-l border-slate-200 pl-4">
-        <img id="header-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80" alt="User Profile" class="w-9 h-9 rounded-full object-cover border border-slate-200">
-        <div class="hidden sm:flex flex-col text-left">
-          <span id="header-profile-name" class="text-xs font-bold text-slate-800">राम कुमार</span>
-          <span id="header-profile-state" class="text-[10px] text-slate-400 font-semibold">मध्य प्रदेश</span>
-        </div>
-      </div>
     </div>
   </header>
 
@@ -573,11 +563,14 @@
         }
       };
 
-      // Update header details dynamically
+      // Update header details dynamically if elements exist
       const activePersona = PERSONAS.find(p => p.profile.name.toLowerCase() === currentProfile.name.toLowerCase()) || PERSONAS[0];
-      document.getElementById('header-profile-name').textContent = activePersona.name.split(' (')[0];
-      document.getElementById('header-profile-state').textContent = activePersona.profile.state;
-      document.getElementById('header-avatar').src = activePersona.avatar;
+      const headerNameEl = document.getElementById('header-profile-name');
+      const headerStateEl = document.getElementById('header-profile-state');
+      const headerAvatarEl = document.getElementById('header-avatar');
+      if (headerNameEl) headerNameEl.textContent = activePersona.name.split(' (')[0];
+      if (headerStateEl) headerStateEl.textContent = activePersona.profile.state;
+      if (headerAvatarEl) headerAvatarEl.src = activePersona.avatar;
 
       // 1. DYNAMIC RECOMMENDED SCHEMES
       const recommendedContainer = document.getElementById('recommended-schemes-container');
