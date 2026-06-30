@@ -1,4 +1,4 @@
-/* Sarkari Sahayak Data Loader Module */
+/* Sarkar Saathi Data Loader Module */
 
 const DataLoader = (() => {
   const DATA_PATHS = {
@@ -57,7 +57,7 @@ const DataLoader = (() => {
       cache.problemsMap = problems.reduce((acc, p) => { acc[p.id] = p; return acc; }, {});
 
       // Expose to window for easy debugging
-      window.SarkariSahayakData = cache;
+      window.SarkarSaathiData = cache;
       return cache;
     } catch (err) {
       console.error("Critical error loading system databases:", err);

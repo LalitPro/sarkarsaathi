@@ -1,8 +1,8 @@
-# Sarkari Sahayak - Your AI Government Assistant (आपका स्मार्ट सरकारी सहायक)
+# Sarkar Saathi - Your AI Government Assistant (आपका स्मार्ट सरकार साथी)
 
-![Sarkari Sahayak Banner](banner.png)
+![Sarkar Saathi Banner](banner.png)
 
-Sarkari Sahayak is a mobile-first, high-fidelity, performance-optimized AI Government Assistance Platform built for the **Build For Good 2026 Hackathon**. 
+Sarkar Saathi is a mobile-first, high-fidelity, performance-optimized AI Government Assistance Platform built for the **Build For Good 2026 Hackathon**. 
 
 It is designed to empower Indian citizens to seamlessly discover government schemes, calculate dynamic eligibility scores, understand document dependency chains, resolve application errors, and interact with a bilingual conversational agent—all in simple, accessible Hindi (Devanagari) combined with English.
 
@@ -11,7 +11,7 @@ It is designed to empower Indian citizens to seamlessly discover government sche
 ## 🌟 Key Features
 
 1. **Smart Scheme Finder (स्मार्ट योजना खोजक):** Check demographic eligibility in real-time based on state, age, gender, caste category, occupation, income, and physical disabilities.
-2. **Rebranded Dashboard:** Renamed to **Sarkari Sahayak** with a modern patriotic tricolor theme, premium backdrop blurs, and Parliament-inspired aesthetic overlays.
+2. **Rebranded Dashboard:** Renamed to **Sarkar Saathi** with a modern patriotic tricolor theme, premium backdrop blurs, and Parliament-inspired aesthetic overlays.
 3. **State Scheme Filter (राज्य फ़िल्टर):** Intelligently overlays central government schemes with the citizen's specific state (e.g. Madhya Pradesh, Gujarat) while filtering out irrelevant regional schemes.
 4. **Document Sahayak (दस्तावेज़ सहायक):** High-fidelity workflows guiding citizens through applying (`new`), updating (`update`), fixing (`correction`), downloading (`download`), or checking the status of essential certificates (Aadhaar, PAN, Voter ID, Domicile, etc.).
 5. **Document Dependency Engine (दस्तावेज़ निर्भरता):** Automatically displays which underlying documents are required to obtain or update another document, preventing repeated trips to government centers.

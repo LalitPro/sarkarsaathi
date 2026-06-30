@@ -1,4 +1,4 @@
-/* Sarkari Sahayak Search Utility Module */
+/* Sarkar Saathi Search Utility Module */
 
 const Search = (() => {
   // Set-based stop words mapping for O(1) keyword filtering
