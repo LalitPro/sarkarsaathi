@@ -416,5 +416,115 @@
     "processingTime": "30-45 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://www.7nishchay-yuvaupmission.bihar.gov.in"
+  },
+  {
+    "id": "pm_svanidhi",
+    "name": "प्रधानमंत्री स्वनिधि योजना (PM SVANidhi)",
+    "governmentType": "Central",
+    "state": null,
+    "description": "सड़क विक्रेताओं (रेहड़ी-पटरी वालों) को अपना व्यवसाय फिर से शुरू करने के लिए कार्यशील पूंजी ऋण प्रदान करना।",
+    "benefits": "बिना किसी गारंटी के ₹10,000 का प्रारंभिक ऋण, समय पर भुगतान करने पर ब्याज सब्सिडी (7%) और डिजिटल लेनदेन पर कैशबैक।",
+    "eligibility": {
+      "ageMin": 18,
+      "ageMax": 70,
+      "gender": "All",
+      "category": ["All"],
+      "occupations": ["Worker"],
+      "maxIncome": null,
+      "ruralUrban": "Both",
+      "disability": "Both"
+    },
+    "requiredDocuments": ["aadhaar", "bank_passbook", "photo"],
+    "processingTime": "10-15 दिन",
+    "applyMode": "Both",
+    "officialWebsite": "https://pmsvanidhi.mohua.gov.in"
+  },
+  {
+    "id": "pmfby",
+    "name": "प्रधानमंत्री फसल बीमा योजना (PMFBY)",
+    "governmentType": "Central",
+    "state": null,
+    "description": "प्राकृतिक आपदाओं, कीटों और रोगों के कारण फसलों को होने वाले नुकसान के लिए किसानों को बीमा कवर प्रदान करना।",
+    "benefits": "फसल नुकसान की स्थिति में न्यूनतम प्रीमियम पर पूर्ण वित्तीय सुरक्षा और बीमा राशि का सीधा बैंक खाते में भुगतान।",
+    "eligibility": {
+      "ageMin": 18,
+      "ageMax": 100,
+      "gender": "All",
+      "category": ["All"],
+      "occupations": ["Farmer"],
+      "maxIncome": null,
+      "ruralUrban": "Rural",
+      "disability": "Both"
+    },
+    "requiredDocuments": ["aadhaar", "bank_passbook", "photo"],
+    "processingTime": "30-60 दिन",
+    "applyMode": "Both",
+    "officialWebsite": "https://pmfby.gov.in"
+  },
+  {
+    "id": "pmjjby",
+    "name": "प्रधानमंत्री जीवन ज्योति बीमा योजना (PMJJBY)",
+    "governmentType": "Central",
+    "state": null,
+    "description": "सभी बचत बैंक खाताधारकों को किसी भी कारण से मृत्यु होने पर जीवन बीमा कवर प्रदान करना।",
+    "benefits": "₹436 प्रति वर्ष के नाममात्र प्रीमियम पर ₹2 लाख का जीवन बीमा कवर।",
+    "eligibility": {
+      "ageMin": 18,
+      "ageMax": 50,
+      "gender": "All",
+      "category": ["All"],
+      "occupations": ["All"],
+      "maxIncome": null,
+      "ruralUrban": "Both",
+      "disability": "Both"
+    },
+    "requiredDocuments": ["aadhaar", "bank_passbook", "mobile_number"],
+    "processingTime": "2-3 दिन",
+    "applyMode": "Online",
+    "officialWebsite": "https://jansuraksha.gov.in"
+  },
+  {
+    "id": "ladli_laxmi",
+    "name": "लाड़ली लक्ष्मी योजना (Ladli Laxmi)",
+    "governmentType": "State",
+    "state": "Madhya Pradesh",
+    "description": "मध्य प्रदेश में बालिकाओं के जन्म के प्रति सकारात्मक दृष्टिकोण, स्वास्थ्य और शैक्षणिक स्थिति में सुधार करना।",
+    "benefits": "कक्षा 6, 9, 11 और 12 में प्रवेश पर छात्रवृत्ति और 21 वर्ष पूर्ण होने पर ₹1 लाख से अधिक की एकमुश्त सहायता।",
+    "eligibility": {
+      "ageMin": 0,
+      "ageMax": 18,
+      "gender": "Female",
+      "category": ["All"],
+      "occupations": ["Student", "All"],
+      "maxIncome": 200000,
+      "ruralUrban": "Both",
+      "disability": "Both"
+    },
+    "requiredDocuments": ["birth_certificate", "aadhaar", "income_certificate", "domicile", "photo", "bank_passbook"],
+    "processingTime": "15-20 दिन",
+    "applyMode": "Both",
+    "officialWebsite": "https://ladlilaxmi.mp.gov.in"
+  },
+  {
+    "id": "up_kanya_sumangala",
+    "name": "मुख्यमंत्री कन्या सुमंगला योजना (UP MKSY)",
+    "governmentType": "State",
+    "state": "Uttar Pradesh",
+    "description": "उत्तर प्रदेश में बालिकाओं के स्वास्थ्य और शिक्षा स्तर में सुधार करने और भ्रूण हत्या को रोकने के लिए सहायता।",
+    "benefits": "बालिका के जन्म से लेकर स्नातक में प्रवेश तक छह विभिन्न श्रेणियों में कुल ₹15,000 की वित्तीय सहायता।",
+    "eligibility": {
+      "ageMin": 0,
+      "ageMax": 21,
+      "gender": "Female",
+      "category": ["All"],
+      "occupations": ["Student", "All"],
+      "maxIncome": 300000,
+      "ruralUrban": "Both",
+      "disability": "Both"
+    },
+    "requiredDocuments": ["birth_certificate", "aadhaar", "income_certificate", "domicile", "photo", "bank_passbook"],
+    "processingTime": "20-30 दिन",
+    "applyMode": "Online",
+    "officialWebsite": "https://mksy.up.gov.in"
   }
 ]

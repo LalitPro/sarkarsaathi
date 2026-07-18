@@ -454,6 +454,7 @@
   <script src="js/search.js"></script>
   <script src="js/filter.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/translator.js"></script>
 
   <!-- DYNAMIC DASHBOARD CONTROLLER -->
   <script>
@@ -704,7 +705,8 @@
 
       // Initialize language selection
       const savedLang = localStorage.getItem('sarkar_saathi_lang') || 'hi';
-      updateLanguageUI(savedLang);
+      const baseLang = (savedLang === 'en' || savedLang === 'hi') ? savedLang : 'hi';
+      updateLanguageUI(baseLang);
 
       // Bind enter key keyup for search
       const searchInput = document.getElementById('top-search-input');
