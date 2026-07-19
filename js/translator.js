@@ -3,17 +3,27 @@ const Translator = (() => {
   const LANGUAGES = [
     { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
     { code: 'en', name: 'English', nativeName: 'English' },
-    { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
+    { code: 'as', name: 'Assamese', nativeName: 'অসমীয়া' },
     { code: 'bn', name: 'Bengali', nativeName: 'বাংলা' },
-    { code: 'te', name: 'Telugu', nativeName: 'తెలుగు' },
-    { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்' },
+    { code: 'brx', name: 'Bodo', nativeName: 'बड़ो' },
+    { code: 'doi', name: 'Dogri', nativeName: 'डोगरी' },
     { code: 'gu', name: 'Gujarati', nativeName: 'ગુજરાતી' },
     { code: 'kn', name: 'Kannada', nativeName: 'ಕನ್ನಡ' },
-    { code: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+    { code: 'ks', name: 'Kashmiri', nativeName: 'कॉशुर' },
+    { code: 'gom', name: 'Konkani', nativeName: 'कोंकणी' },
+    { code: 'mai', name: 'Maithili', nativeName: 'मैथिली' },
     { code: 'ml', name: 'Malayalam', nativeName: 'മലയാളം' },
-    { code: 'ur', name: 'Urdu', nativeName: 'اردو' },
+    { code: 'mni', name: 'Manipuri', nativeName: 'मৈতৈলোন' },
+    { code: 'mr', name: 'Marathi', nativeName: 'मराठी' },
+    { code: 'ne', name: 'Nepali', nativeName: 'नेपाली' },
     { code: 'or', name: 'Odia', nativeName: 'ଓଡ଼ିଆ' },
-    { code: 'sa', name: 'Sanskrit', nativeName: 'संस्कृत' }
+    { code: 'pa', name: 'Punjabi', nativeName: 'ਪੰਜਾਬੀ' },
+    { code: 'sa', name: 'Sanskrit', nativeName: 'संस्कृतम्' },
+    { code: 'sat', name: 'Santhali', nativeName: 'संथाली' },
+    { code: 'sd', name: 'Sindhi', nativeName: 'سنڌي' },
+    { code: 'ta', name: 'Tamil', nativeName: 'தமிழ்' },
+    { code: 'te', name: 'Telugu', nativeName: 'తెలుగు' },
+    { code: 'ur', name: 'Urdu', nativeName: 'اردو' }
   ];
 
   function getCookie(name) {
@@ -264,6 +274,12 @@ const Translator = (() => {
   }
 
   function init() {
+    // If no language is selected yet, default to Hindi ('hi')
+    if (!getCookie('googtrans') && !localStorage.getItem('sarkar_saathi_lang')) {
+      localStorage.setItem('sarkar_saathi_lang', 'hi');
+      setCookie('googtrans', '/auto/hi', 30);
+    }
+
     injectGoogleTranslate();
     
     // Inject custom selector when DOM is ready
