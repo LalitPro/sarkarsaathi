@@ -49,7 +49,7 @@
         <div class="flex flex-col">
           <span class="text-base font-extrabold text-blue-900 leading-none">सरकार साथी</span>
           <span class="text-[10px] text-emerald-700 font-bold leading-tight">Sarkar Saathi</span>
-          <span class="text-[8px] text-slate-400 font-semibold tracking-wider uppercase leading-none">Your AI Government Assistant</span>
+          <span class="text-[8px] text-slate-400 font-semibold tracking-wider uppercase leading-none">Your AI Government Guide</span>
         </div>
       </div>
     </div>
@@ -117,6 +117,14 @@
         <i class="fas fa-cog text-base"></i>
         <span data-translate="sidebarSettings">सेटिंग्स</span>
       </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('admin.html')">
+        <i class="fas fa-lock text-base"></i>
+        <span>व्यवस्थापक पैनल (Admin)</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('https://black-coding-portfolio.netlify.app/')">
+        <i class="fas fa-info-circle text-base"></i>
+        <span>हमारे बारे में (About Us)</span>
+      </a>
       <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="alert('सहायता विभाग को सूचित कर दिया गया है।')">
         <i class="fas fa-question-circle text-base"></i>
         <span data-translate="sidebarHelpFeedback">सहायता एवं सुझाव</span>
@@ -144,7 +152,7 @@
         </div>
         <button class="modal-close drawer-close text-white text-2xl outline-none">&times;</button>
       </div>
-      <p class="text-[10px] text-emerald-200">आपका स्मार्ट सरकारी एआई सहायक</p>
+      <p class="text-[10px] text-emerald-200">आपका स्मार्ट सरकार साथी</p>
     </div>
     <div class="drawer-menu">
       <a class="drawer-item active" onclick="App.navigateTo('index.html')">
@@ -166,6 +174,14 @@
       <a class="drawer-item" onclick="App.navigateTo('assistant.html')">
         <i class="fas fa-comments"></i>
         <span>एआई सहायक (AI Assistant)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('admin.html')">
+        <i class="fas fa-lock"></i>
+        <span>व्यवस्थापक पैनल (Admin Panel)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('https://black-coding-portfolio.netlify.app/')">
+        <i class="fas fa-info-circle"></i>
+        <span>हमारे बारे में (About Us)</span>
       </a>
     </div>
   </aside>
@@ -450,6 +466,7 @@
   </nav>
 
   <!-- Script Modules -->
+  <script src="js/db.js"></script>
   <script src="js/data-loader.js"></script>
   <script src="js/search.js"></script>
   <script src="js/filter.js"></script>
@@ -479,7 +496,7 @@
             income: "80000",
             ruralUrban: "Rural",
             disability: "No",
-            documents: ["aadhaar", "pan", "bank_passbook", "photo"]
+            documents: ["aadhaar", "pan", "bank_passbook"]
           }
         },
         {
@@ -497,7 +514,7 @@
             income: "180000",
             ruralUrban: "Urban",
             disability: "No",
-            documents: ["aadhaar", "pan", "photo", "mobile_number"]
+            documents: ["aadhaar", "pan"]
           }
         },
         {
@@ -515,7 +532,7 @@
             income: "110000",
             ruralUrban: "Rural",
             disability: "Yes",
-            documents: ["aadhaar", "bank_passbook", "photo"]
+            documents: ["aadhaar", "bank_passbook"]
           }
         }
       ];

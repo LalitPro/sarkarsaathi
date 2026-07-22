@@ -10,13 +10,19 @@
       "ageMin": 10,
       "ageMax": 100,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "All"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "photo", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar"
+    ],
     "processingTime": "7-10 दिन",
     "applyMode": "Offline",
     "officialWebsite": "https://pmjdy.gov.in"
@@ -32,13 +38,23 @@
       "ageMin": 18,
       "ageMax": 100,
       "gender": "Female",
-      "category": ["All"],
-      "occupations": ["All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "All"
+      ],
       "maxIncome": 150000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "ration_card", "income_certificate", "domicile", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "ration_card",
+      "income_certificate",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "15-20 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://www.pmuy.gov.in"
@@ -54,13 +70,22 @@
       "ageMin": 0,
       "ageMax": 100,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "All"
+      ],
       "maxIncome": 250000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "ration_card", "income_certificate", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "ration_card",
+      "income_certificate",
+      "bank_passbook"
+    ],
     "processingTime": "5-7 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://www.pmjay.gov.in"
@@ -76,13 +101,21 @@
       "ageMin": 18,
       "ageMax": 100,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Farmer"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Farmer"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "land_ownership_document", "bank_passbook", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar",
+      "land_ownership_document",
+      "bank_passbook"
+    ],
     "processingTime": "20-30 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://pmkisan.gov.in"
@@ -98,13 +131,23 @@
       "ageMin": 21,
       "ageMax": 60,
       "gender": "Female",
-      "category": ["All"],
-      "occupations": ["All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "All"
+      ],
       "maxIncome": 250000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "samagra_id", "domicile", "income_certificate", "bank_passbook", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar",
+      "samagra_id",
+      "domicile",
+      "income_certificate",
+      "bank_passbook"
+    ],
     "processingTime": "15-25 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://cmladlibahna.mp.gov.in"
@@ -120,13 +163,23 @@
       "ageMin": 0,
       "ageMax": 18,
       "gender": "Female",
-      "category": ["All"],
-      "occupations": ["Student"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Student"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "bhabashah_card", "domicile", "birth_certificate", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "bhabashah_card",
+      "domicile",
+      "birth_certificate",
+      "bank_passbook"
+    ],
     "processingTime": "30-45 दिन",
     "applyMode": "Offline",
     "officialWebsite": "https://sje.rajasthan.gov.in"
@@ -142,13 +195,20 @@
       "ageMin": 18,
       "ageMax": 40,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Worker"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Worker"
+      ],
       "maxIncome": 180000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "bank_passbook", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar",
+      "bank_passbook"
+    ],
     "processingTime": "1 दिन (तत्काल ई-श्रम पोर्टल पर)",
     "applyMode": "Online",
     "officialWebsite": "https://maandhan.in"
@@ -164,13 +224,26 @@
       "ageMin": 15,
       "ageMax": 30,
       "gender": "All",
-      "category": ["SC", "ST", "OBC"],
-      "occupations": ["Student"],
+      "category": [
+        "SC",
+        "ST",
+        "OBC"
+      ],
+      "occupations": [
+        "Student"
+      ],
       "maxIncome": 250000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "caste_certificate", "income_certificate", "domicile", "previous_marksheet", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "caste_certificate",
+      "income_certificate",
+      "domicile",
+      "previous_marksheet",
+      "bank_passbook"
+    ],
     "processingTime": "30-60 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://scholarships.gov.in"
@@ -186,13 +259,24 @@
       "ageMin": 60,
       "ageMax": 120,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Senior Citizen", "Unemployed"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Senior Citizen",
+        "Unemployed"
+      ],
       "maxIncome": 120000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "ration_card", "income_certificate", "domicile", "bank_passbook", "photo"],
+    "requiredDocuments": [
+      "aadhaar",
+      "ration_card",
+      "income_certificate",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "30-45 दिन",
     "applyMode": "Offline",
     "officialWebsite": "https://nsap.nic.in"
@@ -208,13 +292,24 @@
       "ageMin": 5,
       "ageMax": 100,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Disabled Citizen", "All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Disabled Citizen",
+        "All"
+      ],
       "maxIncome": 150000,
       "ruralUrban": "Both",
       "disability": "Required"
     },
-    "requiredDocuments": ["aadhaar", "disability_certificate", "income_certificate", "domicile", "bank_passbook", "photo"],
+    "requiredDocuments": [
+      "aadhaar",
+      "disability_certificate",
+      "income_certificate",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "25-35 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://disabilityaffairs.gov.in"
@@ -230,13 +325,23 @@
       "ageMin": 18,
       "ageMax": 65,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Business Owner", "Worker"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Business Owner",
+        "Worker"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "pan", "business_address_proof", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "pan",
+      "business_address_proof",
+      "bank_passbook"
+    ],
     "processingTime": "15-30 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://www.mudra.org.in"
@@ -252,13 +357,22 @@
       "ageMin": 0,
       "ageMax": 10,
       "gender": "Female",
-      "category": ["All"],
-      "occupations": ["Student", "All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Student",
+        "All"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["birth_certificate", "aadhaar", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "birth_certificate",
+      "aadhaar",
+      "bank_passbook"
+    ],
     "processingTime": "2-3 दिन",
     "applyMode": "Offline",
     "officialWebsite": "https://www.indiapost.gov.in"
@@ -274,13 +388,22 @@
       "ageMin": 18,
       "ageMax": 40,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Worker", "Unemployed", "Farmer"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Worker",
+        "Unemployed",
+        "Farmer"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "bank_passbook", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar",
+      "bank_passbook"
+    ],
     "processingTime": "1-2 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://www.npscra.nsdl.co.in"
@@ -296,13 +419,25 @@
       "ageMin": 18,
       "ageMax": 80,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Worker", "Farmer", "Unemployed"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Worker",
+        "Farmer",
+        "Unemployed"
+      ],
       "maxIncome": 120000,
       "ruralUrban": "Rural",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "ration_card", "domicile", "income_certificate", "bank_passbook", "photo"],
+    "requiredDocuments": [
+      "aadhaar",
+      "ration_card",
+      "domicile",
+      "income_certificate",
+      "bank_passbook"
+    ],
     "processingTime": "30-60 दिन",
     "applyMode": "Offline",
     "officialWebsite": "https://prd.mp.gov.in"
@@ -318,13 +453,23 @@
       "ageMin": 16,
       "ageMax": 28,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Student"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Student"
+      ],
       "maxIncome": 250000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "domicile", "income_certificate", "previous_marksheet", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "domicile",
+      "income_certificate",
+      "previous_marksheet",
+      "bank_passbook"
+    ],
     "processingTime": "30-45 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://sje.rajasthan.gov.in"
@@ -340,13 +485,25 @@
       "ageMin": 18,
       "ageMax": 40,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Business Owner", "Unemployed"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Business Owner",
+        "Unemployed"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "pan", "educational_certificate", "business_project_report", "domicile", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "pan",
+      "educational_certificate",
+      "business_project_report",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "30-60 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://diupmsme.upsdc.gov.in"
@@ -362,13 +519,21 @@
       "ageMin": 18,
       "ageMax": 80,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Worker"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Worker"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "caste_certificate", "bank_passbook", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar",
+      "caste_certificate",
+      "bank_passbook"
+    ],
     "processingTime": "15-25 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://pmvishwakarma.gov.in"
@@ -384,13 +549,22 @@
       "ageMin": 18,
       "ageMax": 90,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "All"
+      ],
       "maxIncome": 300000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "income_certificate", "domicile", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "aadhaar",
+      "income_certificate",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "30-60 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://pmaymis.gov.in"
@@ -406,13 +580,22 @@
       "ageMin": 16,
       "ageMax": 30,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Student"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Student"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "pan", "domicile", "bank_passbook", "photo"],
+    "requiredDocuments": [
+      "aadhaar",
+      "pan",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "30-45 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://www.7nishchay-yuvaupmission.bihar.gov.in"
@@ -428,13 +611,20 @@
       "ageMin": 18,
       "ageMax": 70,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Worker"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Worker"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "bank_passbook", "photo"],
+    "requiredDocuments": [
+      "aadhaar",
+      "bank_passbook"
+    ],
     "processingTime": "10-15 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://pmsvanidhi.mohua.gov.in"
@@ -450,13 +640,20 @@
       "ageMin": 18,
       "ageMax": 100,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["Farmer"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Farmer"
+      ],
       "maxIncome": null,
       "ruralUrban": "Rural",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "bank_passbook", "photo"],
+    "requiredDocuments": [
+      "aadhaar",
+      "bank_passbook"
+    ],
     "processingTime": "30-60 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://pmfby.gov.in"
@@ -472,13 +669,20 @@
       "ageMin": 18,
       "ageMax": 50,
       "gender": "All",
-      "category": ["All"],
-      "occupations": ["All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "All"
+      ],
       "maxIncome": null,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["aadhaar", "bank_passbook", "mobile_number"],
+    "requiredDocuments": [
+      "aadhaar",
+      "bank_passbook"
+    ],
     "processingTime": "2-3 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://jansuraksha.gov.in"
@@ -494,13 +698,24 @@
       "ageMin": 0,
       "ageMax": 18,
       "gender": "Female",
-      "category": ["All"],
-      "occupations": ["Student", "All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Student",
+        "All"
+      ],
       "maxIncome": 200000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["birth_certificate", "aadhaar", "income_certificate", "domicile", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "birth_certificate",
+      "aadhaar",
+      "income_certificate",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "15-20 दिन",
     "applyMode": "Both",
     "officialWebsite": "https://ladlilaxmi.mp.gov.in"
@@ -516,13 +731,24 @@
       "ageMin": 0,
       "ageMax": 21,
       "gender": "Female",
-      "category": ["All"],
-      "occupations": ["Student", "All"],
+      "category": [
+        "All"
+      ],
+      "occupations": [
+        "Student",
+        "All"
+      ],
       "maxIncome": 300000,
       "ruralUrban": "Both",
       "disability": "Both"
     },
-    "requiredDocuments": ["birth_certificate", "aadhaar", "income_certificate", "domicile", "photo", "bank_passbook"],
+    "requiredDocuments": [
+      "birth_certificate",
+      "aadhaar",
+      "income_certificate",
+      "domicile",
+      "bank_passbook"
+    ],
     "processingTime": "20-30 दिन",
     "applyMode": "Online",
     "officialWebsite": "https://mksy.up.gov.in"

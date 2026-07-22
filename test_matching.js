@@ -136,17 +136,17 @@ const runTests = () => {
   );
 
   // Test Case 4: Missing Document Detection
-  const pmjdyReqs = pmjdyScheme.requiredDocuments;
-  const userDocs1 = ["aadhaar", "photo"];
-  const docCheck1 = Filter.detectMissingDocuments(userDocs1, pmjdyReqs);
+  const pmuyReqs = pmuyScheme.requiredDocuments;
+  const userDocs1 = ["aadhaar", "ration_card", "bank_passbook"];
+  const docCheck1 = Filter.detectMissingDocuments(userDocs1, pmuyReqs);
 
   assert(
-    docCheck1.missing.includes("mobile_number") && docCheck1.missing.length === 1,
-    "Missing Document Detector should identify 'mobile_number' as missing"
+    docCheck1.missing.includes("income_certificate") && docCheck1.missing.includes("domicile"),
+    "Missing Document Detector should identify 'income_certificate' and 'domicile' as missing"
   );
   assert(
-    docCheck1.available.includes("aadhaar") && docCheck1.available.includes("photo"),
-    "Missing Document Detector should identify 'aadhaar' and 'photo' as available"
+    docCheck1.available.includes("aadhaar") && docCheck1.available.includes("ration_card"),
+    "Missing Document Detector should identify 'aadhaar' and 'ration_card' as available"
   );
 
   // Test Case 5: Smart Eligibility Booster

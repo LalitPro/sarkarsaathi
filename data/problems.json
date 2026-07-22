@@ -175,5 +175,22 @@
       "यदि बैंक अधिकारी बिना ठोस कारण के मना करे, तो बैंक के नोडल अधिकारी या जिला उद्योग केंद्र (DIC) में शिकायत करें।"
     ],
     "officialWebsite": "https://www.janasamarth.in"
+  },
+  {
+    "id": "travel_concession_disabled",
+    "type": "scheme",
+    "targetId": "divyangjan_sahayata",
+    "issue": "दिव्यांगजन रेलवे/बस यात्रा रियायत कार्ड (Travel Concession Card) कैसे प्राप्त करें?",
+    "possibleReason": "दिव्यांगता प्रमाण पत्र (Disability Certificate) का ऑनलाइन सत्यापित न होना या रियायत के नियमों की जानकारी न होना।",
+    "requiredFix": "Unique Disability ID (UDID) पोर्टल पर पंजीकरण करें और रेलवे वाणिज्यिक विभाग में रियायत कार्ड के लिए आवेदन करें।",
+    "requiredDocuments": ["aadhaar", "disability_certificate", "photo", "bank_passbook"],
+    "officialGuidance": "40% या उससे अधिक दिव्यांगता वाले नागरिकों को भारतीय रेलवे के किराए में 25% से 75% तक की छूट मिलती है। इसके लिए UDID कार्ड और सरकारी डॉक्टर द्वारा प्रमाणित रेलवे रियायत प्रमाण पत्र होना आवश्यक है।",
+    "nextSteps": [
+      "UDID पोर्टल (swavlambancard.gov.in) पर पंजीकरण कर यूनिक विकलांगता पहचान पत्र प्राप्त करें।",
+      "किसी सरकारी अस्पताल के अधिकृत चिकित्सक से 'रेलवे रियायत प्रमाण पत्र' (Railway Concession Certificate) फॉर्म पर हस्ताक्षर करवाएं।",
+      "नजदीकी मंडल रेल प्रबंधक (DRM) कार्यालय के वाणिज्यिक विभाग (Commercial Branch) में जाकर रियायत कार्ड के लिए आवेदन करें।",
+      "सत्यापन के बाद आपको एक फोटोयुक्त 'रेलवे रियायत फोटो पहचान पत्र' (Railway Concession Photo Card) जारी किया जाएगा, जिससे आप ऑनलाइन टिकट बुक करते समय भी रियायत पा सकेंगे।"
+    ],
+    "officialWebsite": "https://www.swavlambancard.gov.in"
   }
 ]

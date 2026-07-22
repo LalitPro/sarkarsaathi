@@ -46,51 +46,105 @@
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans pb-16 md:pb-0">
 
+  
   <!-- TOP TRICOLOR DECORATIVE BAR -->
-  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600"></div>
+  <div class="h-1.5 w-full bg-gradient-to-r from-orange-500 via-white to-green-600 fixed top-0 left-0 right-0 z-50"></div>
 
-  <!-- FIXED HEADER -->
-  <header class="header bg-white shadow-sm sticky top-0 z-40 w-full">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-4">
-        <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 md:hidden" aria-label="Open Menu">
-          <i class="fas fa-bars text-xl"></i>
-        </button>
-        <div class="flex items-center gap-2 cursor-pointer" onclick="App.navigateTo('index.html')">
-          <img src="logo.jpg" alt="Sarkar Saathi Logo" class="h-9 w-auto">
-          <span class="text-xl font-bold tracking-tight text-brand-primary">Sarkar Saathi</span>
+  <!-- FIXED HEADER TOP BAR -->
+  <header class="header bg-white border-b border-slate-200 fixed top-1.5 left-0 right-0 h-16 flex items-center justify-between px-6 z-40">
+    <div class="flex items-center gap-3">
+      <button class="menu-toggle text-slate-600 hover:text-brand-primary p-2 lg:hidden" aria-label="Open Menu">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+      <div class="flex items-center gap-2.5 cursor-pointer" onclick="App.navigateTo('index.html')">
+        <img src="logo.jpg" alt="Sarkar Saathi Logo" class="h-10 w-auto rounded-lg">
+        <div class="flex flex-col">
+          <span class="text-base font-extrabold text-blue-900 leading-none">सरकार साथी</span>
+          <span class="text-[10px] text-emerald-700 font-bold leading-tight">Sarkar Saathi</span>
+          <span class="text-[8px] text-slate-400 font-semibold tracking-wider uppercase leading-none">Your AI Government Guide</span>
         </div>
       </div>
-      
-      <!-- Desktop Navigation Menu -->
-      <nav class="hidden md:flex items-center gap-6">
-        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('index.html')">होम</a>
-        <a class="text-sm font-semibold text-brand-primary border-b-2 border-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('schemes.html')">सरकारी योजनाएँ</a>
-        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('documents.html')">दस्तावेज़ सहायक</a>
-        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('problems.html')">समस्या समाधान</a>
-        <a class="text-sm font-medium text-slate-600 hover:text-brand-primary pb-1 cursor-pointer" onclick="App.navigateTo('assistant.html')">एआई सहायक</a>
-      </nav>
+    </div>
+    
+    <!-- Central Search Input Box (Desktop) -->
+    <div class="hidden md:flex items-center bg-slate-50 border border-slate-200 rounded-full px-4 py-1.5 w-96 focus-within:ring-2 focus-within:ring-brand-primary transition-all">
+      <input type="text" id="top-search-input" class="w-full bg-transparent outline-none text-xs text-slate-700 placeholder-slate-400" placeholder="यहाँ खोजें (योजना, दस्तावेज़, समस्याएँ...)">
+      <i class="fas fa-search text-slate-400 text-sm cursor-pointer" onclick="handleTopSearch()"></i>
+    </div>
 
-      <div class="flex items-center gap-2">
-        <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
-          <i class="fas fa-moon text-lg"></i>
-        </button>
-      </div>
+    <!-- Right Controls -->
+    <div class="flex items-center gap-4">
+      <button class="theme-toggle text-slate-600 hover:text-brand-primary p-2 rounded-full hover:bg-slate-100 transition-colors" aria-label="Toggle Dark Mode">
+        <i class="fas fa-moon text-lg"></i>
+      </button>
     </div>
   </header>
 
-  <!-- MOBILE SLIDE-OUT MENU -->
+  <!-- DESKTOP LEFT SIDEBAR NAVIGATION -->
+  <aside class="hidden lg:flex flex-col w-64 bg-white border-r border-slate-200 fixed top-17.5 bottom-0 left-0 pt-6 px-4 z-30 overflow-y-auto">
+    <div class="flex flex-col gap-1.5 flex-grow">
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('index.html')">
+        <i class="fas fa-home text-base"></i>
+        <span>होम (Home)</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-extrabold bg-brand-primaryLight text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('schemes.html')">
+        <i class="fas fa-landmark text-base"></i>
+        <span>योजना खोजें</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('documents.html')">
+        <i class="fas fa-file-alt text-base"></i>
+        <span>दस्तावेज़ सहायक</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('problems.html')">
+        <i class="fas fa-exclamation-triangle text-base"></i>
+        <span>समस्या समाधान</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('assistant.html')">
+        <i class="fas fa-comments text-base"></i>
+        <span>AI सहायक</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer justify-between" onclick="App.navigateTo('result.html')">
+        <div class="flex items-center gap-3">
+          <i class="fas fa-rocket text-base"></i>
+          <span>पात्रता बूस्टर</span>
+        </div>
+        <span class="bg-orange-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">New</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('result.html')">
+        <i class="fas fa-folder-open text-base"></i>
+        <span>मेरे आवेदन</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('admin.html')">
+        <i class="fas fa-lock text-base"></i>
+        <span>व्यवस्थापक पैनल (Admin)</span>
+      </a>
+      <a class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 hover:text-brand-primary transition-all cursor-pointer" onclick="App.navigateTo('https://black-coding-portfolio.netlify.app/')">
+        <i class="fas fa-info-circle text-base"></i>
+        <span>हमारे बारे में (About Us)</span>
+      </a>
+    </div>
+
+    <!-- Promo Banner Side-widget -->
+    <div class="mt-auto mb-6 p-4 rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 flex flex-col items-center text-center relative overflow-hidden">
+      <span class="text-xs font-black text-slate-800 mb-1 z-10">सबका साथ, सबका विकास</span>
+      <p class="text-[10px] text-slate-500 mb-3 z-10">भारत सरकार की योजनाओं का सीधा लाभ उठाएं।</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Sansad_Bhavan_2023.jpg" alt="Sansad" class="w-24 h-auto rounded-lg object-cover z-10 border border-white">
+      <div class="absolute -bottom-10 -right-10 w-24 h-24 bg-emerald-500/10 rounded-full filter blur-xl"></div>
+    </div>
+  </aside>
+
+  <!-- MOBILE SLIDE-OUT DRAWER MENU -->
   <div class="drawer-backdrop"></div>
   <aside class="drawer">
-    <div class="drawer-profile" style="background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)); padding: 24px 16px; color: white; display: flex; flex-direction: column; gap: 8px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-        <div style="display: flex; align-items: center; gap: 8px;">
-          <img src="logo.jpg" alt="Sarkar Saathi Logo" class="h-8 w-auto">
-          <span style="font-size: 18px; font-weight: 700; letter-spacing: 0.5px;">Sarkar Saathi</span>
+    <div class="drawer-profile bg-gradient-to-r from-brand-primary to-brand-primaryDark p-6 text-white flex flex-col gap-2 relative">
+      <div class="flex justify-between items-center w-full">
+        <div class="flex items-center gap-2">
+          <img src="logo.jpg" alt="Sarkar Saathi Logo" class="h-8 w-auto rounded">
+          <span class="font-extrabold text-base tracking-wide">Sarkar Saathi</span>
         </div>
-        <button class="modal-close drawer-close" aria-label="Close Menu" style="color: white; border: none; background: none; font-size: 22px; cursor: pointer; padding: 0; line-height: 1;">&times;</button>
+        <button class="modal-close drawer-close text-white text-2xl outline-none">&times;</button>
       </div>
-      <p style="font-size: 11px; opacity: 0.8; margin: 0; font-weight: 500;">आपका स्मार्ट सरकारी गाइड</p>
+      <p class="text-[10px] text-emerald-200">आपका स्मार्ट सरकार साथी</p>
     </div>
     <div class="drawer-menu">
       <a class="drawer-item" onclick="App.navigateTo('index.html')">
@@ -101,23 +155,35 @@
         <i class="fas fa-landmark"></i>
         <span>सरकारी योजनाएँ (Schemes)</span>
       </a>
-      <a class="drawer-item" onclick="App.navigateTo('documents.html')">
+      <a class="drawer-item " onclick="App.navigateTo('documents.html')">
         <i class="fas fa-file-alt"></i>
         <span>दस्तावेज़ सहायक (Documents)</span>
       </a>
-      <a class="drawer-item" onclick="App.navigateTo('problems.html')">
+      <a class="drawer-item " onclick="App.navigateTo('problems.html')">
         <i class="fas fa-exclamation-triangle"></i>
         <span>समस्या समाधान (Problems)</span>
       </a>
-      <a class="drawer-item" onclick="App.navigateTo('assistant.html')">
+      <a class="drawer-item " onclick="App.navigateTo('assistant.html')">
         <i class="fas fa-comments"></i>
         <span>एआई सहायक (AI Assistant)</span>
+      </a>
+      <a class="drawer-item " onclick="App.navigateTo('result.html')">
+        <i class="fas fa-folder-open"></i>
+        <span>मेरे आवेदन (Applications)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('admin.html')">
+        <i class="fas fa-lock"></i>
+        <span>व्यवस्थापक पैनल (Admin Panel)</span>
+      </a>
+      <a class="drawer-item" onclick="App.navigateTo('https://black-coding-portfolio.netlify.app/')">
+        <i class="fas fa-info-circle"></i>
+        <span>हमारे बारे में (About Us)</span>
       </a>
     </div>
   </aside>
 
-  <!-- MAIN SCHEMES GRID LAYOUT -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="lg:pl-64 pt-16 min-h-screen bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     
     <!-- CATEGORY FILTER CHIPS -->
     <div class="flex items-center gap-3 overflow-x-auto pb-4 mb-6 scrollbar-none">
@@ -225,6 +291,7 @@
         </div>
       </section>
     </div>
+      </div>
   </main>
 
   <!-- DETAIL VIEW DIALOG MODAL BACKDROP -->
@@ -256,12 +323,11 @@
           </ul>
         </div>
 
+        
         <div class="footer-links">
-          <h4 class="text-white font-semibold text-sm mb-4">संपर्क सूत्र</h4>
-          <ul class="flex flex-col gap-2 text-xs text-slate-500">
-            <li><i class="fas fa-envelope mr-2"></i> lalityadavwebdev@gmail.com</li>
-            <li><i class="fas fa-phone mr-2"></i> +91 1800-123-4567</li>
-            <li><i class="fas fa-map-marker-alt mr-2"></i> नई दिल्ली, भारत</li>
+          <h4 class="text-white font-semibold text-sm mb-4">हमारे बारे में (About Us)</h4>
+          <ul class="flex flex-col gap-2 text-xs">
+            <li><a href="https://black-coding-portfolio.netlify.app/" target="_blank" class="hover:text-white transition-colors">नो योर डेवलपर्स (About Us)</a></li>
           </ul>
         </div>
       </div>
@@ -298,6 +364,7 @@
   </nav>
 
   <!-- Script Modules -->
+  <script src="js/db.js"></script>
   <script src="js/data-loader.js"></script>
   <script src="js/search.js"></script>
   <script src="js/filter.js"></script>
