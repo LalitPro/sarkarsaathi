@@ -41,6 +41,16 @@ export default function Admin({
     setIsSyncing(false);
   };
 
+  const [aiConfig, setAiConfig] = useState(DB.getAIConfig() || {
+    geminiApiKey: '',
+    apiEndpoint: ''
+  });
+
+  const saveAISettings = () => {
+    DB.saveAIConfig(aiConfig);
+    alert(lang === 'hi' ? "एआई (Gemini AI) क्रेडेंशियल सहेजे गए!" : "Gemini AI configurations saved successfully!");
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (password === 'admin123') {
@@ -232,7 +242,7 @@ export default function Admin({
           { id: 'schemes', label: lang === 'hi' ? 'योजनाएँ' : 'Schemes' },
           { id: 'documents', label: lang === 'hi' ? 'दस्तावेज़' : 'Documents' },
           { id: 'problems', label: lang === 'hi' ? 'समस्या समाधान' : 'Problems' },
-          { id: 'firebase', label: lang === 'hi' ? 'डेटाबेस सेटिंग्स' : 'Firebase Sync' }
+          { id: 'firebase', label: lang === 'hi' ? 'क्लाउड और AI सेटिंग्स' : 'Cloud & AI Setup' }
         ].map(tab => (
           <button
             key={tab.id}
@@ -370,64 +380,112 @@ export default function Admin({
           </div>
         )}
 
-        {/* Firebase Config Tab */}
+        {/* Firebase + AI Settings Tab */}
         {activeSubTab === 'firebase' && (
-          <div className="flex flex-col gap-4 max-w-xl">
-            <h3 className="text-sm font-black text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-              <Database className="w-4.5 h-4.5 text-brand-primary" />
-              <span>{lang === 'hi' ? 'फायरबेस रियलटाइम डेटाबेस सेटिंग्स' : 'Firebase Sync Settings'}</span>
-            </h3>
-            <p className="text-xs text-slate-500">
-              {lang === 'hi' 
-                ? 'डिफ़ॉल्ट रूप से आपका डेटा ब्राउज़र के LocalStorage में रहता है। लाइव सर्वर डेटा सिंक्रोनाइज़ेशन सक्षम करने के लिए, नीचे अपना फ़ायरबेस क्रेडेंशियल सेट करें:'
-                : 'By default data is saved in LocalStorage. Enter database URL to enable live sync.'}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
-              <div>
-                <label className="block text-[11px] font-bold text-slate-400 mb-1">Database URL (Realtime DB):</label>
-                <input 
-                  type="text" 
-                  value={fbConfig.databaseURL}
-                  onChange={(e) => setFbConfig({ ...fbConfig, databaseURL: e.target.value })}
-                  placeholder="https://project.firebaseio.com"
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
-                />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+            
+            {/* 1. Firebase settings Panel */}
+            <div className="bg-slate-50/50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 rounded-3xl p-6 flex flex-col gap-4">
+              <h3 className="text-xs font-black text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <Database className="w-4.5 h-4.5 text-brand-primary" />
+                <span>{lang === 'hi' ? 'फायरबेस रियलटाइम डेटाबेस सेटिंग्स' : 'Firebase Sync Settings'}</span>
+              </h3>
+              <p className="text-[11px] text-slate-500">
+                {lang === 'hi' 
+                  ? 'डिफ़ॉल्ट रूप से आपका डेटा ब्राउज़र के LocalStorage में रहता है। लाइव सर्वर डेटा सिंक्रोनाइज़ेशन सक्षम करने के लिए, नीचे अपना फ़ायरबेस क्रेडेंशियल सेट करें:'
+                  : 'By default data is saved in LocalStorage. Enter database URL to enable live sync.'}
+              </p>
+              <div className="flex flex-col gap-3">
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-400 mb-1">Database URL (Realtime DB):</label>
+                  <input 
+                    type="text" 
+                    value={fbConfig.databaseURL}
+                    onChange={(e) => setFbConfig({ ...fbConfig, databaseURL: e.target.value })}
+                    placeholder="https://project.firebaseio.com"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-brand-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-400 mb-1">Project ID:</label>
+                  <input 
+                    type="text" 
+                    value={fbConfig.projectId}
+                    onChange={(e) => setFbConfig({ ...fbConfig, projectId: e.target.value })}
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-brand-primary"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-[11px] font-bold text-slate-400 mb-1">Project ID:</label>
-                <input 
-                  type="text" 
-                  value={fbConfig.projectId}
-                  onChange={(e) => setFbConfig({ ...fbConfig, projectId: e.target.value })}
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
-                />
-              </div>
-            </div>
-             <div className="flex flex-wrap gap-3 mt-4 border-t border-slate-100 dark:border-slate-800 pt-4">
-              <button 
-                onClick={saveFirebaseSettings}
-                className="bg-brand-primary hover:bg-brand-primaryDark text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm"
-              >
-                {lang === 'hi' ? 'सेटिंग्स सहेजें' : 'Save Credentials'}
-              </button>
-              {fbConfig.databaseURL && (
+              <div className="flex flex-wrap gap-2.5 mt-2 pt-3 border-t border-slate-100 dark:border-slate-850">
                 <button 
-                  onClick={handleFirebaseSync}
-                  disabled={isSyncing}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm"
+                  onClick={saveFirebaseSettings}
+                  className="bg-brand-primary hover:bg-brand-primaryDark text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
                 >
-                  {isSyncing 
-                    ? (lang === 'hi' ? 'सिंक हो रहा है...' : 'Syncing...') 
-                    : (lang === 'hi' ? 'क्लाउड डेटा डाउनलोड (Sync)' : 'Pull Cloud Data (Sync)')}
+                  {lang === 'hi' ? 'सेटिंग्स सहेजें' : 'Save'}
                 </button>
-              )}
-              <button 
-                onClick={clearFirebaseSettings}
-                className="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 px-5 py-2.5 rounded-xl text-xs font-bold transition-all"
-              >
-                {lang === 'hi' ? 'स्थानीय मोड सक्रिय करें' : 'Reset to Local Mode'}
-              </button>
+                {fbConfig.databaseURL && (
+                  <button 
+                    onClick={handleFirebaseSync}
+                    disabled={isSyncing}
+                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+                  >
+                    {isSyncing 
+                      ? (lang === 'hi' ? 'सिंक हो रहा है...' : 'Syncing...') 
+                      : (lang === 'hi' ? 'सिंक करें (Pull)' : 'Pull (Sync)')}
+                  </button>
+                )}
+                <button 
+                  onClick={clearFirebaseSettings}
+                  className="bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-350 px-4 py-2 rounded-xl text-xs font-bold transition-all"
+                >
+                  {lang === 'hi' ? 'रीसेट' : 'Reset'}
+                </button>
+              </div>
             </div>
+
+            {/* 2. Gemini AI Integration Panel */}
+            <div className="bg-slate-50/50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 rounded-3xl p-6 flex flex-col gap-4">
+              <h3 className="text-xs font-black text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <ShieldCheck className="w-4.5 h-4.5 text-blue-600" />
+                <span>{lang === 'hi' ? 'जेमिनी एआई (Gemini AI) एकीकरण' : 'Gemini AI Integration'}</span>
+              </h3>
+              <p className="text-[11px] text-slate-500">
+                {lang === 'hi' 
+                  ? 'चैटबॉट सहायक को वास्तविक एआई मॉडल से जोड़ने के लिए अपना जेमिनी एपीआई की (Gemini API Key) सेट करें। खाली रहने पर यह स्थानीय कीवर्ड मोड पर काम करेगा।'
+                  : 'Add your Gemini API Key to route chatbot queries to a real AI model. Falls back to static rules if empty.'}
+              </p>
+              <div className="flex flex-col gap-3">
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-400 mb-1">Gemini API Key:</label>
+                  <input 
+                    type="password" 
+                    value={aiConfig.geminiApiKey}
+                    onChange={(e) => setAiConfig({ ...aiConfig, geminiApiKey: e.target.value })}
+                    placeholder="AIzaSy..."
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-brand-primary"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-400 mb-1">API Custom Endpoint (Optional):</label>
+                  <input 
+                    type="text" 
+                    value={aiConfig.apiEndpoint}
+                    onChange={(e) => setAiConfig({ ...aiConfig, apiEndpoint: e.target.value })}
+                    placeholder="https://generativelanguage.googleapis.com"
+                    className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-brand-primary"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-2.5 mt-2 pt-3 border-t border-slate-100 dark:border-slate-850">
+                <button 
+                  onClick={saveAISettings}
+                  className="bg-brand-primary hover:bg-brand-primaryDark text-white px-5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+                >
+                  {lang === 'hi' ? 'सहेजें (Save AI)' : 'Save AI Config'}
+                </button>
+              </div>
+            </div>
+
           </div>
         )}
 

@@ -3,7 +3,8 @@ const KEYS = {
   schemes: 'sarkarsaathi_custom_schemes',
   documents: 'sarkarsaathi_custom_documents',
   problems: 'sarkarsaathi_custom_problems',
-  firebase: 'sarkarsaathi_firebase_config'
+  firebase: 'sarkarsaathi_firebase_config',
+  ai: 'sarkarsaathi_ai_config'
 };
 
 export const getFirebaseConfig = () => {
@@ -22,6 +23,20 @@ export const saveFirebaseConfig = (config) => {
 export const clearFirebaseConfig = () => {
   localStorage.removeItem(KEYS.firebase);
 };
+
+export const getAIConfig = () => {
+  try {
+    const saved = localStorage.getItem(KEYS.ai);
+    return saved ? JSON.parse(saved) : { geminiApiKey: '', apiEndpoint: '' };
+  } catch (e) {
+    return { geminiApiKey: '', apiEndpoint: '' };
+  }
+};
+
+export const saveAIConfig = (config) => {
+  localStorage.setItem(KEYS.ai, JSON.stringify(config));
+};
+
 
 const loadLocalItems = (key) => {
   try {

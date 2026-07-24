@@ -3,6 +3,7 @@ import { Send, Bot, User, Sparkles, AlertCircle, Mic } from 'lucide-react';
 import { isDemographicallyEligible, detectMissingDocuments, getBoostedEligibility } from '../utils/filter';
 import { useSpeech } from '../hooks/useSpeech';
 import ListeningOverlay from './ListeningOverlay';
+import { getAIConfig } from '../utils/db';
 
 export default function Assistant({ schemes, documents, problems, profile, lang }) {
   const [messages, setMessages] = useState([]);
@@ -43,23 +44,93 @@ export default function Assistant({ schemes, documents, problems, profile, lang 
     return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  const fetchGeminiAIResponse = async (userQuery) => {
+    const aiConfig = getAIConfig();
+    const apiKey = aiConfig.geminiApiKey;
+    const endpoint = aiConfig.apiEndpoint || 'https://generativelanguage.googleapis.com';
+
+    const systemContext = `
+You are Sarkar Saathi AI, an expert advisor for Indian government schemes and citizen documentation.
+The user is talking to you. You must provide highly personalized, accurate, and helpful answers.
+
+Here is the current user's profile:
+- Name: ${profile.name || 'Citizen'}
+- Age: ${profile.age || 'Not specified'}
+- Gender: ${profile.gender || 'Not specified'}
+- State: ${profile.state || 'Not specified'}
+- Category: ${profile.category || 'Not specified'}
+- Occupation: ${profile.occupation || 'Not specified'}
+- Annual Income: ${profile.income || 'Not specified'}
+- Owned Documents: ${profile.documents ? profile.documents.join(', ') : 'None'}
+
+Here are the schemes available in the database:
+${JSON.stringify(schemes.map(s => ({ id: s.id, name: s.name, description: s.description, benefits: s.benefits })))}
+
+Here are the documents in the system:
+${JSON.stringify(documents.map(d => ({ id: d.id, name: d.name, description: d.description })))}
+
+Here are the problems in the system:
+${JSON.stringify(problems.map(p => ({ id: p.id, issue: p.issue, reason: p.possibleReason, fix: p.requiredFix })))}
+
+Guidelines:
+1. Always greet the user nicely. Greet in ${lang === 'hi' ? 'Hindi' : 'English'}.
+2. Keep your answers concise, clear, and easy to read. Use bullet points and bold formatting where appropriate.
+3. If they ask about eligibility, reference their profile demographics to tell them if they qualify for any specific scheme.
+4. Answer in the language the user asked or default to ${lang === 'hi' ? 'Hindi' : 'English'}. Do not speak about unrelated topics.
+`;
+
+    const url = `${endpoint.replace(/\/$/, '')}/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: systemContext + `\n\nUser Question: ${userQuery}` }]
+            }
+          ]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Gemini API call failed");
+      }
+
+      const resData = await response.json();
+      const answer = resData.candidates[0].content.parts[0].text;
+      return answer;
+    } catch (e) {
+      console.warn("Gemini API call failed, falling back to static keyword responder", e);
+      return null;
+    }
+  };
+
   const handleSend = async () => {
     const text = input.trim();
     if (!text) return;
 
     setInput('');
-    // 1. Add User bubble
     const userMsg = { id: `user-${Date.now()}`, type: 'user', text, time: getFormattedTime() };
     setMessages(prev => [...prev, userMsg]);
     setIsTyping(true);
 
-    // 2. Compute AI Bot response
-    setTimeout(() => {
-      const responseText = calculateResponse(text);
-      const botMsg = { id: `bot-${Date.now()}`, type: 'bot', text: responseText, time: getFormattedTime() };
-      setMessages(prev => [...prev, botMsg]);
-      setIsTyping(false);
-    }, 750);
+    const aiConfig = getAIConfig();
+    let responseText = null;
+
+    if (aiConfig && aiConfig.geminiApiKey) {
+      responseText = await fetchGeminiAIResponse(text);
+    }
+
+    if (!responseText) {
+      responseText = calculateResponse(text);
+    }
+
+    const botMsg = { id: `bot-${Date.now()}`, type: 'bot', text: responseText, time: getFormattedTime() };
+    setMessages(prev => [...prev, botMsg]);
+    setIsTyping(false);
   };
 
   const calculateResponse = (userText) => {
