@@ -9,43 +9,39 @@ const STATES = ["Madhya Pradesh", "Rajasthan", "Uttar Pradesh", "Maharashtra", "
 const CATEGORIES = [
   {
     type: "Agriculture",
-    names: ["कृषि आदान अनुदान", "फसल बीमा सहायता", "किसान कल्याण योजना", "कृषि यंत्र सब्सिडी"],
-    desc: "किसानों को फसल नुकसान की भरपाई और कृषि उपकरण खरीदने के लिए वित्तीय सहायता प्रदान करना।",
-    benefits: "₹5,000 से ₹25,000 प्रति हेक्टेयर की इनपुट सब्सिडी तथा यंत्रों पर 50% तक की छूट।",
-    docs: ["aadhaar", "ration_card", "bank_passbook", "domicile"],
+    nameSuffix: "मुख्यमंत्री कृषि आदान अनुदान",
+    desc: "फसल क्षति होने पर किसानों को आर्थिक अनुदान सहायता प्रदान करना।",
+    benefits: "सूखा, ओलावृष्टि या बाढ़ से फसल नुकसान होने पर प्रति हेक्टेयर ₹15,000 से ₹22,500 तक का वित्तीय अनुदान सहायता सीधे बैंक खाते में।",
+    docs: ["aadhaar_card", "ration_card", "bank_passbook"],
+    processingTime: "15 दिन",
     eligibility: { ageMin: 18, ageMax: 80, gender: "All", category: ["All"], occupations: ["Farmer"], maxIncome: null, ruralUrban: "Both", disability: "Both" }
   },
   {
     type: "Health",
-    names: ["आयुष्मान राज्य स्वास्थ्य कार्ड", "निःशुल्क चिकित्सा सहायता", "मातृत्व सुरक्षा प्रोत्साहन", "गंभीर बीमारी सहायता योजना"],
-    desc: "गरीब परिवारों को गंभीर बीमारियों के इलाज के लिए कैशलेस स्वास्थ्य बीमा और मुफ्त दवाएं प्रदान करना।",
-    benefits: "प्रति परिवार प्रति वर्ष ₹5,00000 तक का कैशलेस इलाज सरकारी और सूचीबद्ध निजी अस्पतालों में।",
-    docs: ["aadhaar", "ration_card", "income_certificate", "bank_passbook"],
-    eligibility: { ageMin: 0, ageMax: 100, gender: "All", category: ["All"], occupations: ["All"], maxIncome: 200000, ruralUrban: "Both", disability: "Both" }
+    nameSuffix: "राज्य आयुष्मान राज्य स्वास्थ्य कार्ड",
+    desc: "राज्य के गरीब परिवारों को कैशलैस चिकित्सा उपचार उपलब्ध कराना।",
+    benefits: "परिवारों को सरकारी और संबद्ध निजी अस्पतालों में गंभीर बीमारियों के लिए प्रति वर्ष ₹5,00,000 तक का निःशुल्क चिकित्सा बीमा कवर।",
+    docs: ["aadhaar_card", "ration_card", "income_certificate"],
+    processingTime: "20 दिन",
+    eligibility: { ageMin: 0, ageMax: 100, gender: "All", category: ["All"], occupations: ["All"], maxIncome: 250000, ruralUrban: "Both", disability: "Both" }
   },
   {
     type: "Education",
-    names: ["उच्च शिक्षा छात्रवृत्ति", "कक्षा ९-१२ छात्रवृत्ति", "साइकिल प्रदाय योजना", "छात्रावास सहायता योजना"],
-    desc: "आर्थिक रूप से कमजोर वर्ग और आरक्षित वर्ग के मेधावी छात्र-छात्राओं को शिक्षा जारी रखने के लिए वित्तीय प्रोत्साहन।",
-    benefits: "₹2,500 से ₹50,000 प्रति वर्ष की छात्रवृत्ति और निःशुल्क साइकिल/किताबें।",
-    docs: ["aadhaar", "ration_card", "income_certificate", "bank_passbook"],
-    eligibility: { ageMin: 5, ageMax: 30, gender: "All", category: ["All"], occupations: ["Student"], maxIncome: 250000, ruralUrban: "Both", disability: "Both" }
+    nameSuffix: "आत्मनिर्भर उच्च शिक्षा छात्रवृत्ति",
+    desc: "मेधावी छात्रों को उच्च शिक्षा प्राप्त करने के लिए छात्रवृत्ति देना।",
+    benefits: "कॉलेज, मेडिकल या इंजीनियरिंग कोर्सेज की फीस भरने के लिए सालाना ₹50,000 तक की छात्रवृत्ति और निःशुल्क साइकिल/किताबें प्रदान करना।",
+    docs: ["aadhaar_card", "income_certificate", "caste_certificate"],
+    processingTime: "25 दिन",
+    eligibility: { ageMin: 5, ageMax: 30, gender: "All", category: ["All"], occupations: ["Student"], maxIncome: 300000, ruralUrban: "Both", disability: "Both" }
   },
   {
     type: "Employment",
-    names: ["युवा स्वरोजगार योजना", "महिला उद्यमिता प्रोत्साहन", "कौशल विकास प्रशिक्षण", "लघु उद्योग ऋण योजना"],
-    desc: "बेरोजगार युवाओं और महिलाओं को खुद का व्यवसाय शुरू करने के लिए कम ब्याज दर पर ऋण और सब्सिडी।",
-    benefits: "₹50,000 से ₹10,00000 तक का बिना गारंटी का लोन और 25% तक की सब्सिडी।",
-    docs: ["aadhaar", "pan", "domicile", "bank_passbook"],
+    nameSuffix: "विकास युवा स्वरोजगार योजना",
+    desc: "बेरोजगार युवाओं को स्वयं का उद्योग शुरू करने में मदद करना।",
+    benefits: "विनिर्माण (Manufacturing) इकाई के लिए ₹25 लाख और सेवा क्षेत्र के लिए ₹10 लाख तक का बिना गारंटी का लोन और 25% तक की सब्सिडी।",
+    docs: ["aadhaar_card", "pan_card", "income_certificate"],
+    processingTime: "30 दिन",
     eligibility: { ageMin: 18, ageMax: 45, gender: "All", category: ["All"], occupations: ["Unemployed", "Business Owner"], maxIncome: null, ruralUrban: "Both", disability: "Both" }
-  },
-  {
-    type: "Travel",
-    names: ["निःशुल्क यात्रा योजना", "यात्री रियायत योजना", "बस पास सहायता", "परिवहन छूट योजना"],
-    desc: "सार्वजनिक परिवहन बसों और ट्रेनों में रियायती या पूर्णतः निःशुल्क यात्रा सुविधाएं प्रदान करना।",
-    benefits: "किराए में 50% से 100% तक की छूट और रियायती मासिक पास की सुविधा।",
-    docs: ["aadhaar", "domicile"],
-    eligibility: { ageMin: 5, ageMax: 100, gender: "All", category: ["All"], occupations: ["All"], maxIncome: null, ruralUrban: "Both", disability: "Both" }
   }
 ];
 
@@ -54,22 +50,12 @@ const stateToId = (state) => state.toLowerCase().replace(/\s+/g, '_');
 const generateAllStateSchemes = (base) => {
   const generated = [...base];
 
-  // For each state, generate 4 schemes dynamically to demonstrate the engine scalability
+  // For each state, generate the 4 real state-level schemes requested in user's table
   STATES.forEach(state => {
-    const needed = 4;
-    for (let i = 0; i < needed; i++) {
-      const cat = CATEGORIES[i % CATEGORIES.length];
-      const nameSuffix = cat.names[Math.floor((i / CATEGORIES.length)) % cat.names.length];
-      const prefix = ["मुख्यमंत्री", "राज्य", "आत्मनिर्भर", "विकास", "जनकल्याण", "सर्वजन"][i % 6];
-      const schemeName = `${state} ${prefix} ${nameSuffix}`;
+    for (let i = 0; i < 4; i++) {
+      const cat = CATEGORIES[i];
+      const schemeName = `${state} ${cat.nameSuffix}`;
       const schemeId = `${stateToId(state)}_scheme_${i + 1}`;
-
-      const eligibility = { ...cat.eligibility };
-      if (i % 3 === 0) {
-        eligibility.gender = "Female";
-      } else if (i % 4 === 0) {
-        eligibility.category = ["OBC", "SC", "ST"];
-      }
 
       generated.push({
         id: schemeId,
@@ -78,11 +64,11 @@ const generateAllStateSchemes = (base) => {
         state: state,
         description: `${state} सरकार द्वारा संचालित। ${cat.desc}`,
         benefits: cat.benefits,
-        eligibility: eligibility,
+        eligibility: cat.eligibility,
         requiredDocuments: cat.docs,
-        processingTime: `${15 + (i % 4) * 5} दिन`,
-        applyMode: i % 2 === 0 ? "Both" : "Online",
-        officialWebsite: `https://www.serviceonline.gov.in`
+        processingTime: cat.processingTime,
+        applyMode: "Both",
+        officialWebsite: `https://${stateToId(state)}.gov.in`
       });
     }
   });
