@@ -10,7 +10,20 @@ const KEYS = {
 export const getFirebaseConfig = () => {
   try {
     const saved = localStorage.getItem(KEYS.firebase);
-    return saved ? JSON.parse(saved) : null;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && parsed.databaseURL) return parsed;
+    }
+    
+    // Default credentials provided by User
+    const defaultConfig = {
+      apiKey: "AIzaSyBAFJhrYKNf9YmJ9DWR-hV17wBc3386R6I",
+      authDomain: "sarkar-saathi-b38fc.firebaseapp.com",
+      projectId: "sarkar-saathi-b38fc",
+      databaseURL: "https://sarkar-saathi-b38fc-default-rtdb.firebaseio.com/"
+    };
+    localStorage.setItem(KEYS.firebase, JSON.stringify(defaultConfig));
+    return defaultConfig;
   } catch (e) {
     return null;
   }
