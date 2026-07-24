@@ -181,7 +181,8 @@ export default function Dashboard({
                 type="text" 
                 value={profile.name || ''} 
                 onChange={(e) => handleInputChange('name', e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-brand-primary"
+                placeholder={lang === 'hi' ? "उदा. राहुल कुमार" : "e.g. Rahul Kumar"}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-1 focus:ring-brand-primary placeholder-slate-400 dark:placeholder-slate-500"
               />
             </div>
             <div>
@@ -191,8 +192,8 @@ export default function Dashboard({
                 onChange={(e) => handleInputChange('state', e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
               >
-                <option value="">-- {lang === 'hi' ? 'राज्य चुनें' : 'Select State'} --</option>
-                {STATES.map(s => <option key={s} value={s}>{s}</option>)}
+                <option value="" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">-- {lang === 'hi' ? 'राज्य चुनें' : 'Select State'} --</option>
+                {STATES.map(s => <option key={s} value={s} className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{s}</option>)}
               </select>
             </div>
             <div>
@@ -201,7 +202,8 @@ export default function Dashboard({
                 type="number" 
                 value={profile.age || ''} 
                 onChange={(e) => handleInputChange('age', e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
+                placeholder={lang === 'hi' ? "उदा. 25" : "e.g. 25"}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none placeholder-slate-400 dark:placeholder-slate-500"
               />
             </div>
             <div>
@@ -211,9 +213,9 @@ export default function Dashboard({
                 onChange={(e) => handleInputChange('gender', e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
               >
-                <option value="Male">{lang === 'hi' ? 'पुरुष (Male)' : 'Male'}</option>
-                <option value="Female">{lang === 'hi' ? 'महिला (Female)' : 'Female'}</option>
-                <option value="Other">{lang === 'hi' ? 'अन्य (Other)' : 'Other'}</option>
+                <option value="Male" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{lang === 'hi' ? 'पुरुष (Male)' : 'Male'}</option>
+                <option value="Female" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{lang === 'hi' ? 'महिला (Female)' : 'Female'}</option>
+                <option value="Other" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{lang === 'hi' ? 'अन्य (Other)' : 'Other'}</option>
               </select>
             </div>
             <div>
@@ -223,7 +225,7 @@ export default function Dashboard({
                 onChange={(e) => handleInputChange('category', e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
               >
-                {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                {CATEGORIES.map(c => <option key={c} value={c} className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{c}</option>)}
               </select>
             </div>
             <div>
@@ -233,7 +235,7 @@ export default function Dashboard({
                 onChange={(e) => handleInputChange('occupation', e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
               >
-                {OCCUPATIONS.map(o => <option key={o} value={o}>{o}</option>)}
+                {OCCUPATIONS.map(o => <option key={o} value={o} className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{o}</option>)}
               </select>
             </div>
             <div>
@@ -242,7 +244,8 @@ export default function Dashboard({
                 type="number" 
                 value={profile.income || ''} 
                 onChange={(e) => handleInputChange('income', e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
+                placeholder={lang === 'hi' ? "उदा. 150000" : "e.g. 150000"}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none placeholder-slate-400 dark:placeholder-slate-500"
               />
             </div>
             <div>
@@ -252,9 +255,9 @@ export default function Dashboard({
                 onChange={(e) => handleInputChange('ruralUrban', e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none"
               >
-                <option value="Rural">{lang === 'hi' ? 'ग्रामीण (Rural)' : 'Rural'}</option>
-                <option value="Urban">{lang === 'hi' ? 'शहरी (Urban)' : 'Urban'}</option>
-                <option value="Both">{lang === 'hi' ? 'दोनों (Both)' : 'Both'}</option>
+                <option value="Rural" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{lang === 'hi' ? 'ग्रामीण (Rural)' : 'Rural'}</option>
+                <option value="Urban" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{lang === 'hi' ? 'शहरी (Urban)' : 'Urban'}</option>
+                <option value="Both" className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">{lang === 'hi' ? 'दोनों (Both)' : 'Both'}</option>
               </select>
             </div>
           </div>

@@ -321,7 +321,7 @@ Guidelines:
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
-            className="w-full bg-transparent text-xs text-slate-800 dark:text-slate-200 outline-none"
+            className="w-full bg-transparent text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 outline-none"
             placeholder={lang === 'hi' ? "योजना या आवश्यक दस्तावेज़ों के बारे में पूछें..." : "Ask about schemes, documents, corrections..."}
           />
           <button
