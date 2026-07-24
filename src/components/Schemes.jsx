@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Info, HelpCircle, CheckCircle2, AlertTriangle, ExternalLink, X, Landmark } from 'lucide-react';
+import { Search, Info, HelpCircle, CheckCircle2, AlertTriangle, ExternalLink, X, Landmark, Volume2, VolumeX, Mic } from 'lucide-react';
 import { isDemographicallyEligible, detectMissingDocuments } from '../utils/filter';
+import { useSpeech } from '../hooks/useSpeech';
+import ListeningOverlay from './ListeningOverlay';
 
 const STATES = ["Madhya Pradesh", "Rajasthan", "Uttar Pradesh", "Maharashtra", "Gujarat", "Bihar", "Delhi", "Punjab"];
 
@@ -9,12 +11,27 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
   const [govType, setGovType] = useState('All');
   const [selectedState, setSelectedState] = useState('');
   const [selectedScheme, setSelectedScheme] = useState(null);
+  const { isListening, transcript, isSpeaking, speakText, stopSpeaking, startListening } = useSpeech(lang);
 
   useEffect(() => {
     if (searchParam) {
       setSearchVal(searchParam);
     }
   }, [searchParam]);
+
+  useEffect(() => {
+    if (!selectedScheme) {
+      stopSpeaking();
+    }
+  }, [selectedScheme]);
+
+  const handleAudioListen = () => {
+    if (!selectedScheme) return;
+    const textToSpeak = lang === 'hi' 
+      ? `${selectedScheme.name}। विवरण: ${selectedScheme.description}। लाभ: ${selectedScheme.benefits}` 
+      : `${selectedScheme.name}. Description: ${selectedScheme.description}. Benefits: ${selectedScheme.benefits}`;
+    speakText(textToSpeak);
+  };
 
   const filteredSchemes = schemes.filter(scheme => {
     // 1. Text Search query
@@ -45,8 +62,8 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
       
       {/* 1. FILTER CONTROLS BAR */}
       <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-5 shadow-sm flex flex-col md:flex-row gap-4 items-center justify-between transition-colors">
-        <div className="flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-2 w-full md:w-80">
-          <Search className="w-4 h-4 text-slate-400 mr-2" />
+        <div className="flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-2 w-full md:w-80 gap-1.5 focus-within:ring-1 focus-within:ring-brand-primary">
+          <Search className="w-4 h-4 text-slate-400 shrink-0" />
           <input 
             type="text" 
             value={searchVal}
@@ -54,6 +71,14 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
             className="w-full bg-transparent outline-none text-xs text-slate-700 dark:text-slate-200 placeholder-slate-400"
             placeholder={lang === 'hi' ? "योजना का नाम यहाँ खोजें..." : "Search scheme name here..."}
           />
+          <button
+            type="button"
+            onClick={() => startListening((text) => setSearchVal(text))}
+            className="text-slate-400 hover:text-brand-primary transition-colors p-0.5"
+            title={lang === 'hi' ? "आवाज़ से खोजें" : "Voice Search"}
+          >
+            <Mic className="w-4 h-4" />
+          </button>
         </div>
 
         <div className="flex flex-wrap gap-3 w-full md:w-auto">
@@ -159,9 +184,19 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
             
             {/* Modal Header */}
             <div className="flex justify-between items-center px-6 py-4 bg-slate-50 dark:bg-slate-800 border-b border-slate-100 dark:border-slate-800">
-              <div className="flex flex-col">
+              <div className="flex flex-col flex-grow mr-4">
                 <span className="text-[9px] text-slate-400 font-bold uppercase">{selectedScheme.governmentType === 'Central' ? 'Central' : `State: ${selectedScheme.state}`}</span>
-                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">{selectedScheme.name}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">{selectedScheme.name}</h3>
+                  <button 
+                    type="button"
+                    onClick={handleAudioListen}
+                    className="p-1 rounded-full bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-650 text-slate-650 dark:text-slate-200 transition-all shrink-0"
+                    title={lang === 'hi' ? "विवरण सुनें" : "Listen details"}
+                  >
+                    {isSpeaking ? <VolumeX className="w-3.5 h-3.5 text-red-500" /> : <Volume2 className="w-3.5 h-3.5 text-brand-primary dark:text-emerald-400" />}
+                  </button>
+                </div>
               </div>
               <button 
                 className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl outline-none"
@@ -239,6 +274,14 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
           </div>
         </div>
       )}
+
+      {/* Listening Voice Recognizer Overlay */}
+      <ListeningOverlay 
+        isOpen={isListening}
+        onClose={() => {}}
+        transcript={transcript}
+        lang={lang}
+      />
 
     </div>
   );

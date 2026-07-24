@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Search, Moon, Sun, Menu, Globe, User } from 'lucide-react';
+import { Search, Moon, Sun, Menu, Globe, User, Mic } from 'lucide-react';
 import logo from '../assets/logo.jpg';
+import { useSpeech } from '../hooks/useSpeech';
+import ListeningOverlay from './ListeningOverlay';
 
 export default function Header({ 
   onMenuToggle, 
@@ -12,10 +14,16 @@ export default function Header({
   profile
 }) {
   const [searchVal, setSearchVal] = useState('');
+  const { isListening, transcript, startListening } = useSpeech(lang);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSearch) onSearch(searchVal);
+  };
+
+  const handleVoiceSearchResult = (text) => {
+    setSearchVal(text);
+    if (onSearch) onSearch(text);
   };
 
   const getGreeting = () => {
@@ -58,7 +66,7 @@ export default function Header({
         </div>
 
         {/* Center: Search Box */}
-        <form onSubmit={handleSubmit} className="hidden md:flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 w-96 focus-within:ring-2 focus-within:ring-brand-primary transition-all">
+        <form onSubmit={handleSubmit} className="hidden md:flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-1.5 w-96 focus-within:ring-2 focus-within:ring-brand-primary transition-all gap-1.5">
           <input 
             type="text" 
             value={searchVal}
@@ -66,7 +74,15 @@ export default function Header({
             className="w-full bg-transparent outline-none text-xs text-slate-700 dark:text-slate-200 placeholder-slate-400" 
             placeholder={lang === 'hi' ? "यहाँ खोजें (योजना, दस्तावेज़, समस्याएँ...)" : "Search here (schemes, documents, issues...)"}
           />
-          <button type="submit" className="text-slate-400 hover:text-brand-primary transition-colors">
+          <button 
+            type="button"
+            onClick={() => startListening(handleVoiceSearchResult)}
+            className="text-slate-400 hover:text-brand-primary transition-colors p-1"
+            title={lang === 'hi' ? "आवाज़ से खोजें" : "Voice Search"}
+          >
+            <Mic className="w-4 h-4" />
+          </button>
+          <button type="submit" className="text-slate-400 hover:text-brand-primary transition-colors p-1">
             <Search className="w-4 h-4" />
           </button>
         </form>
@@ -100,6 +116,14 @@ export default function Header({
           </button>
         </div>
       </header>
+
+      {/* Listening Voice Recognizer Overlay */}
+      <ListeningOverlay 
+        isOpen={isListening}
+        onClose={() => handleVoiceSearchResult('')}
+        transcript={transcript}
+        lang={lang}
+      />
     </>
   );
 }

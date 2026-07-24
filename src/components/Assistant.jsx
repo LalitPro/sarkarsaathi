@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Bot, User, Sparkles, AlertCircle } from 'lucide-react';
+import { Send, Bot, User, Sparkles, AlertCircle, Mic } from 'lucide-react';
 import { isDemographicallyEligible, detectMissingDocuments, getBoostedEligibility } from '../utils/filter';
+import { useSpeech } from '../hooks/useSpeech';
+import ListeningOverlay from './ListeningOverlay';
 
 export default function Assistant({ schemes, documents, problems, profile, lang }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatLogsEndRef = useRef(null);
+  const { isListening, transcript, startListening } = useSpeech(lang);
 
   // Initialize Welcome Message
   useEffect(() => {
@@ -241,21 +244,39 @@ export default function Assistant({ schemes, documents, problems, profile, lang 
 
       {/* Input Message Form Box */}
       <div className="flex items-center gap-3 border-t border-slate-100 dark:border-slate-800 pt-4">
-        <input 
-          type="text" 
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
-          className="flex-grow bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-xs text-slate-800 dark:text-slate-200 outline-none focus:ring-1 focus:ring-brand-primary"
-          placeholder={lang === 'hi' ? "योजना या आवश्यक दस्तावेज़ों के बारे में पूछें..." : "Ask about schemes, documents, corrections..."}
-        />
+        <div className="flex-grow bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 flex items-center gap-2 focus-within:ring-1 focus-within:ring-brand-primary">
+          <input 
+            type="text" 
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleSend(); }}
+            className="w-full bg-transparent text-xs text-slate-850 dark:text-slate-200 outline-none"
+            placeholder={lang === 'hi' ? "योजना या आवश्यक दस्तावेज़ों के बारे में पूछें..." : "Ask about schemes, documents, corrections..."}
+          />
+          <button
+            type="button"
+            onClick={() => startListening((text) => setInput(text))}
+            className="text-slate-400 hover:text-brand-primary transition-colors p-1"
+            title={lang === 'hi' ? "आवाज़ से इनपुट करें" : "Voice input"}
+          >
+            <Mic className="w-4 h-4" />
+          </button>
+        </div>
         <button 
           onClick={handleSend}
-          className="bg-brand-primary hover:bg-brand-primaryDark text-white p-3 rounded-2xl transition-all shadow-sm flex items-center justify-center"
+          className="bg-brand-primary hover:bg-brand-primaryDark text-white p-3.5 rounded-2xl transition-all shadow-sm flex items-center justify-center shrink-0"
         >
           <Send className="w-4 h-4" />
         </button>
       </div>
+
+      {/* Listening Voice Recognizer Overlay */}
+      <ListeningOverlay 
+        isOpen={isListening}
+        onClose={() => {}}
+        transcript={transcript}
+        lang={lang}
+      />
 
     </div>
   );
