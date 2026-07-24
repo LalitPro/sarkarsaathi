@@ -261,3 +261,41 @@ export const pullFromFirebase = async () => {
     return false;
   }
 };
+
+// Seed/Push all local compiled base data to Firebase database in one click
+export const seedFirebaseDatabase = async (schemes, documents, problems) => {
+  const config = getFirebaseConfig();
+  if (!config || !config.databaseURL) return false;
+
+  try {
+    // 1. Clear any deleted trackers in Firebase (start fresh)
+    await fetch(`${config.databaseURL.replace(/\/$/, '')}/deletedSchemes.json`, { method: 'DELETE' });
+    await fetch(`${config.databaseURL.replace(/\/$/, '')}/deletedDocs.json`, { method: 'DELETE' });
+    await fetch(`${config.databaseURL.replace(/\/$/, '')}/deletedProblems.json`, { method: 'DELETE' });
+
+    // Clear local deleted trackers
+    localStorage.removeItem(KEYS.deletedSchemes);
+    localStorage.removeItem(KEYS.deletedDocs);
+    localStorage.removeItem(KEYS.deletedProblems);
+
+    // 2. Upload all schemes
+    for (const s of schemes) {
+      await syncWithFirebase('schemes', 'save', s);
+    }
+
+    // 3. Upload all documents
+    for (const d of documents) {
+      await syncWithFirebase('documents', 'save', d);
+    }
+
+    // 4. Upload all problems
+    for (const p of problems) {
+      await syncWithFirebase('problems', 'save', p);
+    }
+
+    return true;
+  } catch (e) {
+    console.error("Failed to seed Firebase database:", e);
+    return false;
+  }
+};

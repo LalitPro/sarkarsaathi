@@ -52,6 +52,27 @@ export default function Admin({
     alert(lang === 'hi' ? "एआई (Gemini AI) क्रेडेंशियल सहेजे गए!" : "Gemini AI configurations saved successfully!");
   };
 
+  const [isSeeding, setIsSeeding] = useState(false);
+
+  const handleFirebaseSeed = async () => {
+    const confirmSeed = window.confirm(
+      lang === 'hi' 
+        ? "क्या आप वाकई सभी स्थानीय योजनाओं, दस्तावेज़ों और समस्याओं को फ़ायरबेस में अपलोड (Seed) करना चाहते हैं? इससे पुराना क्लाउड डेटा ओवरराइट हो जाएगा।" 
+        : "Are you sure you want to seed/push all local schemes, documents, and problems to Firebase? This will overwrite cloud data."
+    );
+    if (!confirmSeed) return;
+
+    setIsSeeding(true);
+    const success = await DB.seedFirebaseDatabase(schemes, documents, problems);
+    if (success) {
+      onDatabaseReload();
+      alert(lang === 'hi' ? "डेटाबेस फ़ायरबेस पर सफलतापूर्वक सीड (Seed) हो गया है!" : "Database successfully seeded to Firebase cloud!");
+    } else {
+      alert(lang === 'hi' ? "सीडिंग विफल! कृपया अपने नेटवर्क या फ़ायरबेस यूआरएल की जाँच करें।" : "Seeding failed! Please check your network or Firebase database URL.");
+    }
+    setIsSeeding(false);
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
     if (password === 'admin123') {
@@ -435,15 +456,27 @@ export default function Admin({
                   {lang === 'hi' ? 'सेटिंग्स सहेजें' : 'Save'}
                 </button>
                 {fbConfig.databaseURL && (
-                  <button 
-                    onClick={handleFirebaseSync}
-                    disabled={isSyncing}
-                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
-                  >
-                    {isSyncing 
-                      ? (lang === 'hi' ? 'सिंक हो रहा है...' : 'Syncing...') 
-                      : (lang === 'hi' ? 'सिंक करें (Pull)' : 'Pull (Sync)')}
-                  </button>
+                  <>
+                    <button 
+                      onClick={handleFirebaseSync}
+                      disabled={isSyncing || isSeeding}
+                      className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+                    >
+                      {isSyncing 
+                        ? (lang === 'hi' ? 'सिंक हो रहा है...' : 'Syncing...') 
+                        : (lang === 'hi' ? 'सिंक करें (Pull)' : 'Pull (Sync)')}
+                    </button>
+                    <button 
+                      onClick={handleFirebaseSeed}
+                      disabled={isSyncing || isSeeding}
+                      className="bg-orange-600 hover:bg-orange-700 disabled:bg-orange-400 text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
+                      title={lang === 'hi' ? 'स्थानीय डेटा को क्लाउड डेटाबेस में अपलोड करें' : 'Upload local database to Firebase'}
+                    >
+                      {isSeeding 
+                        ? (lang === 'hi' ? 'अपलोड हो रहा है...' : 'Uploading...') 
+                        : (lang === 'hi' ? 'डेटाबेस भरें (Seed Cloud)' : 'Seed Cloud (Push)')}
+                    </button>
+                  </>
                 )}
                 <button 
                   onClick={clearFirebaseSettings}
