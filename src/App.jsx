@@ -8,6 +8,7 @@ import Problems from './components/Problems';
 import Assistant from './components/Assistant';
 import Admin from './components/Admin';
 import { loadDatabase } from './utils/loader';
+import { pullFromFirebase, getFirebaseConfig } from './utils/db';
 import logo from './assets/logo.jpg';
 
 export default function App() {
@@ -73,6 +74,20 @@ export default function App() {
     if (path === '/admin' || hash === '#/admin' || hash === '#admin') {
       setActiveTab('admin');
     }
+  }, []);
+
+  // Background auto-sync database from Firebase on mount
+  useEffect(() => {
+    const syncDb = async () => {
+      const config = getFirebaseConfig();
+      if (config && config.databaseURL) {
+        const success = await pullFromFirebase();
+        if (success) {
+          handleReloadDatabase();
+        }
+      }
+    };
+    syncDb();
   }, []);
 
   useEffect(() => {
