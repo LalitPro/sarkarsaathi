@@ -107,11 +107,11 @@ export const saveScheme = async (scheme) => {
   if (deleted.includes(scheme.id)) {
     deleted = deleted.filter(id => id !== scheme.id);
     saveLocalItems(KEYS.deletedSchemes, deleted);
-    await syncWithFirebase('deletedSchemes', 'delete', { id: scheme.id });
+    syncWithFirebase('deletedSchemes', 'delete', { id: scheme.id });
   }
 
   saveLocalItems(KEYS.schemes, items);
-  await syncWithFirebase('schemes', 'save', scheme);
+  syncWithFirebase('schemes', 'save', scheme);
 };
 
 export const deleteScheme = async (schemeId) => {
@@ -127,9 +127,9 @@ export const deleteScheme = async (schemeId) => {
       deleted.push(schemeId);
       saveLocalItems(KEYS.deletedSchemes, deleted);
     }
-    await syncWithFirebase('deletedSchemes', 'save', { id: schemeId, deleted: true });
+    syncWithFirebase('deletedSchemes', 'save', { id: schemeId, deleted: true });
   }
-  await syncWithFirebase('schemes', 'delete', { id: schemeId });
+  syncWithFirebase('schemes', 'delete', { id: schemeId });
 };
 
 // Custom Documents
@@ -148,11 +148,11 @@ export const saveDocument = async (documentObj) => {
   if (deleted.includes(documentObj.id)) {
     deleted = deleted.filter(id => id !== documentObj.id);
     saveLocalItems(KEYS.deletedDocs, deleted);
-    await syncWithFirebase('deletedDocs', 'delete', { id: documentObj.id });
+    syncWithFirebase('deletedDocs', 'delete', { id: documentObj.id });
   }
 
   saveLocalItems(KEYS.documents, items);
-  await syncWithFirebase('documents', 'save', documentObj);
+  syncWithFirebase('documents', 'save', documentObj);
 };
 
 export const deleteDocument = async (docId) => {
@@ -168,9 +168,9 @@ export const deleteDocument = async (docId) => {
       deleted.push(docId);
       saveLocalItems(KEYS.deletedDocs, deleted);
     }
-    await syncWithFirebase('deletedDocs', 'save', { id: docId, deleted: true });
+    syncWithFirebase('deletedDocs', 'save', { id: docId, deleted: true });
   }
-  await syncWithFirebase('documents', 'delete', { id: docId });
+  syncWithFirebase('documents', 'delete', { id: docId });
 };
 
 // Custom Problems
@@ -189,11 +189,11 @@ export const saveProblem = async (problem) => {
   if (deleted.includes(problem.id)) {
     deleted = deleted.filter(id => id !== problem.id);
     saveLocalItems(KEYS.deletedProblems, deleted);
-    await syncWithFirebase('deletedProblems', 'delete', { id: problem.id });
+    syncWithFirebase('deletedProblems', 'delete', { id: problem.id });
   }
 
   saveLocalItems(KEYS.problems, items);
-  await syncWithFirebase('problems', 'save', problem);
+  syncWithFirebase('problems', 'save', problem);
 };
 
 export const deleteProblem = async (probId) => {
@@ -209,9 +209,9 @@ export const deleteProblem = async (probId) => {
       deleted.push(probId);
       saveLocalItems(KEYS.deletedProblems, deleted);
     }
-    await syncWithFirebase('deletedProblems', 'save', { id: probId, deleted: true });
+    syncWithFirebase('deletedProblems', 'save', { id: probId, deleted: true });
   }
-  await syncWithFirebase('problems', 'delete', { id: probId });
+  syncWithFirebase('problems', 'delete', { id: probId });
 };
 
 // Pull all records from Firebase database on demand
@@ -280,17 +280,17 @@ export const seedFirebaseDatabase = async (schemes, documents, problems) => {
 
     // 2. Upload all schemes
     for (const s of schemes) {
-      await syncWithFirebase('schemes', 'save', s);
+      syncWithFirebase('schemes', 'save', s);
     }
 
     // 3. Upload all documents
     for (const d of documents) {
-      await syncWithFirebase('documents', 'save', d);
+      syncWithFirebase('documents', 'save', d);
     }
 
     // 4. Upload all problems
     for (const p of problems) {
-      await syncWithFirebase('problems', 'save', p);
+      syncWithFirebase('problems', 'save', p);
     }
 
     return true;
