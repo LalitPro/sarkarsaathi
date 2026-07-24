@@ -120,3 +120,36 @@ export const deleteProblem = async (probId) => {
   saveLocalItems(KEYS.problems, items);
   await syncWithFirebase('problems', 'delete', { id: probId });
 };
+
+// Pull all records from Firebase database on demand
+export const pullFromFirebase = async () => {
+  const config = getFirebaseConfig();
+  if (!config || !config.databaseURL) return false;
+
+  const url = `${config.databaseURL.replace(/\/$/, '')}/.json`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return false;
+    
+    const data = await response.json();
+    if (!data) return true; // Empty DB is valid
+
+    if (data.schemes) {
+      const schemesList = Object.values(data.schemes);
+      saveLocalItems(KEYS.schemes, schemesList);
+    }
+    if (data.documents) {
+      const docsList = Object.values(data.documents);
+      saveLocalItems(KEYS.documents, docsList);
+    }
+    if (data.problems) {
+      const probsList = Object.values(data.problems);
+      saveLocalItems(KEYS.problems, probsList);
+    }
+    return true;
+  } catch (e) {
+    console.error("Firebase database sync download failed:", e);
+    return false;
+  }
+};

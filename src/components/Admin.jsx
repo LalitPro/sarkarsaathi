@@ -27,6 +27,19 @@ export default function Admin({
     databaseURL: '',
     projectId: ''
   });
+  const [isSyncing, setIsSyncing] = useState(false);
+
+  const handleFirebaseSync = async () => {
+    setIsSyncing(true);
+    const success = await DB.pullFromFirebase();
+    if (success) {
+      onDatabaseReload();
+      alert(lang === 'hi' ? "डेटाबेस क्लाउड से सफलतापूर्वक सिंक हो गया है!" : "Database successfully synced with Firebase!");
+    } else {
+      alert(lang === 'hi' ? "सिंक्रनाइज़ेशन विफल! कृपया अपने डेटाबेस URL की जाँच करें।" : "Sync failed! Please check your database URL.");
+    }
+    setIsSyncing(false);
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -390,13 +403,24 @@ export default function Admin({
                 />
               </div>
             </div>
-            <div className="flex gap-3 mt-4 border-t border-slate-100 dark:border-slate-800 pt-4">
+             <div className="flex flex-wrap gap-3 mt-4 border-t border-slate-100 dark:border-slate-800 pt-4">
               <button 
                 onClick={saveFirebaseSettings}
                 className="bg-brand-primary hover:bg-brand-primaryDark text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm"
               >
                 {lang === 'hi' ? 'सेटिंग्स सहेजें' : 'Save Credentials'}
               </button>
+              {fbConfig.databaseURL && (
+                <button 
+                  onClick={handleFirebaseSync}
+                  disabled={isSyncing}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm"
+                >
+                  {isSyncing 
+                    ? (lang === 'hi' ? 'सिंक हो रहा है...' : 'Syncing...') 
+                    : (lang === 'hi' ? 'क्लाउड डेटा डाउनलोड (Sync)' : 'Pull Cloud Data (Sync)')}
+                </button>
+              )}
               <button 
                 onClick={clearFirebaseSettings}
                 className="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 px-5 py-2.5 rounded-xl text-xs font-bold transition-all"
