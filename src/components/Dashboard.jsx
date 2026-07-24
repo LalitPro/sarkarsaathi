@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, ShieldAlert, Award, FileText, CheckCircle2, ChevronRight, HelpCircle } from 'lucide-react';
+import { User, ShieldAlert, Award, FileText, CheckCircle2, ChevronRight, HelpCircle, Rocket } from 'lucide-react';
 import { getBoostedEligibility } from '../utils/filter';
 
 const STATES = ["Madhya Pradesh", "Rajasthan", "Uttar Pradesh", "Maharashtra", "Gujarat", "Bihar", "Delhi", "Punjab"];
