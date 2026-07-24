@@ -118,5 +118,14 @@ export const loadDatabase = () => {
     else problems.push(cp);
   });
 
+  // 3. Filter out deleted base items from compilation list
+  const deletedSchemes = DB.getDeletedSchemes();
+  const deletedDocs = DB.getDeletedDocs();
+  const deletedProblems = DB.getDeletedProblems();
+
+  schemes = schemes.filter(s => !deletedSchemes.includes(s.id));
+  documents = documents.filter(d => !deletedDocs.includes(d.id));
+  problems = problems.filter(p => !deletedProblems.includes(p.id));
+
   return { schemes, documents, problems };
 };
