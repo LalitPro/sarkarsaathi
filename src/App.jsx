@@ -66,6 +66,25 @@ export default function App() {
     }
   }, [darkMode]);
 
+  // Handle /admin route simulation
+  useEffect(() => {
+    const path = window.location.pathname;
+    const hash = window.location.hash;
+    if (path === '/admin' || hash === '#/admin' || hash === '#admin') {
+      setActiveTab('admin');
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'admin') {
+      window.history.pushState(null, '', '#admin');
+    } else {
+      if (window.location.hash === '#admin' || window.location.hash === '#/admin') {
+        window.history.pushState(null, '', window.location.pathname);
+      }
+    }
+  }, [activeTab]);
+
   const handleTopSearch = (query) => {
     setSearchParam(query);
     const docTerms = ["दस्तावेज", "दस्तावेज़", "आधार", "पैन", "वोटर", "राशन", "ड्राइविंग", "प्रमाण", "aadhaar", "pan", "document", "voter", "ration", "caste", "income", "domicile", "licence"];

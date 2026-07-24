@@ -8,8 +8,7 @@ export default function Sidebar({ activeTab, onTabSwitch, sidebarOpen, onMenuClo
     { id: 'schemes', icon: Landmark, labelHi: 'योजना खोजें', labelEn: 'Schemes Finder' },
     { id: 'documents', icon: FileText, labelHi: 'दस्तावेज़ सहायक', labelEn: 'Document Sahayak' },
     { id: 'problems', icon: AlertTriangle, labelHi: 'समस्या समाधान', labelEn: 'Problem Solver' },
-    { id: 'assistant', icon: MessageSquare, labelHi: 'AI सहायक', labelEn: 'AI Assistant' },
-    { id: 'admin', icon: Lock, labelHi: 'व्यवस्थापक पैनल', labelEn: 'Admin Panel' }
+    { id: 'assistant', icon: MessageSquare, labelHi: 'AI सहायक', labelEn: 'AI Assistant' }
   ];
 
   const getLabel = (item) => (lang === 'hi' ? item.labelHi : item.labelEn);
