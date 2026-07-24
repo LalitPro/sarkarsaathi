@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Lock, Plus, Edit2, Trash2, Database, ShieldCheck, X } from 'lucide-react';
+import { Lock, Plus, Edit2, Trash2, Database, ShieldCheck, X, Eye, EyeOff } from 'lucide-react';
 import * as DB from '../utils/db';
 
 export default function Admin({ 
@@ -13,6 +13,7 @@ export default function Admin({
     sessionStorage.getItem('sarkarsaathi_admin_auth') === 'true'
   );
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [activeSubTab, setActiveSubTab] = useState('schemes'); // 'schemes' | 'documents' | 'problems' | 'firebase'
   
   // Modal editor states
@@ -200,13 +201,23 @@ export default function Admin({
         <form onSubmit={handleLogin} className="flex flex-col gap-4 text-left">
           <div>
             <label className="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-1.5">{lang === 'hi' ? 'पासवर्ड' : 'Password'}:</label>
-            <input 
-              type="password" 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-brand-primary" 
-              placeholder="••••••••"
-            />
+            <div className="relative">
+              <input 
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl pl-4 pr-10 py-2.5 text-xs text-slate-800 dark:text-slate-100 outline-none focus:ring-2 focus:ring-brand-primary" 
+                placeholder="••••••••"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-650 dark:hover:text-slate-200 outline-none"
+                title={showPassword ? "पासवर्ड छुपाएं" : "पासवर्ड दिखाएं"}
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
           <button type="submit" className="w-full bg-brand-primary hover:bg-brand-primaryDark text-white py-3 rounded-xl font-bold text-sm shadow-sm transition-all mt-2">
             {lang === 'hi' ? 'लॉगिन करें' : 'Login'}
@@ -416,7 +427,7 @@ export default function Admin({
                   />
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2.5 mt-2 pt-3 border-t border-slate-100 dark:border-slate-850">
+              <div className="flex flex-wrap gap-2.5 mt-2 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <button 
                   onClick={saveFirebaseSettings}
                   className="bg-brand-primary hover:bg-brand-primaryDark text-white px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
@@ -476,7 +487,7 @@ export default function Admin({
                   />
                 </div>
               </div>
-              <div className="flex gap-2.5 mt-2 pt-3 border-t border-slate-100 dark:border-slate-850">
+              <div className="flex gap-2.5 mt-2 pt-3 border-t border-slate-100 dark:border-slate-800">
                 <button 
                   onClick={saveAISettings}
                   className="bg-brand-primary hover:bg-brand-primaryDark text-white px-5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm"
@@ -521,7 +532,7 @@ export default function Admin({
                       type="text" 
                       value={editItem.name}
                       onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -530,7 +541,7 @@ export default function Admin({
                       <select 
                         value={editItem.governmentType}
                         onChange={(e) => setEditItem({ ...editItem, governmentType: e.target.value })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                       >
                         <option value="Central">Central</option>
                         <option value="State">State</option>
@@ -543,7 +554,7 @@ export default function Admin({
                           type="text" 
                           value={editItem.state || ''}
                           onChange={(e) => setEditItem({ ...editItem, state: e.target.value })}
-                          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                          className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                           placeholder="e.g. Madhya Pradesh"
                         />
                       </div>
@@ -555,7 +566,7 @@ export default function Admin({
                       value={editItem.description}
                       onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
                       rows="2"
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div>
@@ -564,7 +575,7 @@ export default function Admin({
                       value={editItem.benefits}
                       onChange={(e) => setEditItem({ ...editItem, benefits: e.target.value })}
                       rows="2"
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -574,7 +585,7 @@ export default function Admin({
                         type="number" 
                         value={editItem.eligibility.ageMin}
                         onChange={(e) => setEditItem({ ...editItem, eligibility: { ...editItem.eligibility, ageMin: parseInt(e.target.value) || 0 } })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                       />
                     </div>
                     <div>
@@ -583,7 +594,7 @@ export default function Admin({
                         type="number" 
                         value={editItem.eligibility.ageMax}
                         onChange={(e) => setEditItem({ ...editItem, eligibility: { ...editItem.eligibility, ageMax: parseInt(e.target.value) || 100 } })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                       />
                     </div>
                   </div>
@@ -593,7 +604,7 @@ export default function Admin({
                       type="text" 
                       value={editItem.processingTime}
                       onChange={(e) => setEditItem({ ...editItem, processingTime: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div>
@@ -602,12 +613,12 @@ export default function Admin({
                       type="text" 
                       value={editItem.officialWebsite}
                       onChange={(e) => setEditItem({ ...editItem, officialWebsite: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div>
                     <label className="block font-bold text-slate-500 dark:text-slate-400 mb-1.5">आवश्यक दस्तावेज़ (Required Documents):</label>
-                    <div className="grid grid-cols-2 gap-2 border border-slate-100 dark:border-slate-850 rounded-xl p-3 bg-slate-50 dark:bg-slate-800 max-h-32 overflow-y-auto">
+                    <div className="grid grid-cols-2 gap-2 border border-slate-100 dark:border-slate-800 rounded-xl p-3 bg-slate-50 dark:bg-slate-800 max-h-32 overflow-y-auto">
                       {documents.map(d => {
                         const checked = editItem.requiredDocuments.includes(d.id);
                         return (
@@ -641,7 +652,7 @@ export default function Admin({
                       type="text" 
                       value={editItem.name}
                       onChange={(e) => setEditItem({ ...editItem, name: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div>
@@ -649,7 +660,7 @@ export default function Admin({
                     <select
                       value={editItem.type}
                       onChange={(e) => setEditItem({ ...editItem, type: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     >
                       <option value="identity">Identity</option>
                       <option value="address">Address</option>
@@ -663,7 +674,7 @@ export default function Admin({
                       value={editItem.description}
                       onChange={(e) => setEditItem({ ...editItem, description: e.target.value })}
                       rows="2"
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -679,7 +690,7 @@ export default function Admin({
                             new: { ...editItem.actions.new, fees: e.target.value } 
                           } 
                         })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                       />
                     </div>
                     <div>
@@ -694,7 +705,7 @@ export default function Admin({
                             new: { ...editItem.actions.new, estimatedTime: e.target.value } 
                           } 
                         })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                       />
                     </div>
                   </div>
@@ -710,7 +721,7 @@ export default function Admin({
                           new: { ...editItem.actions.new, whereToApply: e.target.value } 
                         } 
                       })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div>
@@ -725,7 +736,7 @@ export default function Admin({
                           new: { ...editItem.actions.new, officialWebsite: e.target.value } 
                         } 
                       })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                 </div>
@@ -740,7 +751,7 @@ export default function Admin({
                       type="text" 
                       value={editItem.issue}
                       onChange={(e) => setEditItem({ ...editItem, issue: e.target.value })}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -749,7 +760,7 @@ export default function Admin({
                       <select
                         value={editItem.type}
                         onChange={(e) => setEditItem({ ...editItem, type: e.target.value })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                       >
                         <option value="document">Document related</option>
                         <option value="scheme">Scheme related</option>
@@ -761,7 +772,7 @@ export default function Admin({
                         type="text" 
                         value={editItem.targetId}
                         onChange={(e) => setEditItem({ ...editItem, targetId: e.target.value })}
-                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                        className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                         placeholder="e.g. aadhaar"
                       />
                     </div>
@@ -772,7 +783,7 @@ export default function Admin({
                       value={editItem.possibleReason}
                       onChange={(e) => setEditItem({ ...editItem, possibleReason: e.target.value })}
                       rows="2"
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                   <div>
@@ -781,7 +792,7 @@ export default function Admin({
                       value={editItem.officialGuidance}
                       onChange={(e) => setEditItem({ ...editItem, officialGuidance: e.target.value })}
                       rows="3"
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-850 dark:text-slate-100 outline-none"
+                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 outline-none"
                     />
                   </div>
                 </div>
