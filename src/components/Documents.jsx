@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, ShieldAlert, CheckCircle2, AlertTriangle, ExternalLink, ClipboardList } from 'lucide-react';
 import { detectMissingDocuments } from '../utils/filter';
+import { translate } from '../utils/translator';
 
 export default function Documents({ documents, profile, lang, selectedDocId }) {
   const [activeDoc, setActiveDoc] = useState(documents[0]);
   const [actionMode, setActionMode] = useState('new'); // 'new' | 'update' | 'download'
+
+  const getDocName = (doc) => {
+    if (lang === 'hi') return doc.name;
+    return translate(doc.id + '_name', lang, doc.name);
+  };
+
+  const getDocDesc = (doc) => {
+    if (lang === 'hi') return doc.description;
+    return translate(doc.id + '_desc', lang, doc.description);
+  };
+
+  const getDocNameById = (id) => {
+    const doc = documents.find(d => d.id === id);
+    if (doc) return getDocName(doc);
+    return id.replace('_', ' ');
+  };
 
   useEffect(() => {
     if (selectedDocId) {
@@ -58,7 +75,7 @@ export default function Documents({ documents, profile, lang, selectedDocId }) {
                 <FileText className={`w-4 h-4 ${isActive ? 'text-brand-primary dark:text-emerald-400' : 'text-slate-400'}`} />
                 <div className="flex flex-col">
                   <span className={`text-xs font-bold ${isActive ? 'text-brand-primary dark:text-emerald-400' : 'text-slate-700 dark:text-slate-200'}`}>
-                    {d.name.split(' (')[0]}
+                    {getDocName(d).split(' (')[0]}
                   </span>
                   <span className="text-[9px] text-slate-400 font-bold uppercase">{d.type}</span>
                 </div>
@@ -75,14 +92,14 @@ export default function Documents({ documents, profile, lang, selectedDocId }) {
         <section className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm flex flex-col gap-3 transition-colors">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
             <h2 className="text-lg font-black text-slate-900 dark:text-slate-100">
-              {activeDoc.name}
+              {getDocName(activeDoc)}
             </h2>
             <span className="text-[10px] font-black bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 px-2.5 py-1 rounded-full uppercase">
               {activeDoc.type}
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-            {activeDoc.description}
+            {getDocDesc(activeDoc)}
           </p>
         </section>
 
@@ -172,7 +189,7 @@ export default function Documents({ documents, profile, lang, selectedDocId }) {
                           : 'bg-red-50/40 dark:bg-red-950/20 border-red-100 dark:border-red-900/40'
                       }`}
                     >
-                      <span className="text-xs font-bold text-slate-800 dark:text-slate-200 capitalize">{depId.replace('_', ' ')}</span>
+                      <span className="text-xs font-bold text-slate-800 dark:text-slate-200 capitalize">{getDocNameById(depId)}</span>
                       {owned ? (
                         <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
                           <CheckCircle2 className="w-3.5 h-3.5" />

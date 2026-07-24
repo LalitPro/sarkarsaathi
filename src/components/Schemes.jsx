@@ -3,6 +3,7 @@ import { Search, Info, HelpCircle, CheckCircle2, AlertTriangle, ExternalLink, X,
 import { isDemographicallyEligible, detectMissingDocuments } from '../utils/filter';
 import { useSpeech } from '../hooks/useSpeech';
 import ListeningOverlay from './ListeningOverlay';
+import { translate } from '../utils/translator';
 
 const STATES = ["Madhya Pradesh", "Rajasthan", "Uttar Pradesh", "Maharashtra", "Gujarat", "Bihar", "Delhi", "Punjab"];
 
@@ -12,6 +13,80 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
   const [selectedState, setSelectedState] = useState('');
   const [selectedScheme, setSelectedScheme] = useState(null);
   const { isListening, transcript, isSpeaking, speakText, stopSpeaking, startListening } = useSpeech(lang);
+
+  const getSchemeName = (scheme) => {
+    if (lang === 'hi') return scheme.name;
+    const translated = translate(scheme.id + '_name', lang, null);
+    if (translated) return translated;
+    if (scheme.id.includes('_scheme_')) {
+      let name = scheme.name;
+      const statesMap = {
+        "Madhya Pradesh": "Madhya Pradesh", "Rajasthan": "Rajasthan", "Uttar Pradesh": "Uttar Pradesh",
+        "Maharashtra": "Maharashtra", "Gujarat": "Gujarat", "Bihar": "Bihar", "Delhi": "Delhi", "Punjab": "Punjab"
+      };
+      const prefixMap = {
+        "मुख्यमंत्री": "Chief Minister", "राज्य": "State", "आत्मनिर्भर": "Self-reliant",
+        "विकास": "Development", "जनकल्याण": "Welfare", "सर्वजन": "Universal"
+      };
+      const suffixMap = {
+        "कृषि आदान अनुदान": "Agriculture Input Subsidy", "फसल बीमा सहायता": "Crop Insurance Assistance",
+        "किसान कल्याण योजना": "Farmer Welfare Scheme", "कृषि यंत्र सब्सिडी": "Agriculture Equipment Subsidy",
+        "आयुष्मान राज्य स्वास्थ्य कार्ड": "Ayushman State Health Card", "निःशुल्क चिकित्सा सहायता": "Free Medical Assistance",
+        "मातृत्व सुरक्षा प्रोत्साहन": "Maternity Protection Incentive", "गंभीर बीमारी सहायता योजना": "Critical Illness Aid Scheme",
+        "उच्च शिक्षा छात्रवृत्ति": "Higher Education Scholarship", "कक्षा ९-१२ छात्रवृत्ति": "Class 9-12 Scholarship",
+        "साइकिल प्रदाय योजना": "Cycle Distribution Scheme", "छात्रावास सहायता योजना": "Hostel Assistance Scheme",
+        "युवा स्वरोजगार योजना": "Youth Self-Employment Scheme", "महिला उद्यमिता प्रोत्साहन": "Women Entrepreneurship Promotion",
+        "कौशल विकास प्रशिक्षण": "Skill Development Training", "लघु उद्योग ऋण योजना": "Small Scale Industry Loan Scheme",
+        "निःशुल्क यात्रा योजना": "Free Travel Scheme", "यात्री रियायत योजना": "Passenger Concession Scheme",
+        "बस पास सहायता": "Bus Pass Assistance", "परिवहन छूट योजना": "Transport Discount Scheme"
+      };
+      Object.keys(statesMap).forEach(k => { name = name.replace(k, statesMap[k]); });
+      Object.keys(prefixMap).forEach(k => { name = name.replace(k, prefixMap[k]); });
+      Object.keys(suffixMap).forEach(k => { name = name.replace(k, suffixMap[k]); });
+      return name;
+    }
+    return scheme.name;
+  };
+
+  const getSchemeDesc = (scheme) => {
+    if (lang === 'hi') return scheme.description;
+    const translated = translate(scheme.id + '_desc', lang, null);
+    if (translated) return translated;
+    if (scheme.id.includes('_scheme_')) {
+      let desc = scheme.description;
+      const descMap = {
+        "सरकार द्वारा संचालित।": "Government Operated.",
+        "किसानों को फसल नुकसान की भरपाई और कृषि उपकरण खरीदने के लिए वित्तीय सहायता प्रदान करना।": "Providing financial assistance to farmers for crop damage compensation and purchasing agricultural equipment.",
+        "गरीब परिवारों को गंभीर बीमारियों के इलाज के लिए कैशलेस स्वास्थ्य बीमा और मुफ्त दवाएं प्रदान करना।": "Providing cashless health insurance and free medicines to poor families for the treatment of serious illnesses.",
+        "आर्थिक रूप से कमजोर वर्ग और आरक्षित वर्ग के मेधावी छात्र-छात्राओं को शिक्षा जारी रखने के लिए वित्तीय प्रोत्साहन।": "Financial incentives for meritorious students from economically weaker sections and reserved categories to continue their education.",
+        "बेरोजगार युवाओं और महिलाओं को खुद का व्यवसाय शुरू करने के लिए कम ब्याज दर पर ऋण और सब्सिडी।": "Low interest rate loans and subsidies for unemployed youth and women to start their own businesses.",
+        "सार्वजनिक परिवहन buses और ट्रेनों में रियायती या पूर्णतः निःशुल्क यात्रा सुविधाएं प्रदान करना।": "Providing subsidized or completely free travel facilities in public transport buses and trains.",
+        "सार्वजनिक परिवहन बसों और ट्रेनों में रियायती या पूर्णतः निःशुल्क यात्रा सुविधाएं प्रदान करना।": "Providing subsidized or completely free travel facilities in public transport buses and trains."
+      };
+      Object.keys(descMap).forEach(k => { desc = desc.replace(k, descMap[k]); });
+      return desc;
+    }
+    return scheme.description;
+  };
+
+  const getSchemeBenefits = (scheme) => {
+    if (lang === 'hi') return scheme.benefits;
+    const translated = translate(scheme.id + '_benefits', lang, null);
+    if (translated) return translated;
+    if (scheme.id.includes('_scheme_')) {
+      let benefits = scheme.benefits;
+      const benefitsMap = {
+        "प्रति हेक्टेयर की इनपुट सब्सिडी तथा यंत्रों पर 50% तक की छूट।": "input subsidy per hectare and up to 50% discount on machinery.",
+        "प्रति परिवार प्रति वर्ष ₹5,00000 तक का कैशलेस इलाज सरकारी और सूचीबद्ध निजी अस्पतालों में।": "Cashless treatment up to ₹5,00,000 per family per year in government and listed private hospitals.",
+        "की छात्रवृत्ति और निःशुल्क साइकिल/किताबें।": "scholarship and free cycles/books.",
+        "तक का बिना गारंटी का लोन और 25% तक की सब्सिडी।": "collateral-free loan and up to 25% subsidy.",
+        "किराए में 50% से 100% तक की छूट और रियायती मासिक पास की सुविधा।": "50% to 100% discount on fare and subsidized monthly pass facility."
+      };
+      Object.keys(benefitsMap).forEach(k => { benefits = benefits.replace(k, benefitsMap[k]); });
+      return benefits;
+    }
+    return scheme.benefits;
+  };
 
   useEffect(() => {
     if (searchParam) {
@@ -36,9 +111,16 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
   const filteredSchemes = schemes.filter(scheme => {
     // 1. Text Search query
     const query = searchVal.toLowerCase();
+    const nameHi = scheme.name.toLowerCase();
+    const nameEn = getSchemeName(scheme).toLowerCase();
+    const descHi = scheme.description.toLowerCase();
+    const descEn = getSchemeDesc(scheme).toLowerCase();
+    
     const matchesQuery = 
-      scheme.name.toLowerCase().includes(query) ||
-      scheme.description.toLowerCase().includes(query) ||
+      nameHi.includes(query) ||
+      nameEn.includes(query) ||
+      descHi.includes(query) ||
+      descEn.includes(query) ||
       scheme.id.toLowerCase().includes(query);
 
     if (!matchesQuery) return false;
@@ -152,11 +234,11 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
                 </div>
 
                 <h4 className="text-sm font-black text-slate-800 dark:text-slate-100 mt-1 leading-snug line-clamp-1">
-                  {scheme.name}
+                  {getSchemeName(scheme)}
                 </h4>
                 
                 <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                  {scheme.description}
+                  {getSchemeDesc(scheme)}
                 </p>
               </div>
 
@@ -187,7 +269,7 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
               <div className="flex flex-col flex-grow mr-4">
                 <span className="text-[9px] text-slate-400 font-bold uppercase">{selectedScheme.governmentType === 'Central' ? 'Central' : `State: ${selectedScheme.state}`}</span>
                 <div className="flex items-center gap-2">
-                  <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">{selectedScheme.name}</h3>
+                  <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">{getSchemeName(selectedScheme)}</h3>
                   <button 
                     type="button"
                     onClick={handleAudioListen}
@@ -211,14 +293,14 @@ export default function Schemes({ schemes, profile, lang, searchParam }) {
               <div>
                 <span className="block font-black text-slate-700 dark:text-slate-300 mb-1">{lang === 'hi' ? 'विवरण (Description):' : 'Description:'}</span>
                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 p-3 rounded-2xl">
-                  {selectedScheme.description}
+                  {getSchemeDesc(selectedScheme)}
                 </p>
               </div>
 
               <div>
                 <span className="block font-black text-slate-700 dark:text-slate-300 mb-1">{lang === 'hi' ? 'योजना के लाभ (Benefits):' : 'Benefits:'}</span>
                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800 p-3 rounded-2xl">
-                  {selectedScheme.benefits}
+                  {getSchemeBenefits(selectedScheme)}
                 </p>
               </div>
 
