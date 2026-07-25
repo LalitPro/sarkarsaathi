@@ -9,7 +9,7 @@ import Assistant from './components/Assistant';
 import Admin from './components/Admin';
 import { loadDatabase } from './utils/loader';
 import { pullFromFirebase, getFirebaseConfig } from './utils/db';
-import logo from './assets/logo.jpg';
+import logo from './assets/logo.png';
 
 export default function App() {
   // 1. Core Config states

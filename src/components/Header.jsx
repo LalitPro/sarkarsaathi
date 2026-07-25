@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Moon, Sun, Menu, Globe, User, Mic } from 'lucide-react';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 import { useSpeech } from '../hooks/useSpeech';
 import ListeningOverlay from './ListeningOverlay';
 
