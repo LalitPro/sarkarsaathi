@@ -1,6 +1,6 @@
 import React from 'react';
 import { Home, Landmark, FileText, AlertTriangle, MessageSquare, Rocket, Lock, Info, X } from 'lucide-react';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 
 export default function Sidebar({ activeTab, onTabSwitch, sidebarOpen, onMenuClose, lang }) {
   const menuItems = [
