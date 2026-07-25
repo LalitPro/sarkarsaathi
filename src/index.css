@@ -2,11 +2,11 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --primary-color: #0B6623;
-  --primary-dark: #074C19;
-  --primary-light: #E8F5E9;
-  --saffron-color: #FF9933;
+@theme {
+  --color-brand-primary: #0B6623;
+  --color-brand-primaryDark: #074C19;
+  --color-brand-primaryLight: #E8F5E9;
+  --color-brand-saffron: #FF9933;
 }
 
 body {
