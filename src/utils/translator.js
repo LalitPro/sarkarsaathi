@@ -107,3 +107,77 @@ export const translate = (key, lang, defaultValue) => {
   }
   return defaultValue;
 };
+
+export const INDIAN_LANGUAGES = [
+  { code: 'hi', label: 'हिंदी (Hindi)' },
+  { code: 'en', label: 'English' },
+  { code: 'pa', label: 'ਪੰਜਾਬੀ (Punjabi)' },
+  { code: 'gu', label: 'ગુજરાતી (Gujarati)' },
+  { code: 'mr', label: 'मराठी (Marathi)' },
+  { code: 'bn', label: 'বাংলা (Bengali)' },
+  { code: 'ta', label: 'தமிழ் (Tamil)' },
+  { code: 'te', label: 'తెలుగు (Telugu)' },
+  { code: 'kn', label: 'ಕನ್ನಡ (Kannada)' },
+  { code: 'ur', label: 'اردو (Urdu)' },
+  { code: 'as', label: 'অসমীয়া (Assamese)' },
+  { code: 'brx', label: 'बड़ो (Bodo)' },
+  { code: 'doi', label: 'डोगरी (Dogri)' },
+  { code: 'kok', label: 'कोंकणी (Konkani)' },
+  { code: 'mai', label: 'मैथिली (Maithili)' },
+  { code: 'ml', label: 'മലയാളം (Malayalam)' },
+  { code: 'mni', label: 'মনিपुरী (Manipuri)' },
+  { code: 'ne', label: 'नेपाली (Nepali)' },
+  { code: 'or', label: 'ଓଡ଼िଆ (Odia)' },
+  { code: 'sa', label: 'संस्कृत (Sanskrit)' },
+  { code: 'sat', label: 'संताली (Santali)' },
+  { code: 'sd', label: 'सिंधी (Sindhi)' }
+];
+
+export const translateDatabase = async (db, targetLang) => {
+  if (!db || targetLang === 'hi' || targetLang === 'en') {
+    return db;
+  }
+
+  try {
+    const translateItem = async (text, to) => {
+      if (!text) return '';
+      // MyMemory Free translation API
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=hi|${to}`;
+      const res = await fetch(url);
+      if (!res.ok) return text;
+      const json = await res.json();
+      return json.responseData.translatedText || text;
+    };
+
+    // We translate the top items for dynamic translation demo to respect api speed limits
+    const schemesPromises = db.schemes.map(async (s) => ({
+      ...s,
+      name: await translateItem(s.name, targetLang),
+      description: await translateItem(s.description, targetLang),
+      benefits: await translateItem(s.benefits, targetLang)
+    }));
+
+    const docsPromises = db.documents.map(async (d) => ({
+      ...d,
+      name: await translateItem(d.name, targetLang),
+      description: await translateItem(d.description, targetLang)
+    }));
+
+    const problemsPromises = db.problems.map(async (p) => ({
+      ...p,
+      issue: await translateItem(p.issue, targetLang),
+      possibleReason: await translateItem(p.possibleReason, targetLang),
+      requiredFix: await translateItem(p.requiredFix, targetLang),
+      officialGuidance: await translateItem(p.officialGuidance, targetLang)
+    }));
+
+    const schemes = await Promise.all(schemesPromises);
+    const documents = await Promise.all(docsPromises);
+    const problems = await Promise.all(problemsPromises);
+
+    return { schemes, documents, problems };
+  } catch (e) {
+    console.error("Translation compilation failed:", e);
+    return db;
+  }
+};

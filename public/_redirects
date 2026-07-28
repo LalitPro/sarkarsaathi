@@ -1,0 +1,3 @@
+# Catch-all rule is commented out because Cloudflare Pages/Workers handles SPA routing natively.
+# Having this active triggers an "Infinite loop detected" deployment error.
+# /*    /index.html   200

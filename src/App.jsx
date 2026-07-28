@@ -10,6 +10,7 @@ import Admin from './components/Admin';
 import { loadDatabase } from './utils/loader';
 import { pullFromFirebase, getFirebaseConfig } from './utils/db';
 import logo from './assets/logo.png';
+import { Globe } from 'lucide-react';
 
 export default function App() {
   // 1. Core Config states
@@ -41,10 +42,35 @@ export default function App() {
 
   // 4. Unified Databases State
   const [db, setDb] = useState(() => loadDatabase());
+  const [displayDb, setDisplayDb] = useState(db);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   const handleReloadDatabase = () => {
     setDb(loadDatabase());
   };
+
+  useEffect(() => {
+    if (lang === 'hi' || lang === 'en') {
+      setDisplayDb(db);
+      return;
+    }
+
+    let active = true;
+    const runTranslation = async () => {
+      setIsTranslating(true);
+      const { translateDatabase } = await import('./utils/translator');
+      const translated = await translateDatabase(db, lang);
+      if (active) {
+        setDisplayDb(translated);
+        setIsTranslating(false);
+      }
+    };
+
+    runTranslation();
+    return () => {
+      active = false;
+    };
+  }, [lang, db]);
 
   // Sync profile storage
   useEffect(() => {
@@ -129,8 +155,8 @@ export default function App() {
           <Dashboard 
             profile={profile}
             onProfileUpdate={setProfile}
-            schemes={db.schemes}
-            allDocuments={db.documents}
+            schemes={displayDb.schemes}
+            allDocuments={displayDb.documents}
             lang={lang}
             onTabSwitch={setActiveTab}
             onDocSelect={handleDocSelect}
@@ -139,7 +165,7 @@ export default function App() {
       case 'schemes':
         return (
           <Schemes 
-            schemes={db.schemes}
+            schemes={displayDb.schemes}
             profile={profile}
             lang={lang}
             searchParam={searchParam}
@@ -148,7 +174,7 @@ export default function App() {
       case 'documents':
         return (
           <Documents 
-            documents={db.documents}
+            documents={displayDb.documents}
             profile={profile}
             lang={lang}
             selectedDocId={selectedDocId}
@@ -157,8 +183,8 @@ export default function App() {
       case 'problems':
         return (
           <Problems 
-            problems={db.problems}
-            allDocuments={db.documents}
+            problems={displayDb.problems}
+            allDocuments={displayDb.documents}
             lang={lang}
             searchParam={searchParam}
           />
@@ -166,9 +192,9 @@ export default function App() {
       case 'assistant':
         return (
           <Assistant 
-            schemes={db.schemes}
-            documents={db.documents}
-            problems={db.problems}
+            schemes={displayDb.schemes}
+            documents={displayDb.documents}
+            problems={displayDb.problems}
             profile={profile}
             lang={lang}
           />
@@ -197,7 +223,7 @@ export default function App() {
         darkMode={darkMode}
         onThemeToggle={() => setDarkMode(!darkMode)}
         lang={lang}
-        onLangToggle={() => setLang(lang === 'hi' ? 'en' : 'hi')}
+        onLangChange={setLang}
         onSearch={handleTopSearch}
         profile={profile}
       />
@@ -291,6 +317,14 @@ export default function App() {
         </footer>
 
       </main>
+
+      {/* Floating Dynamic Translation Loader Overlay */}
+      {isTranslating && (
+        <div className="fixed bottom-6 right-6 z-[99999] bg-brand-primary text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg flex items-center gap-2 animate-bounce">
+          <Globe className="w-4 h-4 animate-spin text-white" />
+          <span>Translating page content...</span>
+        </div>
+      )}
     </div>
   );
 }

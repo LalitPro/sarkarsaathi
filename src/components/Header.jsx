@@ -3,13 +3,14 @@ import { Search, Moon, Sun, Menu, Globe, User, Mic } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { useSpeech } from '../hooks/useSpeech';
 import ListeningOverlay from './ListeningOverlay';
+import { INDIAN_LANGUAGES } from '../utils/translator';
 
 export default function Header({ 
   onMenuToggle, 
   darkMode, 
   onThemeToggle, 
   lang, 
-  onLangToggle,
+  onLangChange,
   onSearch,
   profile
 }) {
@@ -97,14 +98,21 @@ export default function Header({
             </div>
           )}
 
-          {/* Language Toggle Button */}
-          <button 
-            onClick={onLangToggle}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 text-xs font-extrabold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-          >
-            <Globe className="w-3.5 h-3.5 text-brand-primary" />
-            <span>{lang === 'hi' ? 'English' : 'हिंदी'}</span>
-          </button>
+          {/* Language Selector Dropdown */}
+          <div className="flex items-center gap-1 px-2.5 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors">
+            <Globe className="w-3.5 h-3.5 text-brand-primary flex-shrink-0" />
+            <select 
+              value={lang}
+              onChange={(e) => onLangChange(e.target.value)}
+              className="bg-transparent border-none text-xs font-extrabold text-slate-600 dark:text-slate-350 outline-none cursor-pointer pr-1"
+            >
+              {INDIAN_LANGUAGES.map(l => (
+                <option key={l.code} value={l.code} className="bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100">
+                  {l.label}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Theme Toggle Button */}
           <button 
